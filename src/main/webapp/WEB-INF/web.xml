@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <welcome-file>/pages/login.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- Spring的配置 -->
+    <context-param>
+        <!--
+            contextConfigLocation：表示用于加载Bean的配置文件
+            classpath / classpath* 区别：
+                classpath：只会到你的class路径中查找文件
+                classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找
+        -->
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:spring.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- SpringMVC的配置 -->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 创建前端控制器的时候去读SpringMVC配置文件启动IoC容器 -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:springmvc.xml</param-value>
+        </init-param>
+        <!-- Tomcat启动便创建此对象 -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- 配置拦截路径URL，所有请求都会被前端控制器拦截处理 -->
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--
+        使用Rest风格的URI 将页面普通的POST请求转换为指定的delete或者put请求
+        原理：在Ajax中发送POST请求后，带_method参数，将其修改为PUT，或者DELETE请求
+    -->
+    <filter>
+        <filter-name>httpMethodFilter</filter-name>
+        <filter-class>
+            org.springframework.web.filter.HiddenHttpMethodFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>httpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 注册字符集过滤器：POST请求中文乱码问题的解决方法 -->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!-- 指定字符集 -->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <!-- 强制request使用字符集encoding -->
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <!-- 强制response使用字符集 -->
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
