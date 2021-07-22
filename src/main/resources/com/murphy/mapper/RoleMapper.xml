@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.murphy.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.murphy.pojo.Role">
+    <id column="r_id" jdbcType="INTEGER" property="r_id" />
+    <result column="r_name" jdbcType="VARCHAR" property="r_name" />
+    <result column="r_state" jdbcType="INTEGER" property="r_state" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    r_id, r_name, r_state
+  </sql>
+  <select id="selectByExample" parameterType="com.murphy.pojo.RoleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hosp_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hosp_role
+    where r_id = #{r_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hosp_role
+    where r_id = #{r_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.murphy.pojo.RoleExample">
+    delete from hosp_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.murphy.pojo.Role">
+    insert into hosp_role (r_id, r_name, r_state
+      )
+    values (#{r_id,jdbcType=INTEGER}, #{r_name,jdbcType=VARCHAR}, #{r_state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.murphy.pojo.Role">
+    insert into hosp_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="r_id != null">
+        r_id,
+      </if>
+      <if test="r_name != null">
+        r_name,
+      </if>
+      <if test="r_state != null">
+        r_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="r_id != null">
+        #{r_id,jdbcType=INTEGER},
+      </if>
+      <if test="r_name != null">
+        #{r_name,jdbcType=VARCHAR},
+      </if>
+      <if test="r_state != null">
+        #{r_state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.murphy.pojo.RoleExample" resultType="java.lang.Long">
+    select count(*) from hosp_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hosp_role
+    <set>
+      <if test="record.r_id != null">
+        r_id = #{record.r_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.r_name != null">
+        r_name = #{record.r_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r_state != null">
+        r_state = #{record.r_state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hosp_role
+    set r_id = #{record.r_id,jdbcType=INTEGER},
+      r_name = #{record.r_name,jdbcType=VARCHAR},
+      r_state = #{record.r_state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.Role">
+    update hosp_role
+    <set>
+      <if test="r_name != null">
+        r_name = #{r_name,jdbcType=VARCHAR},
+      </if>
+      <if test="r_state != null">
+        r_state = #{r_state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where r_id = #{r_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Role">
+    update hosp_role
+    set r_name = #{r_name,jdbcType=VARCHAR},
+      r_state = #{r_state,jdbcType=INTEGER}
+    where r_id = #{r_id,jdbcType=INTEGER}
+  </update>
+</mapper>

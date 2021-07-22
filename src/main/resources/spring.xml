@@ -29,7 +29,7 @@
         <!-- 配置别名 -->
         <property name="typeAliasesPackage" value="com.murphy.pojo"/>
         <!-- 配置映射文件 -->
-<!--        <property name="mapperLocations" value="classpath:com/murphy/mapper/*.xml"/>-->
+        <property name="mapperLocations" value="classpath:com/murphy/mapper/*.xml"/>
         <!-- 配置插件 -->
         <property name="plugins">
             <array>
