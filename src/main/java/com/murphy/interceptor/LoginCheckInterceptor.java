@@ -14,11 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 1. 如果用户已登陆 - 放行
+        // 1. 登录界面 - 放行
+        if (request.getRequestURI().contains("log")) {
+            return true;
+        }
+        // 2. 如果用户已登陆 - 放行
         if (request.getSession().getAttribute("username") != null) {
             return true;
         } else {
-            // 2. 非法请求 - 即该请求必须登录后才能访问，重定向到登录页面
+            // 3. 非法请求 - 即该请求必须登录后才能访问，重定向到登录页面
             response.sendRedirect(request.getContextPath() + "/login");
             return false;
         }

@@ -64,8 +64,15 @@
     <form class="form-signin" action="${pageContext.request.contextPath}/login" method="post">
         <h2 class="form-signin-heading" style="text-align: center">&nbsp;&nbsp;&nbsp;登录系统<small> <em>Welcome</em> </small></h2>
         <input type="text" id="username" name="u_LoginName" class="input-block-level" placeholder="账号" required>
-        <input type="password" id="password" name="u_password" class="input-block-level" placeholder="密码" required>
-        <input type="text" name="verify" class="input-medium" placeholder="验证码">7236
+        <input type="password" id="password" name="u_password" class="input-block-level" placeholder="密码">
+        <input type="text" name="verify" class="input-medium" placeholder="验证码">
+        <img src="/checkCode" id="checkCode" title="看不清，点击换一张" alt="" width="100" height="32" class="center-block" style="height:43px;cursor:pointer;" onclick="getPic()"/>
+        <script type="text/javascript">
+            function getPic(){
+                $("#checkCode").attr("src","/checkCode?flag="+Math.random());
+            };
+        </script>
+
 
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-large btn-info" type="submit">登录</button>
