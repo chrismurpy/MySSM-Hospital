@@ -73,7 +73,7 @@
     </script>
 </head>
 <body>
-<form class="form-inline definewidth m20" action="index.html" method="get">    
+<form class="form-inline definewidth m20" action="index.jsp" method="get">
     用户名称：
     <input type="text" name="username" id="username"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;  
     <button type="submit" class="btn btn-primary">查询</button>
@@ -94,7 +94,7 @@
             <td>管理员</td>
             <td>管理员</td>
             <td>
-                <a href="editUser.html">编辑</a>&nbsp;&nbsp;&nbsp;<a href="javascript:alert('删除成功！');">删除</a>             
+                <a href="editUser.jsp">编辑</a>&nbsp;&nbsp;&nbsp;<a href="javascript:alert('删除成功！');">删除</a>
             </td>
         </tr>	
 </table>

@@ -15,5 +15,12 @@
         </sourceRoots>
       </configuration>
     </facet>
+    <facet type="javaeeApplication" name="javaEEApplication">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="application.xml" url="file://$MODULE_DIR$/src/main/webapp/js/ckeditor/_samples/adobeair/application.xml" />
+        </descriptors>
+      </configuration>
+    </facet>
   </component>
 </module>

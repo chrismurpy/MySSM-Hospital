@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -32,9 +31,10 @@ public class UserController {
      */
     @RequestMapping("/login")
     public ModelAndView login(HttpSession session, ModelAndView mv, User user){
-        System.out.println("Login：" + user.getU_trueName());
-        session.setAttribute("username", user.getU_trueName());
+        System.out.println("Login：" + user.getU_LoginName());
+        User result = userService.queryUser(user);
         if (userService.login(user)){
+            session.setAttribute("username", result.getU_trueName());
             mv.setViewName("index");
         } else {
             mv.addObject("msg","用户名或者密码有误！");

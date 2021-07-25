@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: murphy
+  Date: 2021/7/25
+  Time: 6:10 下午
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>医院管理系统</title>
@@ -13,20 +20,24 @@
     <script type="text/javascript" src="/js/common.js"></script>
     <style type="text/css">
         body {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #f5f5f5;
+            background-color: #0093E9;
+            background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+        }
+        div {
+            padding-top: 160px;
+            padding-bottom: 25%;
+            /*background-color: #f5f5f5;*/
         }
 
         .form-signin {
             max-width: 300px;
-            padding: 19px 29px 29px;
+            padding: 100px 70px 50px;
             margin: 0 auto 20px;
             background-color: #fff;
             border: 1px solid #e5e5e5;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;
+            border-radius: 30px;
             -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
             -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
             box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
@@ -39,10 +50,10 @@
 
         .form-signin input[type="text"],
         .form-signin input[type="password"] {
-            font-size: 16px;
+            font-size: 15px;
             height: auto;
-            margin-bottom: 15px;
-            padding: 7px 9px;
+            margin-bottom: 25px;
+            padding: 10px 10px;
         }
 
     </style>
@@ -50,16 +61,17 @@
 <body>
 <div class="container">
 
-    <form class="form-signin" method="post" action="/login">
-        <h2 class="form-signin-heading">&nbsp;&nbsp;&nbsp;登录系统</h2>
-        <input type="text" id="u_LoginName" name="u_LoginName" class="input-block-level" placeholder="账号">
-        <input type="password" id="u_password" name="u_password" class="input-block-level" placeholder="密码">
+    <form class="form-signin" action="${pageContext.request.contextPath}/login" method="post">
+        <h2 class="form-signin-heading" style="text-align: center">&nbsp;&nbsp;&nbsp;登录系统<small> <em>Welcome</em> </small></h2>
+        <input type="text" id="username" name="u_LoginName" class="input-block-level" placeholder="账号" required>
+        <input type="password" id="password" name="u_password" class="input-block-level" placeholder="密码" required>
         <input type="text" name="verify" class="input-medium" placeholder="验证码">7236
 
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-large btn-primary" type="submit">登录</button>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-large btn-info" type="submit">登录</button>
+            <span style="color: red;height: 50px;line-height: 50px">${msg}</span>
         </p>
     </form>
-
 </div>
 </body>
 </html>

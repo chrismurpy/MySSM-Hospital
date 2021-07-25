@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>/pages/login.html</welcome-file>
+        <welcome-file>/pages/login.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- Spring的配置 -->
@@ -16,7 +16,7 @@
                 classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找
         -->
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:spring.xml</param-value>
+        <param-value>classpath*:spring-dao.xml</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -28,7 +28,7 @@
         <!-- 创建前端控制器的时候去读SpringMVC配置文件启动IoC容器 -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath*:springmvc.xml</param-value>
+            <param-value>classpath*:spring-web.xml</param-value>
         </init-param>
         <!-- Tomcat启动便创建此对象 -->
         <load-on-startup>1</load-on-startup>
