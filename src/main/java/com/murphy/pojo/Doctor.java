@@ -1,5 +1,8 @@
 package com.murphy.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Doctor {
@@ -7,12 +10,16 @@ public class Doctor {
 
     private String d_idCard;
 
-    private Integer d_phone;
+    private String d_name;
+
+    private String d_phone;
 
     private String d_telPhone;
 
     private Integer d_sex;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date d_birthday;
 
     private Integer d_age;
@@ -25,9 +32,31 @@ public class Doctor {
 
     private String d_desc;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date d_inTime;
 
     private Integer d_state;
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "d_id=" + d_id +
+                ", d_idCard='" + d_idCard + '\'' +
+                ", d_name='" + d_name + '\'' +
+                ", d_phone='" + d_phone + '\'' +
+                ", d_telPhone='" + d_telPhone + '\'' +
+                ", d_sex=" + d_sex +
+                ", d_birthday=" + d_birthday +
+                ", d_age=" + d_age +
+                ", d_email='" + d_email + '\'' +
+                ", d_keshi='" + d_keshi + '\'' +
+                ", d_edu='" + d_edu + '\'' +
+                ", d_desc='" + d_desc + '\'' +
+                ", d_inTime=" + d_inTime +
+                ", d_state=" + d_state +
+                '}';
+    }
 
     public Integer getD_id() {
         return d_id;
@@ -45,12 +74,20 @@ public class Doctor {
         this.d_idCard = d_idCard == null ? null : d_idCard.trim();
     }
 
-    public Integer getD_phone() {
+    public String getD_name() {
+        return d_name;
+    }
+
+    public void setD_name(String d_name) {
+        this.d_name = d_name == null ? null : d_name.trim();
+    }
+
+    public String getD_phone() {
         return d_phone;
     }
 
-    public void setD_phone(Integer d_phone) {
-        this.d_phone = d_phone;
+    public void setD_phone(String d_phone) {
+        this.d_phone = d_phone == null ? null : d_phone.trim();
     }
 
     public String getD_telPhone() {

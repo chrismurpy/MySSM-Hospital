@@ -3,6 +3,8 @@ package com.murphy.mapper;
 import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
 import java.util.List;
+
+import com.murphy.vo.RegisterQueryVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface RegisterMapper {
@@ -27,4 +29,11 @@ public interface RegisterMapper {
     int updateByPrimaryKeySelective(Register record);
 
     int updateByPrimaryKey(Register record);
+
+    /**
+     * 动态SQL
+     * @param vo
+     * @return
+     */
+    List<Register> queryByVo(RegisterQueryVo vo);
 }

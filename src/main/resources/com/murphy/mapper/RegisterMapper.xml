@@ -1,338 +1,391 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.murphy.mapper.RegisterMapper">
-  <resultMap id="BaseResultMap" type="com.murphy.pojo.Register">
-    <id column="re_id" jdbcType="INTEGER" property="re_id" />
-    <result column="re_idCard" jdbcType="VARCHAR" property="re_idCard" />
-    <result column="re_medical" jdbcType="VARCHAR" property="re_medical" />
-    <result column="re_price" jdbcType="DECIMAL" property="re_price" />
-    <result column="re_phone" jdbcType="VARCHAR" property="re_phone" />
-    <result column="re_selfPrice" jdbcType="INTEGER" property="re_selfPrice" />
-    <result column="re_sex" jdbcType="INTEGER" property="re_sex" />
-    <result column="re_age" jdbcType="INTEGER" property="re_age" />
-    <result column="re_job" jdbcType="VARCHAR" property="re_job" />
-    <result column="re_lookDoc" jdbcType="INTEGER" property="re_lookDoc" />
-    <result column="d_id" jdbcType="INTEGER" property="d_id" />
-    <result column="re_remark" jdbcType="VARCHAR" property="re_remark" />
-    <result column="re_state" jdbcType="INTEGER" property="re_state" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.murphy.pojo.Register">
+        <id column="re_id" jdbcType="INTEGER" property="re_id"/>
+        <result column="re_idCard" jdbcType="VARCHAR" property="re_idCard"/>
+        <result column="re_medical" jdbcType="VARCHAR" property="re_medical"/>
+        <result column="re_price" jdbcType="DECIMAL" property="re_price"/>
+        <result column="re_phone" jdbcType="VARCHAR" property="re_phone"/>
+        <result column="re_selfPrice" jdbcType="INTEGER" property="re_selfPrice"/>
+        <result column="re_sex" jdbcType="INTEGER" property="re_sex"/>
+        <result column="re_age" jdbcType="INTEGER" property="re_age"/>
+        <result column="re_job" jdbcType="VARCHAR" property="re_job"/>
+        <result column="re_createTime" jdbcType="DATE" property="re_createTime"/>
+        <result column="re_lookDoc" jdbcType="INTEGER" property="re_lookDoc"/>
+        <result column="d_id" jdbcType="INTEGER" property="d_id"/>
+        <result column="re_remark" jdbcType="VARCHAR" property="re_remark"/>
+        <result column="re_state" jdbcType="INTEGER" property="re_state"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        re_id, re_idCard, re_medical, re_price, re_phone, re_selfPrice, re_sex, re_age, re_job,
+    re_createTime, re_lookDoc, d_id, re_remark, re_state
+    </sql>
+    <select id="selectByExample" parameterType="com.murphy.pojo.RegisterExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    re_id, re_idCard, re_medical, re_price, re_phone, re_selfPrice, re_sex, re_age, re_job, 
-    re_lookDoc, d_id, re_remark, re_state
-  </sql>
-  <select id="selectByExample" parameterType="com.murphy.pojo.RegisterExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from hosp_register
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from hosp_register
-    where re_id = #{re_id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hosp_register
-    where re_id = #{re_id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.murphy.pojo.RegisterExample">
-    delete from hosp_register
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.murphy.pojo.Register">
-    insert into hosp_register (re_id, re_idCard, re_medical, 
-      re_price, re_phone, re_selfPrice, 
-      re_sex, re_age, re_job, 
-      re_lookDoc, d_id, re_remark, 
-      re_state)
-    values (#{re_id,jdbcType=INTEGER}, #{re_idCard,jdbcType=VARCHAR}, #{re_medical,jdbcType=VARCHAR}, 
-      #{re_price,jdbcType=DECIMAL}, #{re_phone,jdbcType=VARCHAR}, #{re_selfPrice,jdbcType=INTEGER}, 
-      #{re_sex,jdbcType=INTEGER}, #{re_age,jdbcType=INTEGER}, #{re_job,jdbcType=VARCHAR}, 
-      #{re_lookDoc,jdbcType=INTEGER}, #{d_id,jdbcType=INTEGER}, #{re_remark,jdbcType=VARCHAR}, 
-      #{re_state,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.murphy.pojo.Register">
-    insert into hosp_register
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="re_id != null">
-        re_id,
-      </if>
-      <if test="re_idCard != null">
-        re_idCard,
-      </if>
-      <if test="re_medical != null">
-        re_medical,
-      </if>
-      <if test="re_price != null">
-        re_price,
-      </if>
-      <if test="re_phone != null">
-        re_phone,
-      </if>
-      <if test="re_selfPrice != null">
-        re_selfPrice,
-      </if>
-      <if test="re_sex != null">
-        re_sex,
-      </if>
-      <if test="re_age != null">
-        re_age,
-      </if>
-      <if test="re_job != null">
-        re_job,
-      </if>
-      <if test="re_lookDoc != null">
-        re_lookDoc,
-      </if>
-      <if test="d_id != null">
-        d_id,
-      </if>
-      <if test="re_remark != null">
-        re_remark,
-      </if>
-      <if test="re_state != null">
-        re_state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="re_id != null">
-        #{re_id,jdbcType=INTEGER},
-      </if>
-      <if test="re_idCard != null">
-        #{re_idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="re_medical != null">
-        #{re_medical,jdbcType=VARCHAR},
-      </if>
-      <if test="re_price != null">
-        #{re_price,jdbcType=DECIMAL},
-      </if>
-      <if test="re_phone != null">
-        #{re_phone,jdbcType=VARCHAR},
-      </if>
-      <if test="re_selfPrice != null">
-        #{re_selfPrice,jdbcType=INTEGER},
-      </if>
-      <if test="re_sex != null">
-        #{re_sex,jdbcType=INTEGER},
-      </if>
-      <if test="re_age != null">
-        #{re_age,jdbcType=INTEGER},
-      </if>
-      <if test="re_job != null">
-        #{re_job,jdbcType=VARCHAR},
-      </if>
-      <if test="re_lookDoc != null">
-        #{re_lookDoc,jdbcType=INTEGER},
-      </if>
-      <if test="d_id != null">
-        #{d_id,jdbcType=INTEGER},
-      </if>
-      <if test="re_remark != null">
-        #{re_remark,jdbcType=VARCHAR},
-      </if>
-      <if test="re_state != null">
-        #{re_state,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.murphy.pojo.RegisterExample" resultType="java.lang.Long">
-    select count(*) from hosp_register
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update hosp_register
-    <set>
-      <if test="record.re_id != null">
-        re_id = #{record.re_id,jdbcType=INTEGER},
-      </if>
-      <if test="record.re_idCard != null">
+        <include refid="Base_Column_List"/>
+        from hosp_register
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hosp_register
+        where re_id = #{re_id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from hosp_register
+        where re_id = #{re_id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.murphy.pojo.RegisterExample">
+        delete from hosp_register
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.murphy.pojo.Register">
+        insert into hosp_register (re_id, re_idCard, re_medical,
+                                   re_price, re_phone, re_selfPrice,
+                                   re_sex, re_age, re_job,
+                                   re_createTime, re_lookDoc, d_id,
+                                   re_remark, re_state)
+        values (#{re_id,jdbcType=INTEGER}, #{re_idCard,jdbcType=VARCHAR}, #{re_medical,jdbcType=VARCHAR},
+                #{re_price,jdbcType=DECIMAL}, #{re_phone,jdbcType=VARCHAR}, #{re_selfPrice,jdbcType=INTEGER},
+                #{re_sex,jdbcType=INTEGER}, #{re_age,jdbcType=INTEGER}, #{re_job,jdbcType=VARCHAR},
+                #{re_createTime,jdbcType=DATE}, #{re_lookDoc,jdbcType=INTEGER}, #{d_id,jdbcType=INTEGER},
+                #{re_remark,jdbcType=VARCHAR}, #{re_state,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.murphy.pojo.Register">
+        insert into hosp_register
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="re_id != null">
+                re_id,
+            </if>
+            <if test="re_idCard != null">
+                re_idCard,
+            </if>
+            <if test="re_medical != null">
+                re_medical,
+            </if>
+            <if test="re_price != null">
+                re_price,
+            </if>
+            <if test="re_phone != null">
+                re_phone,
+            </if>
+            <if test="re_selfPrice != null">
+                re_selfPrice,
+            </if>
+            <if test="re_sex != null">
+                re_sex,
+            </if>
+            <if test="re_age != null">
+                re_age,
+            </if>
+            <if test="re_job != null">
+                re_job,
+            </if>
+            <if test="re_createTime != null">
+                re_createTime,
+            </if>
+            <if test="re_lookDoc != null">
+                re_lookDoc,
+            </if>
+            <if test="d_id != null">
+                d_id,
+            </if>
+            <if test="re_remark != null">
+                re_remark,
+            </if>
+            <if test="re_state != null">
+                re_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="re_id != null">
+                #{re_id,jdbcType=INTEGER},
+            </if>
+            <if test="re_idCard != null">
+                #{re_idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="re_medical != null">
+                #{re_medical,jdbcType=VARCHAR},
+            </if>
+            <if test="re_price != null">
+                #{re_price,jdbcType=DECIMAL},
+            </if>
+            <if test="re_phone != null">
+                #{re_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="re_selfPrice != null">
+                #{re_selfPrice,jdbcType=INTEGER},
+            </if>
+            <if test="re_sex != null">
+                #{re_sex,jdbcType=INTEGER},
+            </if>
+            <if test="re_age != null">
+                #{re_age,jdbcType=INTEGER},
+            </if>
+            <if test="re_job != null">
+                #{re_job,jdbcType=VARCHAR},
+            </if>
+            <if test="re_createTime != null">
+                #{re_createTime,jdbcType=DATE},
+            </if>
+            <if test="re_lookDoc != null">
+                #{re_lookDoc,jdbcType=INTEGER},
+            </if>
+            <if test="d_id != null">
+                #{d_id,jdbcType=INTEGER},
+            </if>
+            <if test="re_remark != null">
+                #{re_remark,jdbcType=VARCHAR},
+            </if>
+            <if test="re_state != null">
+                #{re_state,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.murphy.pojo.RegisterExample" resultType="java.lang.Long">
+        select count(*) from hosp_register
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update hosp_register
+        <set>
+            <if test="record.re_id != null">
+                re_id = #{record.re_id,jdbcType=INTEGER},
+            </if>
+            <if test="record.re_idCard != null">
+                re_idCard = #{record.re_idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.re_medical != null">
+                re_medical = #{record.re_medical,jdbcType=VARCHAR},
+            </if>
+            <if test="record.re_price != null">
+                re_price = #{record.re_price,jdbcType=DECIMAL},
+            </if>
+            <if test="record.re_phone != null">
+                re_phone = #{record.re_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.re_selfPrice != null">
+                re_selfPrice = #{record.re_selfPrice,jdbcType=INTEGER},
+            </if>
+            <if test="record.re_sex != null">
+                re_sex = #{record.re_sex,jdbcType=INTEGER},
+            </if>
+            <if test="record.re_age != null">
+                re_age = #{record.re_age,jdbcType=INTEGER},
+            </if>
+            <if test="record.re_job != null">
+                re_job = #{record.re_job,jdbcType=VARCHAR},
+            </if>
+            <if test="record.re_createTime != null">
+                re_createTime = #{record.re_createTime,jdbcType=DATE},
+            </if>
+            <if test="record.re_lookDoc != null">
+                re_lookDoc = #{record.re_lookDoc,jdbcType=INTEGER},
+            </if>
+            <if test="record.d_id != null">
+                d_id = #{record.d_id,jdbcType=INTEGER},
+            </if>
+            <if test="record.re_remark != null">
+                re_remark = #{record.re_remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.re_state != null">
+                re_state = #{record.re_state,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update hosp_register
+        set re_id = #{record.re_id,jdbcType=INTEGER},
         re_idCard = #{record.re_idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="record.re_medical != null">
         re_medical = #{record.re_medical,jdbcType=VARCHAR},
-      </if>
-      <if test="record.re_price != null">
         re_price = #{record.re_price,jdbcType=DECIMAL},
-      </if>
-      <if test="record.re_phone != null">
         re_phone = #{record.re_phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.re_selfPrice != null">
         re_selfPrice = #{record.re_selfPrice,jdbcType=INTEGER},
-      </if>
-      <if test="record.re_sex != null">
         re_sex = #{record.re_sex,jdbcType=INTEGER},
-      </if>
-      <if test="record.re_age != null">
         re_age = #{record.re_age,jdbcType=INTEGER},
-      </if>
-      <if test="record.re_job != null">
         re_job = #{record.re_job,jdbcType=VARCHAR},
-      </if>
-      <if test="record.re_lookDoc != null">
+        re_createTime = #{record.re_createTime,jdbcType=DATE},
         re_lookDoc = #{record.re_lookDoc,jdbcType=INTEGER},
-      </if>
-      <if test="record.d_id != null">
         d_id = #{record.d_id,jdbcType=INTEGER},
-      </if>
-      <if test="record.re_remark != null">
         re_remark = #{record.re_remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.re_state != null">
-        re_state = #{record.re_state,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update hosp_register
-    set re_id = #{record.re_id,jdbcType=INTEGER},
-      re_idCard = #{record.re_idCard,jdbcType=VARCHAR},
-      re_medical = #{record.re_medical,jdbcType=VARCHAR},
-      re_price = #{record.re_price,jdbcType=DECIMAL},
-      re_phone = #{record.re_phone,jdbcType=VARCHAR},
-      re_selfPrice = #{record.re_selfPrice,jdbcType=INTEGER},
-      re_sex = #{record.re_sex,jdbcType=INTEGER},
-      re_age = #{record.re_age,jdbcType=INTEGER},
-      re_job = #{record.re_job,jdbcType=VARCHAR},
-      re_lookDoc = #{record.re_lookDoc,jdbcType=INTEGER},
-      d_id = #{record.d_id,jdbcType=INTEGER},
-      re_remark = #{record.re_remark,jdbcType=VARCHAR},
-      re_state = #{record.re_state,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.Register">
-    update hosp_register
-    <set>
-      <if test="re_idCard != null">
-        re_idCard = #{re_idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="re_medical != null">
-        re_medical = #{re_medical,jdbcType=VARCHAR},
-      </if>
-      <if test="re_price != null">
-        re_price = #{re_price,jdbcType=DECIMAL},
-      </if>
-      <if test="re_phone != null">
-        re_phone = #{re_phone,jdbcType=VARCHAR},
-      </if>
-      <if test="re_selfPrice != null">
-        re_selfPrice = #{re_selfPrice,jdbcType=INTEGER},
-      </if>
-      <if test="re_sex != null">
-        re_sex = #{re_sex,jdbcType=INTEGER},
-      </if>
-      <if test="re_age != null">
-        re_age = #{re_age,jdbcType=INTEGER},
-      </if>
-      <if test="re_job != null">
-        re_job = #{re_job,jdbcType=VARCHAR},
-      </if>
-      <if test="re_lookDoc != null">
-        re_lookDoc = #{re_lookDoc,jdbcType=INTEGER},
-      </if>
-      <if test="d_id != null">
-        d_id = #{d_id,jdbcType=INTEGER},
-      </if>
-      <if test="re_remark != null">
-        re_remark = #{re_remark,jdbcType=VARCHAR},
-      </if>
-      <if test="re_state != null">
-        re_state = #{re_state,jdbcType=INTEGER},
-      </if>
-    </set>
-    where re_id = #{re_id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Register">
-    update hosp_register
-    set re_idCard = #{re_idCard,jdbcType=VARCHAR},
-      re_medical = #{re_medical,jdbcType=VARCHAR},
-      re_price = #{re_price,jdbcType=DECIMAL},
-      re_phone = #{re_phone,jdbcType=VARCHAR},
-      re_selfPrice = #{re_selfPrice,jdbcType=INTEGER},
-      re_sex = #{re_sex,jdbcType=INTEGER},
-      re_age = #{re_age,jdbcType=INTEGER},
-      re_job = #{re_job,jdbcType=VARCHAR},
-      re_lookDoc = #{re_lookDoc,jdbcType=INTEGER},
-      d_id = #{d_id,jdbcType=INTEGER},
-      re_remark = #{re_remark,jdbcType=VARCHAR},
-      re_state = #{re_state,jdbcType=INTEGER}
-    where re_id = #{re_id,jdbcType=INTEGER}
-  </update>
+        re_state = #{record.re_state,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.Register">
+        update hosp_register
+        <set>
+            <if test="re_idCard != null">
+                re_idCard = #{re_idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="re_medical != null">
+                re_medical = #{re_medical,jdbcType=VARCHAR},
+            </if>
+            <if test="re_price != null">
+                re_price = #{re_price,jdbcType=DECIMAL},
+            </if>
+            <if test="re_phone != null">
+                re_phone = #{re_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="re_selfPrice != null">
+                re_selfPrice = #{re_selfPrice,jdbcType=INTEGER},
+            </if>
+            <if test="re_sex != null">
+                re_sex = #{re_sex,jdbcType=INTEGER},
+            </if>
+            <if test="re_age != null">
+                re_age = #{re_age,jdbcType=INTEGER},
+            </if>
+            <if test="re_job != null">
+                re_job = #{re_job,jdbcType=VARCHAR},
+            </if>
+            <if test="re_createTime != null">
+                re_createTime = #{re_createTime,jdbcType=DATE},
+            </if>
+            <if test="re_lookDoc != null">
+                re_lookDoc = #{re_lookDoc,jdbcType=INTEGER},
+            </if>
+            <if test="d_id != null">
+                d_id = #{d_id,jdbcType=INTEGER},
+            </if>
+            <if test="re_remark != null">
+                re_remark = #{re_remark,jdbcType=VARCHAR},
+            </if>
+            <if test="re_state != null">
+                re_state = #{re_state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where re_id = #{re_id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Register">
+        update hosp_register
+        set re_idCard     = #{re_idCard,jdbcType=VARCHAR},
+            re_medical    = #{re_medical,jdbcType=VARCHAR},
+            re_price      = #{re_price,jdbcType=DECIMAL},
+            re_phone      = #{re_phone,jdbcType=VARCHAR},
+            re_selfPrice  = #{re_selfPrice,jdbcType=INTEGER},
+            re_sex        = #{re_sex,jdbcType=INTEGER},
+            re_age        = #{re_age,jdbcType=INTEGER},
+            re_job        = #{re_job,jdbcType=VARCHAR},
+            re_createTime = #{re_createTime,jdbcType=DATE},
+            re_lookDoc    = #{re_lookDoc,jdbcType=INTEGER},
+            d_id          = #{d_id,jdbcType=INTEGER},
+            re_remark     = #{re_remark,jdbcType=VARCHAR},
+            re_state      = #{re_state,jdbcType=INTEGER}
+        where re_id = #{re_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryByVo" parameterType="com.murphy.vo.RegisterQueryVo" resultMap="joinRegisterResult">
+        select * from SSM_Hosp.hosp_register re inner join SSM_Hosp.hosp_doctor d
+        on re.d_id = d.d_id
+        <where>
+            <if test="re_id != null">re_id = #{re_id}</if>
+            <if test="d_name != null">and d_name like concat(concat('%',#{d_name},'%'))</if>
+            <if test="d_keshi != null">and d_keshi like concat(concat('%',#{d_keshi},'%'))</if>
+            <if test="beginTime != null">and re_createTime >= #{beginTime}</if>
+            <if test="endTime != null">and re_createTime &lt;= #{endTime}</if>
+        </where>
+    </select>
+
+    <resultMap id="baseResultMap" type="com.murphy.pojo.Register">
+        <id column="re_id" property="re_id"/>
+        <result column="re_idCard" property="re_idCard"/>
+        <result column="re_medical" property="re_medical"/>
+        <result column="re_price" property="re_price"/>
+        <result column="re_phone" property="re_phone"/>
+        <result column="re_selfPrice" property="re_selfPrice"/>
+        <result column="re_sex" property="re_sex"/>
+        <result column="re_age" property="re_age"/>
+        <result column="re_job" property="re_job"/>
+        <result column="re_createTime" property="re_createTime"/>
+        <result column="re_lookDoc" property="re_lookDoc"/>
+        <result column="d_id" property="d_id"/>
+        <result column="re_remark" property="re_remark"/>
+        <result column="re_state" property="re_state"/>
+    </resultMap>
+
+    <resultMap id="joinRegisterResult" type="com.murphy.pojo.Register" extends="baseResultMap">
+        <result column="d_id" property="doctor.d_id"/>
+        <result column="d_name" property="doctor.d_name"/>
+        <result column="d_keshi" property="doctor.d_keshi"/>
+    </resultMap>
 </mapper>

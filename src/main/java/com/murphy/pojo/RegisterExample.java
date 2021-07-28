@@ -1,6 +1,8 @@
 package com.murphy.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class RegisterExample {
@@ -102,6 +104,32 @@ public class RegisterExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andRe_idIsNull() {
@@ -684,6 +712,66 @@ public class RegisterExample {
             return (Criteria) this;
         }
 
+        public Criteria andRe_createTimeIsNull() {
+            addCriterion("re_createTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeIsNotNull() {
+            addCriterion("re_createTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeEqualTo(Date value) {
+            addCriterionForJDBCDate("re_createTime =", value, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeNotEqualTo(Date value) {
+            addCriterionForJDBCDate("re_createTime <>", value, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeGreaterThan(Date value) {
+            addCriterionForJDBCDate("re_createTime >", value, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("re_createTime >=", value, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeLessThan(Date value) {
+            addCriterionForJDBCDate("re_createTime <", value, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("re_createTime <=", value, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeIn(List<Date> values) {
+            addCriterionForJDBCDate("re_createTime in", values, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeNotIn(List<Date> values) {
+            addCriterionForJDBCDate("re_createTime not in", values, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("re_createTime between", value1, value2, "re_createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRe_createTimeNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("re_createTime not between", value1, value2, "re_createTime");
+            return (Criteria) this;
+        }
+
         public Criteria andRe_lookDocIsNull() {
             addCriterion("re_lookDoc is null");
             return (Criteria) this;
@@ -931,6 +1019,16 @@ public class RegisterExample {
 
         public Criteria andRe_stateNotBetween(Integer value1, Integer value2) {
             addCriterion("re_state not between", value1, value2, "re_state");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameLike(String value){
+            addCriterion("d_name like", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_keshiLike(String value){
+            addCriterion("d_keshi like", value, "d_keshi");
             return (Criteria) this;
         }
     }

@@ -262,6 +262,76 @@ public class DoctorExample {
             return (Criteria) this;
         }
 
+        public Criteria andD_nameIsNull() {
+            addCriterion("d_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameIsNotNull() {
+            addCriterion("d_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameEqualTo(String value) {
+            addCriterion("d_name =", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameNotEqualTo(String value) {
+            addCriterion("d_name <>", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameGreaterThan(String value) {
+            addCriterion("d_name >", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameGreaterThanOrEqualTo(String value) {
+            addCriterion("d_name >=", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameLessThan(String value) {
+            addCriterion("d_name <", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameLessThanOrEqualTo(String value) {
+            addCriterion("d_name <=", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameLike(String value) {
+            addCriterion("d_name like", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameNotLike(String value) {
+            addCriterion("d_name not like", value, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameIn(List<String> values) {
+            addCriterion("d_name in", values, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameNotIn(List<String> values) {
+            addCriterion("d_name not in", values, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameBetween(String value1, String value2) {
+            addCriterion("d_name between", value1, value2, "d_name");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_nameNotBetween(String value1, String value2) {
+            addCriterion("d_name not between", value1, value2, "d_name");
+            return (Criteria) this;
+        }
+
         public Criteria andD_phoneIsNull() {
             addCriterion("d_phone is null");
             return (Criteria) this;
@@ -272,52 +342,62 @@ public class DoctorExample {
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneEqualTo(Integer value) {
+        public Criteria andD_phoneEqualTo(String value) {
             addCriterion("d_phone =", value, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneNotEqualTo(Integer value) {
+        public Criteria andD_phoneNotEqualTo(String value) {
             addCriterion("d_phone <>", value, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneGreaterThan(Integer value) {
+        public Criteria andD_phoneGreaterThan(String value) {
             addCriterion("d_phone >", value, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneGreaterThanOrEqualTo(Integer value) {
+        public Criteria andD_phoneGreaterThanOrEqualTo(String value) {
             addCriterion("d_phone >=", value, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneLessThan(Integer value) {
+        public Criteria andD_phoneLessThan(String value) {
             addCriterion("d_phone <", value, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneLessThanOrEqualTo(Integer value) {
+        public Criteria andD_phoneLessThanOrEqualTo(String value) {
             addCriterion("d_phone <=", value, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneIn(List<Integer> values) {
+        public Criteria andD_phoneLike(String value) {
+            addCriterion("d_phone like", value, "d_phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_phoneNotLike(String value) {
+            addCriterion("d_phone not like", value, "d_phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andD_phoneIn(List<String> values) {
             addCriterion("d_phone in", values, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneNotIn(List<Integer> values) {
+        public Criteria andD_phoneNotIn(List<String> values) {
             addCriterion("d_phone not in", values, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneBetween(Integer value1, Integer value2) {
+        public Criteria andD_phoneBetween(String value1, String value2) {
             addCriterion("d_phone between", value1, value2, "d_phone");
             return (Criteria) this;
         }
 
-        public Criteria andD_phoneNotBetween(Integer value1, Integer value2) {
+        public Criteria andD_phoneNotBetween(String value1, String value2) {
             addCriterion("d_phone not between", value1, value2, "d_phone");
             return (Criteria) this;
         }

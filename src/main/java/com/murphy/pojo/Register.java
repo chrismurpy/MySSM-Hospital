@@ -1,5 +1,12 @@
 package com.murphy.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
 public class Register {
     private Integer re_id;
 
@@ -19,13 +26,57 @@ public class Register {
 
     private String re_job;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp re_createTime;
+
     private Integer re_lookDoc;
 
     private Integer d_id;
+    private List<Doctor> doctors;
+    private Doctor doctor;
 
     private String re_remark;
 
     private Integer re_state;
+
+    @Override
+    public String toString() {
+        return "Register{" +
+                "re_id=" + re_id +
+                ", re_idCard='" + re_idCard + '\'' +
+                ", re_medical='" + re_medical + '\'' +
+                ", re_price=" + re_price +
+                ", re_phone='" + re_phone + '\'' +
+                ", re_selfPrice=" + re_selfPrice +
+                ", re_sex=" + re_sex +
+                ", re_age=" + re_age +
+                ", re_job='" + re_job + '\'' +
+                ", re_createTime=" + re_createTime +
+                ", re_lookDoc=" + re_lookDoc +
+                ", d_id=" + d_id +
+                ", doctors=" + doctors +
+                ", doctor=" + doctor +
+                ", re_remark='" + re_remark + '\'' +
+                ", re_state=" + re_state +
+                '}';
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
+    }
 
     public Integer getRe_id() {
         return re_id;
@@ -97,6 +148,14 @@ public class Register {
 
     public void setRe_job(String re_job) {
         this.re_job = re_job == null ? null : re_job.trim();
+    }
+
+    public Timestamp getRe_createTime() {
+        return re_createTime;
+    }
+
+    public void setRe_createTime(Timestamp re_createTime) {
+        this.re_createTime = re_createTime;
     }
 
     public Integer getRe_lookDoc() {

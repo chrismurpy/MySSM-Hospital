@@ -39,26 +39,26 @@
                     {
                         text: '快速通道', items: [
 
-                            {id: '2', text: '挂号信息管理', href: 'registration/index.jsp'},
+                            {id: '2', text: '挂号信息管理', href: '/pages/registration/index.jsp'},
 
-                            {id: '5', text: '住院办理', href: 'hospital/index.jsp'},
-                            {id: '8', text: '住院结算', href: 'hospital/account.html'},
+                            {id: '5', text: '住院办理', href: '/pages/hospital/index.jsp'},
+                            {id: '8', text: '住院结算', href: '/pages/hospital/account.html'},
 
-                            {id: '7', text: '在院发药', href: 'hospital/dispensing.html'},
-                            {id: '4', text: '药品管理', href: 'medicine/index.jsp'},
+                            {id: '7', text: '在院发药', href: '/pages/hospital/dispensing.html'},
+                            {id: '4', text: '药品管理', href: '/pages/medicine/index.jsp'},
 
-                            {id: '16', text: '检查收费项目登记', href: 'hospital/charge2.html'},
-                            {id: '6', text: '收费项目管理', href: 'hospital/charge.html'},
+                            {id: '16', text: '检查收费项目登记', href: '/pages/hospital/charge2.html'},
+                            {id: '6', text: '收费项目管理', href: '/pages/hospital/charge.html'},
 
                             /** 扩展
                              {id:'9',text:'月营业额统计',href:''},
                              {id:'10',text:'年营业额统计',href:''},
                              **/
-                            {id: '3', text: '门诊医生管理', href: 'doctor/index.jsp'},
-                            {id: '11', text: '用户管理', href: 'User/index.jsp'},
-                            {id: '12', text: '角色管理', href: 'Role/index.jsp'},
-                            {id: '13', text: '资源管理', href: 'Resource/index.jsp'},
-                            {id: '13', text: '密码管理', href: 'User/password.jsp'}
+                            {id: '3', text: '门诊医生管理', href: '/pages/doctor/index.jsp'},
+                            {id: '11', text: '用户管理', href: '/pages/User/index.jsp'},
+                            {id: '12', text: '角色管理', href: '/pages/Role/index.jsp'},
+                            {id: '13', text: '资源管理', href: '/pages/Resource/index.jsp'},
+                            {id: '13', text: '密码管理', href: '/pages/User/password.jsp'}
                         ]
                     }
 

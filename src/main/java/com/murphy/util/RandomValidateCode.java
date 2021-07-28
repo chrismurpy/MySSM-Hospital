@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
- * 验证码登录 - 工具类
+ * 验证码获取 - 工具类
  *
  * @author murphy
  * @since 2021/7/25 6:32 下午

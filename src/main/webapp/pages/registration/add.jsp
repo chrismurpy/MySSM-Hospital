@@ -36,13 +36,13 @@
     <script type="text/javascript">
     $(function () {       
 		$('#backid').click(function(){
-				window.location.href="index.html";
+				window.location.href="index.jsp";
 		 });
     });
     </script>
 </head>
 <body>
-<form action="index.html" method="post" class="definewidth m20">
+<form action="index.jsp" method="post" class="definewidth m20">
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">姓名</td>

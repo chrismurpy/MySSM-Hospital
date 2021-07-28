@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="com.murphy.pojo.Doctor">
     <id column="d_id" jdbcType="INTEGER" property="d_id" />
     <result column="d_idCard" jdbcType="VARCHAR" property="d_idCard" />
-    <result column="d_phone" jdbcType="INTEGER" property="d_phone" />
+    <result column="d_name" jdbcType="VARCHAR" property="d_name" />
+    <result column="d_phone" jdbcType="VARCHAR" property="d_phone" />
     <result column="d_telPhone" jdbcType="VARCHAR" property="d_telPhone" />
     <result column="d_sex" jdbcType="INTEGER" property="d_sex" />
     <result column="d_birthday" jdbcType="DATE" property="d_birthday" />
@@ -75,7 +76,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    d_id, d_idCard, d_phone, d_telPhone, d_sex, d_birthday, d_age, d_email, d_keshi, 
+    d_id, d_idCard, d_name, d_phone, d_telPhone, d_sex, d_birthday, d_age, d_email, d_keshi, 
     d_edu, d_desc, d_inTime, d_state
   </sql>
   <select id="selectByExample" parameterType="com.murphy.pojo.DoctorExample" resultMap="BaseResultMap">
@@ -109,16 +110,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.murphy.pojo.Doctor">
-    insert into hosp_doctor (d_id, d_idCard, d_phone, 
-      d_telPhone, d_sex, d_birthday, 
-      d_age, d_email, d_keshi, 
-      d_edu, d_desc, d_inTime, 
-      d_state)
-    values (#{d_id,jdbcType=INTEGER}, #{d_idCard,jdbcType=VARCHAR}, #{d_phone,jdbcType=INTEGER}, 
-      #{d_telPhone,jdbcType=VARCHAR}, #{d_sex,jdbcType=INTEGER}, #{d_birthday,jdbcType=DATE}, 
-      #{d_age,jdbcType=INTEGER}, #{d_email,jdbcType=VARCHAR}, #{d_keshi,jdbcType=VARCHAR}, 
-      #{d_edu,jdbcType=VARCHAR}, #{d_desc,jdbcType=VARCHAR}, #{d_inTime,jdbcType=DATE}, 
-      #{d_state,jdbcType=INTEGER})
+    insert into hosp_doctor (d_id, d_idCard, d_name, 
+      d_phone, d_telPhone, d_sex, 
+      d_birthday, d_age, d_email, 
+      d_keshi, d_edu, d_desc, 
+      d_inTime, d_state)
+    values (#{d_id,jdbcType=INTEGER}, #{d_idCard,jdbcType=VARCHAR}, #{d_name,jdbcType=VARCHAR}, 
+      #{d_phone,jdbcType=VARCHAR}, #{d_telPhone,jdbcType=VARCHAR}, #{d_sex,jdbcType=INTEGER}, 
+      #{d_birthday,jdbcType=DATE}, #{d_age,jdbcType=INTEGER}, #{d_email,jdbcType=VARCHAR}, 
+      #{d_keshi,jdbcType=VARCHAR}, #{d_edu,jdbcType=VARCHAR}, #{d_desc,jdbcType=VARCHAR}, 
+      #{d_inTime,jdbcType=DATE}, #{d_state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.murphy.pojo.Doctor">
     insert into hosp_doctor
@@ -128,6 +129,9 @@
       </if>
       <if test="d_idCard != null">
         d_idCard,
+      </if>
+      <if test="d_name != null">
+        d_name,
       </if>
       <if test="d_phone != null">
         d_phone,
@@ -170,8 +174,11 @@
       <if test="d_idCard != null">
         #{d_idCard,jdbcType=VARCHAR},
       </if>
+      <if test="d_name != null">
+        #{d_name,jdbcType=VARCHAR},
+      </if>
       <if test="d_phone != null">
-        #{d_phone,jdbcType=INTEGER},
+        #{d_phone,jdbcType=VARCHAR},
       </if>
       <if test="d_telPhone != null">
         #{d_telPhone,jdbcType=VARCHAR},
@@ -220,8 +227,11 @@
       <if test="record.d_idCard != null">
         d_idCard = #{record.d_idCard,jdbcType=VARCHAR},
       </if>
+      <if test="record.d_name != null">
+        d_name = #{record.d_name,jdbcType=VARCHAR},
+      </if>
       <if test="record.d_phone != null">
-        d_phone = #{record.d_phone,jdbcType=INTEGER},
+        d_phone = #{record.d_phone,jdbcType=VARCHAR},
       </if>
       <if test="record.d_telPhone != null">
         d_telPhone = #{record.d_telPhone,jdbcType=VARCHAR},
@@ -262,7 +272,8 @@
     update hosp_doctor
     set d_id = #{record.d_id,jdbcType=INTEGER},
       d_idCard = #{record.d_idCard,jdbcType=VARCHAR},
-      d_phone = #{record.d_phone,jdbcType=INTEGER},
+      d_name = #{record.d_name,jdbcType=VARCHAR},
+      d_phone = #{record.d_phone,jdbcType=VARCHAR},
       d_telPhone = #{record.d_telPhone,jdbcType=VARCHAR},
       d_sex = #{record.d_sex,jdbcType=INTEGER},
       d_birthday = #{record.d_birthday,jdbcType=DATE},
@@ -283,8 +294,11 @@
       <if test="d_idCard != null">
         d_idCard = #{d_idCard,jdbcType=VARCHAR},
       </if>
+      <if test="d_name != null">
+        d_name = #{d_name,jdbcType=VARCHAR},
+      </if>
       <if test="d_phone != null">
-        d_phone = #{d_phone,jdbcType=INTEGER},
+        d_phone = #{d_phone,jdbcType=VARCHAR},
       </if>
       <if test="d_telPhone != null">
         d_telPhone = #{d_telPhone,jdbcType=VARCHAR},
@@ -322,7 +336,8 @@
   <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Doctor">
     update hosp_doctor
     set d_idCard = #{d_idCard,jdbcType=VARCHAR},
-      d_phone = #{d_phone,jdbcType=INTEGER},
+      d_name = #{d_name,jdbcType=VARCHAR},
+      d_phone = #{d_phone,jdbcType=VARCHAR},
       d_telPhone = #{d_telPhone,jdbcType=VARCHAR},
       d_sex = #{d_sex,jdbcType=INTEGER},
       d_birthday = #{d_birthday,jdbcType=DATE},
