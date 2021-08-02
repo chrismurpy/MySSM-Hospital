@@ -39,7 +39,7 @@
                     {
                         text: '快速通道', items: [
 
-                            {id: '2', text: '挂号信息管理', href: '/pages/registration/index.jsp'},
+                            {id: '2', text: '挂号信息管理', href: '/pages/registration/list.jsp'},
 
                             {id: '5', text: '住院办理', href: '/pages/hospital/index.jsp'},
                             {id: '8', text: '住院结算', href: '/pages/hospital/account.html'},
