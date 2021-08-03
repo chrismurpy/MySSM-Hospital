@@ -7,8 +7,13 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author murphy
+ */
 public class Register {
     private Integer re_id;
+
+    private String re_name;
 
     private String re_idCard;
 
@@ -33,6 +38,7 @@ public class Register {
     private Integer re_lookDoc;
 
     private Integer d_id;
+
     private List<Doctor> doctors;
     private Doctor doctor;
 
@@ -44,6 +50,7 @@ public class Register {
     public String toString() {
         return "Register{" +
                 "re_id=" + re_id +
+                "re_name=" + re_name +
                 ", re_idCard='" + re_idCard + '\'' +
                 ", re_medical='" + re_medical + '\'' +
                 ", re_price=" + re_price +
@@ -84,6 +91,14 @@ public class Register {
 
     public void setRe_id(Integer re_id) {
         this.re_id = re_id;
+    }
+
+    public String getRe_name() {
+        return re_name;
+    }
+
+    public void setRe_name(String re_name) {
+        this.re_name = re_name;
     }
 
     public String getRe_idCard() {

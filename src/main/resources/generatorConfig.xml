@@ -45,6 +45,9 @@
             enableDeleteByExample:Delete语句中加入where条件查询，默认为true开启
             enableSelectByExample:Select多条语句中加入where条件查询，默认为true开启
             selectByExampleQueryId:Select单个对象语句中加入where条件查询，默认为true开启 -->
+        <table tableName="hosp_keshi" domainObjectName="Keshi">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
         <table tableName="hosp_beHosp" domainObjectName="BeHosp">
             <property name="useActualColumnNames" value="true"/>
         </table>

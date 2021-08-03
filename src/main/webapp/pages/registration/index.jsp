@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%-- 已弃用 --%>
+    <%-- !!已弃用!! --%>
     <title>门诊查询</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>

@@ -66,7 +66,7 @@
     <table class="table table-bordered table-hover definewidth m10">
         <thead>
         <tr>
-            <th><input type="checkbox" id="checkall" onclick="checkall2()"></th>
+            <th><input type="checkbox" id="checkall" onclick="checkAll2()"></th>
             <th>病历号</th>
             <th>主治医生</th>
             <th>挂号时间</th>
@@ -105,7 +105,8 @@
                         </select>
                         条数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         跳转到第
-                        <input class="form-control" name="pageNum" value="1" style="height: 20px;width: 40px;border-radius: 8px;text-align: center"/>
+                        <input class="form-control" name="pageNum" value="1"
+                               style="height: 20px;width: 40px;border-radius: 8px;text-align: center"/>
                         页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a class="btn btn-default" id="firstPage" name="pageLi">首页</a>&nbsp;
                         <a class="btn btn-default" id="prePage" name="pageLi">上一页</a>&nbsp;
@@ -133,6 +134,7 @@
 </html>
 
 <script>
+    // 翻页并加载数据
     $(function () {
         loadData();
         $("#firstPage").click(function () {
@@ -223,7 +225,7 @@
             success: function (vo) {
                 //alert( "Data Saved: " + vo );
                 let list = vo.pageInfo.list;
-                if (list.length == 0){
+                if (list.length == 0) {
                     alert("很抱歉！无法找到相关数据");
                 }
                 let str = "";
@@ -246,16 +248,15 @@
 
                     let btnStr = "";
                     if (obj.re_state == 0) {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-danger" onclick="registerInfo(' + re_id + ')" >详情</button>&nbsp;' +
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="registerInfo(' + re_id + ')" >详情</button>&nbsp;' +
                             '<button type="button" name="updateBtn" class="btn btn-sm btn-info" onclick="update(' + re_id + ')">更改</button>&nbsp;' +
-                            '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="deleteInfo(' + re_id + ')">退号</button>';
+                            '<button type="button" name="deleteBtn" class="btn btn-sm btn-danger" onclick="deleteInfo(' + re_id + ')">退号</button>';
                     } else if (obj.re_state == 1) {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-danger" onclick="registerInfo(' + re_id + ')" >详情</button>&nbsp;' +
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="registerInfo(' + re_id + ')" >详情</button>&nbsp;' +
                             '<button type="button" name="updateBtn" class="btn btn-sm btn-info" onclick="update(' + re_id + ')">更改</button>&nbsp;';
                     } else {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-danger" onclick="registerInfo(' + re_id + ')" >详情</button>&nbsp;';
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="registerInfo(' + re_id + ')" >详情</button>&nbsp;';
                     }
-
 
                     str += '<tr>' +
                         '            <td><input type="checkbox" name="check" value="' + re_id + '"/></td>' +
@@ -270,7 +271,6 @@
                 $("#tboby").html(str);
                 //填充分页数据
                 fillPageData(vo.pageInfo);
-
             }
         });
     }
@@ -325,21 +325,22 @@
 </script>
 
 <script type="text/javascript">
+    // 跳转到新增挂号信息页面
     $(function () {
         $('#newNav').click(function () {
-            window.location.href = "add.html";
+            window.location.href = "add.jsp";
         });
     });
 
-    function checkall2() {
-        var alls = document.getElementsByName("check");
-        var ch = document.getElementById("checkall");
+    function checkAll2() {
+        let alls = document.getElementsByName("check");
+        let ch = document.getElementById("checkall");
         if (ch.checked) {
-            for (var i = 0; i < alls.length; i++) {
+            for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = true;
             }
         } else {
-            for (var i = 0; i < alls.length; i++) {
+            for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = false;
             }
         }
@@ -347,16 +348,16 @@
 
 
     function delAll() {
-        var alls = document.getElementsByName("check");
-        var ids = new Array();
-        for (var i = 0; i < alls.length; i++) {
+        let alls = document.getElementsByName("check");
+        let ids = new Array();
+        for (let i = 0; i < alls.length; i++) {
             if (alls[i].checked) {
                 ids.push(alls[i].value);
             }
         }
         if (ids.length > 0) {
             if (confirm("确认操作?")) {
-                for (var i = 0; i < ids.length; i++) {
+                for (let i = 0; i < ids.length; i++) {
                     deleteInfo2(ids[i]);
                 }
             }

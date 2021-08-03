@@ -36,6 +36,9 @@ public class ResultVo<T> {
      */
     private String msg = "OK";
 
+    public ResultVo() {
+    }
+
     public ResultVo(PageInfo<T> pageInfo) {
         this.pageInfo = pageInfo;
     }

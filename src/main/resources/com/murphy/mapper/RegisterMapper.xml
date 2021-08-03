@@ -130,6 +130,9 @@
             <if test="re_id != null">
                 re_id,
             </if>
+            <if test="re_name != null">
+                re_name,
+            </if>
             <if test="re_idCard != null">
                 re_idCard,
             </if>
@@ -173,6 +176,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="re_id != null">
                 #{re_id,jdbcType=INTEGER},
+            </if>
+            <if test="re_name != null">
+                #{re_name,jdbcType=VARCHAR},
             </if>
             <if test="re_idCard != null">
                 #{re_idCard,jdbcType=VARCHAR},

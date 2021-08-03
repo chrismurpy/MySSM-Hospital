@@ -99,6 +99,10 @@
     from hosp_doctor
     where d_id = #{d_id,jdbcType=INTEGER}
   </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+    select * from hosp_doctor
+    where d_name = #{d_name,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hosp_doctor
     where d_id = #{d_id,jdbcType=INTEGER}
@@ -217,6 +221,10 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectByKeshi" resultMap="BaseResultMap">
+    select * from hosp_doctor
+    where d_keshi = #{d_keshi,jdbcType=VARCHAR}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update hosp_doctor

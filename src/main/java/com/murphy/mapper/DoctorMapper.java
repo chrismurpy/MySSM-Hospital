@@ -20,6 +20,10 @@ public interface DoctorMapper {
 
     Doctor selectByPrimaryKey(Integer d_id);
 
+    List<String> selectByKeshi(String d_keshi);
+
+    Doctor selectByName(String d_name);
+
     int updateByExampleSelective(@Param("record") Doctor record, @Param("example") DoctorExample example);
 
     int updateByExample(@Param("record") Doctor record, @Param("example") DoctorExample example);

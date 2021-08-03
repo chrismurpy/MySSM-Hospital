@@ -91,4 +91,14 @@ public class RegisterService {
         List<Register> registers = registerMapper.queryByVo(vo);
         return new PageInfo<>(registers);
     }
+
+    /**
+     * 新增挂号信息
+     * @param register
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int addRegister(Register register) {
+        return registerMapper.insertSelective(register);
+    }
 }
