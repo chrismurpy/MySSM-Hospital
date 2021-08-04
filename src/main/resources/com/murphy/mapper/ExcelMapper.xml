@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.murphy.mapper.ExcelMapper">
+    <select id="queryExcelInfo" resultType="com.murphy.vo.RegisterExcelVo">
+        select * from SSM_Hosp.hosp_register re inner join SSM_Hosp.hosp_doctor d where re.d_id = d.d_id
+    </select>
+</mapper>

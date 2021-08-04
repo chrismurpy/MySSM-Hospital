@@ -5,7 +5,9 @@ import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
 import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
+import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
+import com.murphy.vo.RegisterExcelVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,6 +31,8 @@ public class ServiceTest {
     private RegisterMapper registerMapper;
     @Resource
     private DoctorMapper doctorMapper;
+    @Resource
+    private ExcelService excelService;
 
     @Test
     public void test() {
@@ -54,6 +58,15 @@ public class ServiceTest {
         for (Register register : registers) {
             register.setDoctor(doctorMapper.selectByPrimaryKey(register.getD_id()));
             System.out.println(register);
+        }
+    }
+
+    @Test
+    public void test4() {
+        List<RegisterExcelVo> list = excelService.queryExcelInfo();
+//        System.out.println(list);
+        for (RegisterExcelVo registerExcelVo : list) {
+            System.out.println(registerExcelVo.getRe_createTime().toString());
         }
     }
 }

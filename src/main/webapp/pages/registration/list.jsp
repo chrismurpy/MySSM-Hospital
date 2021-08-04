@@ -123,8 +123,8 @@
             <th colspan="5">
                 <div>
                     <button type="button" class="btn btn-success" id="newNav">门诊挂号</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="delPro" onClick="delAll();">退号</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="delPro2">导出Excel</button>
+                    <button type="button" class="btn btn-success" id="delPro" onclick="delAll();">退号</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="outExcel" onclick="Excel()">导出Excel</button>
                 </div>
             </th>
         </tr>
@@ -321,10 +321,6 @@
         });
     }
 
-
-</script>
-
-<script type="text/javascript">
     // 跳转到新增挂号信息页面
     $(function () {
         $('#newNav').click(function () {
@@ -346,7 +342,6 @@
         }
     }
 
-
     function delAll() {
         let alls = document.getElementsByName("check");
         let ids = new Array();
@@ -364,5 +359,9 @@
         } else {
             alert("请选中要操作的项");
         }
+    }
+
+    function Excel(){
+        window.location.href = "${pageContext.request.contextPath}/excel";
     }
 </script>
