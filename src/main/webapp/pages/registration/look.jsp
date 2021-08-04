@@ -170,7 +170,7 @@
                 let d_keshi = obj.doctor.d_keshi;
                 let d_name = obj.doctor.d_name;
                 let re_remark = obj.re_remark;
-                console.log(obj);
+
                 $("#re_name").html(re_name).addClass("disabled");
                 $("#re_idCard").html(re_idCard).addClass("disabled");
                 $("#re_price").html(re_price).addClass("disabled");

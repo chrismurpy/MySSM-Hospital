@@ -114,4 +114,14 @@ public class RegisterService {
         register.setDoctor(doctor);
         return register;
     }
+
+    /**
+     * 根据主键修改
+     * @param register
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int updateRegister(Register register) {
+        return registerMapper.updateByPrimaryKeySelective(register);
+    }
 }

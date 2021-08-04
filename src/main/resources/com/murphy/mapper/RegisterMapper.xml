@@ -3,6 +3,7 @@
 <mapper namespace="com.murphy.mapper.RegisterMapper">
     <resultMap id="BaseResultMap" type="com.murphy.pojo.Register">
         <id column="re_id" jdbcType="INTEGER" property="re_id"/>
+        <result column="re_name" jdbcType="VARCHAR" property="re_name"/>
         <result column="re_idCard" jdbcType="VARCHAR" property="re_idCard"/>
         <result column="re_medical" jdbcType="VARCHAR" property="re_medical"/>
         <result column="re_price" jdbcType="DECIMAL" property="re_price"/>
@@ -300,6 +301,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.Register">
         update hosp_register
         <set>
+            <if test="re_name != null">
+                re_name = #{re_name,jdbcType=VARCHAR},
+            </if>
             <if test="re_idCard != null">
                 re_idCard = #{re_idCard,jdbcType=VARCHAR},
             </if>
@@ -344,7 +348,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Register">
         update hosp_register
-        set re_idCard     = #{re_idCard,jdbcType=VARCHAR},
+        set re_name       = #{re_name,jdbcType=VARCHAR},
+            re_idCard     = #{re_idCard,jdbcType=VARCHAR},
             re_medical    = #{re_medical,jdbcType=VARCHAR},
             re_price      = #{re_price,jdbcType=DECIMAL},
             re_phone      = #{re_phone,jdbcType=VARCHAR},

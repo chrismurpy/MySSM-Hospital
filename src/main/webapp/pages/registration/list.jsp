@@ -282,7 +282,7 @@
 
     // 更改按钮
     function update(id) {
-        window.location.href = "/registration/edit.html?re_id=" + id;
+        window.location.href = "/pages/registration/edit.jsp?re_id=" + id;
     }
 
     // 退号按钮

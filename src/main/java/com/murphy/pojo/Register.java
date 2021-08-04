@@ -50,7 +50,7 @@ public class Register {
     public String toString() {
         return "Register{" +
                 "re_id=" + re_id +
-                "re_name=" + re_name +
+                ", re_name=" + re_name +
                 ", re_idCard='" + re_idCard + '\'' +
                 ", re_medical='" + re_medical + '\'' +
                 ", re_price=" + re_price +
@@ -62,7 +62,6 @@ public class Register {
                 ", re_createTime=" + re_createTime +
                 ", re_lookDoc=" + re_lookDoc +
                 ", d_id=" + d_id +
-                ", doctors=" + doctors +
                 ", doctor=" + doctor +
                 ", re_remark='" + re_remark + '\'' +
                 ", re_state=" + re_state +

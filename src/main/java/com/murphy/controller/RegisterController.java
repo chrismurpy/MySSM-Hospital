@@ -3,10 +3,7 @@ package com.murphy.controller;
 import com.github.pagehelper.PageInfo;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.pojo.Doctor;
-import com.murphy.pojo.Keshi;
 import com.murphy.pojo.Register;
-import com.murphy.service.DoctorService;
-import com.murphy.service.KeshiService;
 import com.murphy.service.RegisterService;
 import com.murphy.vo.RegisterQueryVo;
 import com.murphy.vo.ResultVo;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 挂号信息管理 - 控制器层
@@ -87,5 +82,25 @@ public class RegisterController {
         return new ResultVo<>(register);
     }
 
+    /**
+     * 更新
+     * @param re_id
+     * @return
+     */
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public ResultVo<Register> updateRegister(@PathVariable("id") Integer re_id, Register register,
+                                             @RequestParam("d_name") String d_name) {
+        register.setRe_id(re_id);
+        Doctor doctor = doctorMapper.selectByName(d_name);
+        Integer d_id = doctor.getD_id();
+        register.setD_id(d_id);
+        register.setDoctor(doctor);
 
+        int i = registerService.updateRegister(register);
+        System.out.println(i);
+        if (i == 1) {
+            return new ResultVo<Register>();
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
 }
