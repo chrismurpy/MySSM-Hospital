@@ -103,4 +103,18 @@ public class RegisterController {
         }
         return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
     }
+
+    /**
+     * 删除 - 变更 state
+     * @param re_id
+     * @return
+     */
+    @RequestMapping(value = "{re_id}", method = RequestMethod.DELETE)
+    public ResultVo<Register> deleteRegister(@PathVariable("re_id") Integer re_id) {
+        int i = registerService.deleteRegister(re_id);
+        if (i == 1) {
+            return new ResultVo<>();
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
 }

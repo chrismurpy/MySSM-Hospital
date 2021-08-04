@@ -66,7 +66,7 @@
     <table class="table table-bordered table-hover definewidth m10">
         <thead>
         <tr>
-            <th><input type="checkbox" id="checkall" onclick="checkAll2()"></th>
+            <th><input type="checkbox" id="checkAll" onclick="checkAll2()"></th>
             <th>病历号</th>
             <th>主治医生</th>
             <th>挂号时间</th>
@@ -334,7 +334,7 @@
 
     function checkAll2() {
         let alls = document.getElementsByName("check");
-        let ch = document.getElementById("checkall");
+        let ch = document.getElementById("checkAll");
         if (ch.checked) {
             for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = true;

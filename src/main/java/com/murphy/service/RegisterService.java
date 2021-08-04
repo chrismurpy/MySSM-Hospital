@@ -124,4 +124,16 @@ public class RegisterService {
     public int updateRegister(Register register) {
         return registerMapper.updateByPrimaryKeySelective(register);
     }
+
+    /**
+     * 根据ID删除 - 变更 state
+     * @param re_id
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int deleteRegister(int re_id) {
+        Register register = registerMapper.selectByPrimaryKey(re_id);
+        register.setRe_state(3);
+        return registerMapper.updateByPrimaryKeySelective(register);
+    }
 }
