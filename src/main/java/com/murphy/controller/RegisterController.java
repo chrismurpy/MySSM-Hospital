@@ -11,10 +11,7 @@ import com.murphy.service.RegisterService;
 import com.murphy.vo.RegisterQueryVo;
 import com.murphy.vo.ResultVo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -78,4 +75,17 @@ public class RegisterController {
         }
         return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
     }
+
+    /**
+     * 主键查询
+     * @param re_id
+     * @return
+     */
+    @RequestMapping(value = "{re_id}", method = RequestMethod.GET)
+    public ResultVo<Register> queryById(@PathVariable("re_id") Integer re_id){
+        Register register = registerService.queryById(re_id);
+        return new ResultVo<>(register);
+    }
+
+
 }

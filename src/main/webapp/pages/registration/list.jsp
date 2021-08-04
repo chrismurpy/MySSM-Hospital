@@ -277,7 +277,7 @@
 
     // 详情按钮
     function registerInfo(id) {
-        window.location.href = "/registration/look.html?re_id=" + id;
+        window.location.href = "/pages/registration/look.jsp?re_id=" + id;
     }
 
     // 更改按钮

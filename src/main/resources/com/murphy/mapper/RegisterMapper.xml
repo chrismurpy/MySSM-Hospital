@@ -78,7 +78,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        re_id, re_idCard, re_medical, re_price, re_phone, re_selfPrice, re_sex, re_age, re_job,
+        re_id, re_name, re_idCard, re_medical, re_price, re_phone, re_selfPrice, re_sex, re_age, re_job,
     re_createTime, re_lookDoc, d_id, re_remark, re_state
     </sql>
     <select id="selectByExample" parameterType="com.murphy.pojo.RegisterExample" resultMap="BaseResultMap">
@@ -374,6 +374,7 @@
 
     <resultMap id="baseResultMap" type="com.murphy.pojo.Register">
         <id column="re_id" property="re_id"/>
+        <result column="re_name" property="re_name"/>
         <result column="re_idCard" property="re_idCard"/>
         <result column="re_medical" property="re_medical"/>
         <result column="re_price" property="re_price"/>

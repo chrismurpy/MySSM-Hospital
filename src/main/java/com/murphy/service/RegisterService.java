@@ -101,4 +101,17 @@ public class RegisterService {
     public int addRegister(Register register) {
         return registerMapper.insertSelective(register);
     }
+
+    /**
+     * 主键查询
+     * @param re_id
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Register queryById(int re_id) {
+        Register register = registerMapper.selectByPrimaryKey(re_id);
+        Doctor doctor = doctorMapper.selectByPrimaryKey(register.getD_id());
+        register.setDoctor(doctor);
+        return register;
+    }
 }
