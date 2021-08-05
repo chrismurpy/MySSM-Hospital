@@ -236,55 +236,55 @@
             </td>
         </tr>
     </table>
-</form>
 
-<table class="table table-bordered table-hover definewidth m10">
-    <thead>
-    <tr>
-        <th><input type="checkbox" id="checkall" onChange="checkAll();"></th>
-        <th>门诊编号</th>
-        <th>主治医生</th>
-        <th>挂号时间</th>
-        <th>挂号科室</th>
-        <th>状态</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody id="t_body">
+    <table class="table table-bordered table-hover definewidth m10">
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="checkall" onChange="checkAll();"></th>
+            <th>门诊编号</th>
+            <th>主治医生</th>
+            <th>挂号时间</th>
+            <th>挂号科室</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="t_body">
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<table class="table table-bordered table-hover definewidth m10">
-    <tr>
-        <th colspan="5">
-            <div class="inline pull-right page pagination">
-                <ul class="pagination" style="margin: 0;">
-                    <li name="pageLi" id="firstPage"><a href="javascript:void(0)">首页</a></li>
-                    <li name="pageLi" id="prePage"><a href="javascript:void(0)">上一页</a></li>
-                    <li name="pageLi" id="nextPage"><a href="javascript:void(0)">下一页</a></li>
-                    <li name="pageLi" id="lastPage"><a href="javascript:void(0)">末页</a></li>
-                </ul>
-                &nbsp;第<span class="current" id="currentPage">1</span>页 -
-                &nbsp;&nbsp;&nbsp;共<span id="total" class='current'></span>条记录 - <span id="pages"
-                                                                                       class='current'></span>页
-                <span class="control-label"> &nbsp;每页显示
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <th colspan="5">
+                <div class="inline pull-right page pagination">
+                    <ul class="pagination" style="margin: 0;">
+                        <li name="pageLi" id="firstPage"><a href="javascript:void(0)">首页</a></li>
+                        <li name="pageLi" id="prePage"><a href="javascript:void(0)">上一页</a></li>
+                        <li name="pageLi" id="nextPage"><a href="javascript:void(0)">下一页</a></li>
+                        <li name="pageLi" id="lastPage"><a href="javascript:void(0)">末页</a></li>
+                    </ul>
+                    &nbsp;第<span class="current" id="currentPage">1</span>页 -
+                    &nbsp;&nbsp;&nbsp;共<span id="total" class='current'></span>条记录 - <span id="pages"
+                                                                                           class='current'></span>页
+                    <span class="control-label"> &nbsp;每页显示
                     <select name="pageSize" class="" style="width: 40px;height: 25px">
                         <option value="5">5</option>
                         <option value="10">10</option>
                     </select>
                 </span>
-                <span class="control-label"> &nbsp;- 跳转到
+                    <span class="control-label"> &nbsp;- 跳转到
                     <input name="pageNum" value="1" style="height: 16px;width: 40px;border-radius: 10px"/> 页
                 </span>
-            </div>
-            <div>
-                <button type="button" class="btn btn-success" id="newNav">门诊挂号</button>&nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-success" id="delPro" onClick="delAll();">退号</button>&nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-success" id="getExcel">导出Excel</button>
-            </div>
-        </th>
-    </tr>
-</table>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success" id="newNav">门诊挂号</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="delPro" onClick="delAll();">退号</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="getExcel">导出Excel</button>
+                </div>
+            </th>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

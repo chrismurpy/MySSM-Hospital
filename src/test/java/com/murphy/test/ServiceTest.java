@@ -3,8 +3,10 @@ package com.murphy.test;
 import com.github.pagehelper.PageInfo;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
+import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
+import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
 import com.murphy.vo.RegisterExcelVo;
@@ -33,6 +35,8 @@ public class ServiceTest {
     private DoctorMapper doctorMapper;
     @Resource
     private ExcelService excelService;
+    @Resource
+    private BeHospService beHospService;
 
     @Test
     public void test() {
@@ -68,5 +72,11 @@ public class ServiceTest {
         for (RegisterExcelVo registerExcelVo : list) {
             System.out.println(registerExcelVo.getRe_createTime().toString());
         }
+    }
+
+    @Test
+    public void test5() {
+        PageInfo<BeHosp> beHospPageInfo = beHospService.queryByPage(1, 5, null);
+        System.out.println(beHospPageInfo);
     }
 }

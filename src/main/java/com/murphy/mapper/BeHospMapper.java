@@ -3,6 +3,8 @@ package com.murphy.mapper;
 import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.BeHospExample;
 import java.util.List;
+
+import com.murphy.vo.BeHospQueryVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface BeHospMapper {
@@ -27,4 +29,11 @@ public interface BeHospMapper {
     int updateByPrimaryKeySelective(BeHosp record);
 
     int updateByPrimaryKey(BeHosp record);
+
+    /**
+     * 动态SQL
+     * @param vo
+     * @return
+     */
+    List<BeHosp> queryByVo(BeHospQueryVo vo);
 }

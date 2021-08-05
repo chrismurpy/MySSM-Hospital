@@ -76,7 +76,7 @@
         </tr>
         </thead>
 
-        <tbody id="tboby">
+        <tbody id="tbody">
         <tr>
             <td><input type="checkbox" name="one"/></td>
             <td>1001</td>
@@ -268,7 +268,7 @@
                         '            <td>' + btnStr + '</td>' +
                         '</tr>'
                 }
-                $("#tboby").html(str);
+                $("#tbody").html(str);
                 //填充分页数据
                 fillPageData(vo.pageInfo);
             }

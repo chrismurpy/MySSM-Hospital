@@ -85,7 +85,7 @@
 <script>
     $(function () {       
 		$('#backid').click(function(){
-				window.location.href="index.jsp";
+				window.location.href="index.html";
 		 });
     });
 </script>
