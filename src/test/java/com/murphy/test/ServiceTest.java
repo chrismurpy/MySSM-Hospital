@@ -84,4 +84,13 @@ public class ServiceTest {
         BeHosp beHosp = beHospService.queryById(1009);
         System.out.println(beHosp);
     }
+
+    @Test
+    public void test7() {
+        System.out.println("test---GitHub");
+    }
+
+
+
+    
 }
