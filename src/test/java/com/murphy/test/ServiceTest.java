@@ -88,7 +88,7 @@ public class ServiceTest {
 
     @Test
     public void test7() {
-        System.out.println("GitHub");
+        System.out.println("test---GitHub");
     }
 
 
