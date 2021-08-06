@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<form id="myForm" class="definewidth m20">
+<form id="myForm" class="definewidth m20" method="post">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
             <td width="10%" class="tableleft">病例号：</td>
@@ -91,7 +91,7 @@
             <td style="vertical-align:middle;">
                 <a href="look.html">详情>></a>&nbsp;&nbsp;&nbsp;
                 <a href="edit.html">更改</a>&nbsp;&nbsp;&nbsp;
-                <a href="add_many.html">缴纳押金</a>&nbsp;&nbsp;&nbsp;
+                <a href="ChargeMoney.html">缴纳押金</a>&nbsp;&nbsp;&nbsp;
             </td>
         </tr>
         </tbody>
@@ -297,15 +297,15 @@
 
                     let btnStr = "";
                     if (obj.beH_closePrice == 0 && obj.register.re_state == 1) {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="registerInfo(' + beH_id + ')" >详情</button>&nbsp;' +
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="beHospInfo(' + beH_id + ')" >详情</button>&nbsp;' +
                             '<button type="button" name="updateBtn" class="btn btn-sm btn-info" onclick="update(' + beH_id + ')">更改</button>&nbsp;' +
-                            '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="jiaoqian(' + beH_id + ')">缴纳押金</button>';
+                            '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="Charge(' + beH_id + ')">缴纳押金</button>';
                     } else if (obj.beH_closePrice == 1 && obj.beH_state == 0) {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="registerInfo(' + beH_id + ')" >详情</button>&nbsp;' +
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="beHospInfo(' + beH_id + ')" >详情</button>&nbsp;' +
                             '<button type="button" name="updateBtn" class="btn btn-sm btn-info" onclick="quitHos(' + beH_id + ')">退院</button>&nbsp;' +
                             '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="exitHos(' + beH_id + ')">出院</button>';
                     } else {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="registerInfo(' + beH_id + ')" >详情</button>&nbsp;';
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="beHospInfo(' + beH_id + ')" >详情</button>&nbsp;';
                     }
 
                     str += '<tr>' +
@@ -330,23 +330,22 @@
     }
 
     // 详情按钮
-    function registerInfo(id) {
-        window.location.href = "/hospital/look.html?beH_id=" + id;
+    function beHospInfo(id) {
+        window.location.href = "/pages/hospital/look.html?beH_id=" + id;
     }
 
     // 更改按钮
     function update(id) {
-        window.location.href = "/hospital/edit.html?beH_id=" + id;
+        window.location.href = "/pages/hospital/edit.html?beH_id=" + id;
     }
 
     // 缴费按钮
-    function jiaoqian(id) {
-        window.location.href = "/hospital/add_many.html?beH_id=" + id;
+    function Charge(id) {
+        window.location.href = "/pages/hospital/ChargeMoney.html?beH_id=" + id;
     }
 
     // 退院按钮
     function quitHos(id) {
-
         if (confirm("确定要退院？")) {
             $.ajax({
                 type: "post",
@@ -366,7 +365,6 @@
 
     // 出院按钮
     function exitHos(id) {
-
         if (confirm("确定要出院？")) {
             $.ajax({
                 type: "post",

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>缴费信息</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form id="myForm" method="post" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">病历号</td>
+            <td><span id="beH_id"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">姓名</td>
+            <td><span id="re_name"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">证件号</td>
+            <td><span id="re_idCard"></span></td>
+        </tr>
+
+        <tr>
+            <td width="10%" class="tableleft">待缴纳</td>
+            <td><span id="beH_remain"></span></td>
+        </tr>
+
+        <tr>
+            <td width="10%" class="tableleft">缴费押金</td>
+            <td><input type="text" id="beH_money" name="beH_money" value=""/>元</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <center>
+                    <button class="btn btn-success" type="button" id="saveBtn">保存</button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" name="backId" id="backId">返回列表
+                    </button>
+                </center>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+
+<script type="text/javascript">
+    String.prototype.GetValue = function (para) {
+        let reg = new RegExp("(^|&)" + para + "=([^&]*)(&|$)");
+        let r = this.substr(this.indexOf("\?") + 1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    $(function () {
+
+        let url = document.location.toString();//获取URL
+        let beH_id = url.GetValue("beH_id");
+
+        queryById(beH_id);
+
+        $("#saveBtn").click(function () {
+            let money = $("#beH_money").val();
+            $.ajax({
+                type: "POST",
+                url: "/hosp/addMoney/" + beH_id, //RESTful风格的API定义
+                data: {"money": money},
+                dataType: "json",
+                success: function (vo) {
+                    if (vo.code == 200) {
+                        alert("缴费成功！");
+                        window.location.href = "/pages/hospital/index.html";
+                    } else {
+                        alert("缴费失败！" + vo.msg);
+                    }
+                }
+            });
+        });
+
+    });
+
+    function queryById(beH_id) {
+        $.ajax({
+            type: "GET",
+            url: "/hosp/" + beH_id, //RESTful风格的API定义
+            data: "",
+            success: function (vo) {
+                let obj = vo.obj;
+                let beH_id = obj.beH_id;
+                let re_name = obj.register.re_name;
+                let re_idCard = obj.register.re_idCard;
+                let beH_remain = obj.beH_remain;
+
+                $("#beH_id").html(beH_id);
+                $("#re_name").html(re_name);
+                $("#re_idCard").html(re_idCard);
+                $("#beH_remain").html(beH_remain);
+            }
+        });
+    }
+
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/hospital/index.html";
+        });
+    });
+</script>

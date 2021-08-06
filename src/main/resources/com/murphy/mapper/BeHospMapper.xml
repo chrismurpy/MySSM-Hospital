@@ -267,14 +267,14 @@
             <if test="beH_antecedent != null">
                 beH_antecedent = #{beH_antecedent,jdbcType=DECIMAL},
             </if>
-            <if test="record.beH_total != null">
-                beH_total = #{record.beH_total,jdbcType=INTEGER},
+            <if test="beH_total != null">
+                beH_total = #{beH_total,jdbcType=INTEGER},
             </if>
-            <if test="record.beH_remain != null">
-                beH_remain = #{record.beH_remain,jdbcType=INTEGER},
+            <if test="beH_remain != null">
+                beH_remain = #{beH_remain,jdbcType=INTEGER},
             </if>
-            <if test="record.beH_createTime != null">
-                beH_createTime = #{record.beH_createTime,jdbcType=TIMESTAMP},
+            <if test="beH_createTime != null">
+                beH_createTime = #{beH_createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="d_id != null">
                 d_id = #{d_id,jdbcType=INTEGER},
@@ -311,7 +311,7 @@
         inner join SSM_Hosp.hosp_register re on re.re_id = beH.beH_id
         inner join SSM_Hosp.hosp_doctor d on d.d_id = beh.d_id
         <where>
-            <if test="beH_id != null">and beH_id = #{beH_id}</if>
+            <if test="beH_id != null"> beH_id = #{beH_id}</if>
             <if test="d_name != null">and d_name like concat(concat('%',#{d_name},'%'))</if>
             <if test="d_keshi != null">and d_keshi like concat(concat('%',#{d_keshi},'%'))</if>
             <if test="beginTime != null">and beH_createTime >= #{beginTime}</if>

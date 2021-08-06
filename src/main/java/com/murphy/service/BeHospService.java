@@ -3,7 +3,10 @@ package com.murphy.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.murphy.mapper.BeHospMapper;
+import com.murphy.mapper.DoctorMapper;
+import com.murphy.mapper.RegisterMapper;
 import com.murphy.pojo.BeHosp;
+import com.murphy.pojo.Register;
 import com.murphy.vo.BeHospQueryVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +26,10 @@ public class BeHospService {
 
     @Resource
     private BeHospMapper beHospMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
+    @Resource
+    private RegisterMapper registerMapper;
 
     /**
      * 多条件分页查询
@@ -46,6 +53,39 @@ public class BeHospService {
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public BeHosp queryById(int beH_id) {
-        return beHospMapper.selectByPrimaryKey(beH_id);
+        BeHosp beHosp = beHospMapper.selectByPrimaryKey(beH_id);
+        beHosp.setDoctor(doctorMapper.selectByPrimaryKey(beHosp.getD_id()));
+        beHosp.setRegister(registerMapper.selectByPrimaryKey(beH_id));
+        return beHosp;
+    }
+
+    /**
+     * 主键更新
+     * @param beHosp
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int updateBeHosp(BeHosp beHosp) {
+        return beHospMapper.updateByPrimaryKeySelective(beHosp);
+    }
+
+    /**
+     * 添加住院
+     * @param beHosp
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int addBeHosp(BeHosp beHosp) {
+        return beHospMapper.insertSelective(beHosp);
+    }
+
+    /**
+     * 缴费实现
+     * @param beHosp
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int updateCharge(BeHosp beHosp) {
+        return beHospMapper.updateByPrimaryKeySelective(beHosp);
     }
 }

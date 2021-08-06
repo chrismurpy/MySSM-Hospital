@@ -79,4 +79,10 @@ public class ServiceTest {
         PageInfo<BeHosp> beHospPageInfo = beHospService.queryByPage(1, 5, null);
         System.out.println(beHospPageInfo);
     }
+
+    @Test
+    public void test6() {
+        BeHosp beHosp = beHospService.queryById(1009);
+        System.out.println(beHosp);
+    }
 }
