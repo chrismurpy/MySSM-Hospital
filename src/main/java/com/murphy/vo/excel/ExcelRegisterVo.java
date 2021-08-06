@@ -1,4 +1,4 @@
-package com.murphy.vo;
+package com.murphy.vo.excel;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,12 +7,12 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * 导出Excel封装的结果类
+ * 导出Excel封装的结果类 - 挂号信息
  *
  * @author murphy
  * @since 2021/8/4 10:57 下午
  */
-public class RegisterExcelVo {
+public class ExcelRegisterVo {
 
     private Integer re_id;
     private String re_name;

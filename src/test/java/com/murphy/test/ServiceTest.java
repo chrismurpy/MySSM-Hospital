@@ -5,19 +5,16 @@ import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
 import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.Register;
-import com.murphy.pojo.RegisterExample;
 import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
-import com.murphy.vo.RegisterExcelVo;
+import com.murphy.vo.excel.ExcelRegisterVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,9 +66,9 @@ public class ServiceTest {
 
     @Test
     public void test4() {
-        List<RegisterExcelVo> list = excelService.queryExcelInfo();
+        List<ExcelRegisterVo> list = excelService.queryExcelInfo();
 //        System.out.println(list);
-        for (RegisterExcelVo registerExcelVo : list) {
+        for (ExcelRegisterVo registerExcelVo : list) {
             System.out.println(registerExcelVo.getRe_createTime().toString());
         }
     }

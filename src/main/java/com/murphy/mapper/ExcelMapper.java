@@ -1,6 +1,7 @@
 package com.murphy.mapper;
 
-import com.murphy.vo.RegisterExcelVo;
+import com.murphy.vo.excel.ExcelBeHospVo;
+import com.murphy.vo.excel.ExcelRegisterVo;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public interface ExcelMapper {
 
-    List<RegisterExcelVo> queryExcelInfo();
+    List<ExcelRegisterVo> queryExcelInfo();
 
+    List<ExcelBeHospVo> queryBeHospInfo();
 }

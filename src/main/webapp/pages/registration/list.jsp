@@ -362,6 +362,6 @@
     }
 
     function Excel(){
-        window.location.href = "${pageContext.request.contextPath}/excel";
+        window.location.href = "${pageContext.request.contextPath}/excel/register";
     }
 </script>

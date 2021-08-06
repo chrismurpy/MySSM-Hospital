@@ -115,7 +115,7 @@
                     <button type="button" class="btn btn-success" id="newNav">添加住院信息</button>&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-success" id="outHosp" onClick="exitAll();">出院</button>&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-success" id="exitHosp" onClick="quitAll();">退院</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="outExcel">导出Excel</button>
+                    <button type="button" class="btn btn-success" id="outExcel" onclick="Excel();">导出Excel</button>
                 </div>
             </th>
         </tr>
@@ -431,4 +431,8 @@
             window.location.href = "add.html";
         });
     });
+
+    function Excel() {
+        window.location.href = "/excel/beHosp";
+    }
 </script>
