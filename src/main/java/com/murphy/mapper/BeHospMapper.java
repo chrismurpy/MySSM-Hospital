@@ -4,7 +4,7 @@ import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.BeHospExample;
 import java.util.List;
 
-import com.murphy.vo.BeHospQueryVo;
+import com.murphy.vo.query.QueryBeHospVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface BeHospMapper {
@@ -35,5 +35,5 @@ public interface BeHospMapper {
      * @param vo
      * @return
      */
-    List<BeHosp> queryByVo(BeHospQueryVo vo);
+    List<BeHosp> queryByVo(QueryBeHospVo vo);
 }

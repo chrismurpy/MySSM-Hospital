@@ -4,7 +4,7 @@ import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
 import java.util.List;
 
-import com.murphy.vo.RegisterQueryVo;
+import com.murphy.vo.query.QueryRegisterVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface RegisterMapper {
@@ -35,5 +35,5 @@ public interface RegisterMapper {
      * @param vo
      * @return
      */
-    List<Register> queryByVo(RegisterQueryVo vo);
+    List<Register> queryByVo(QueryRegisterVo vo);
 }

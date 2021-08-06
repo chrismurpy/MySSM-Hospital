@@ -1,4 +1,4 @@
-package com.murphy.vo;
+package com.murphy.vo.query;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  * @author murphy
  * @since 2021/7/26 1:16 下午
  */
-public class DoctorQueryVo {
+public class QueryDoctorVo {
     private Integer d_id;
     private String d_name;
     private String d_keshi;

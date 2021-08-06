@@ -6,8 +6,7 @@ import com.murphy.mapper.BeHospMapper;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
 import com.murphy.pojo.BeHosp;
-import com.murphy.pojo.Register;
-import com.murphy.vo.BeHospQueryVo;
+import com.murphy.vo.query.QueryBeHospVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +38,7 @@ public class BeHospService {
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public PageInfo<BeHosp> queryByPage(Integer pageNum, Integer pageSize, BeHospQueryVo vo) {
+    public PageInfo<BeHosp> queryByPage(Integer pageNum, Integer pageSize, QueryBeHospVo vo) {
         // 分页
         PageHelper.startPage(pageNum, pageSize);
         List<BeHosp> beHospList = beHospMapper.queryByVo(vo);

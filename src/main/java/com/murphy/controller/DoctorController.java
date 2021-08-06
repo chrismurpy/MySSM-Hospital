@@ -3,7 +3,7 @@ package com.murphy.controller;
 import com.github.pagehelper.PageInfo;
 import com.murphy.pojo.Doctor;
 import com.murphy.service.DoctorService;
-import com.murphy.vo.DoctorQueryVo;
+import com.murphy.vo.query.QueryDoctorVo;
 import com.murphy.vo.ResultVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ public class DoctorController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResultVo<Doctor> queryByPage(Integer pageNum, Integer pageSize, DoctorQueryVo vo) {
+    public ResultVo<Doctor> queryByPage(Integer pageNum, Integer pageSize, QueryDoctorVo vo) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }

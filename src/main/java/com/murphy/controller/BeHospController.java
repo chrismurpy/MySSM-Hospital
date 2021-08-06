@@ -7,7 +7,7 @@ import com.murphy.pojo.Doctor;
 import com.murphy.pojo.Register;
 import com.murphy.service.BeHospService;
 import com.murphy.service.RegisterService;
-import com.murphy.vo.BeHospQueryVo;
+import com.murphy.vo.query.QueryBeHospVo;
 import com.murphy.vo.ResultVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class BeHospController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResultVo<BeHosp> queryByPage(Integer pageNum, Integer pageSize, BeHospQueryVo vo) {
+    public ResultVo<BeHosp> queryByPage(Integer pageNum, Integer pageSize, QueryBeHospVo vo) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }

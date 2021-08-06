@@ -8,7 +8,7 @@ import com.murphy.pojo.Doctor;
 import com.murphy.pojo.DoctorExample;
 import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
-import com.murphy.vo.RegisterQueryVo;
+import com.murphy.vo.query.QueryRegisterVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +39,7 @@ public class RegisterService {
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public PageInfo<Register> queryByPage1(Integer pageNum, Integer pageSize, RegisterQueryVo vo){
+    public PageInfo<Register> queryByPage1(Integer pageNum, Integer pageSize, QueryRegisterVo vo){
         RegisterExample example = new RegisterExample();
         // 创建条件的容器
         RegisterExample.Criteria criteria = example.createCriteria();
@@ -85,7 +85,7 @@ public class RegisterService {
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public PageInfo<Register> queryByPage(Integer pageNum, Integer pageSize, RegisterQueryVo vo){
+    public PageInfo<Register> queryByPage(Integer pageNum, Integer pageSize, QueryRegisterVo vo){
         // 分页
         PageHelper.startPage(pageNum, pageSize);
         List<Register> registers = registerMapper.queryByVo(vo);

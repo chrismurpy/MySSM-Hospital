@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.pojo.Doctor;
 import com.murphy.pojo.DoctorExample;
-import com.murphy.vo.DoctorQueryVo;
+import com.murphy.vo.query.QueryDoctorVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public class DoctorService {
     private DoctorMapper doctorMapper;
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public PageInfo<Doctor> queryByPage(Integer pageNum, Integer pageSize, DoctorQueryVo vo) {
+    public PageInfo<Doctor> queryByPage(Integer pageNum, Integer pageSize, QueryDoctorVo vo) {
         DoctorExample example = new DoctorExample();
         DoctorExample.Criteria criteria = example.createCriteria();
         if (vo != null){
