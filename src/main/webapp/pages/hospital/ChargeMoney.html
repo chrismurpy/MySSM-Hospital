@@ -49,12 +49,22 @@
 
         <tr>
             <td width="10%" class="tableleft">待缴纳</td>
-            <td><span id="beH_remain"></span></td>
+            <td><span id="beH_other"></span></td>
         </tr>
 
         <tr>
             <td width="10%" class="tableleft">缴费押金</td>
-            <td><input type="text" id="beH_money" name="beH_money" value=""/>元</td>
+            <td><input type="text" id="beH_money" name="beH_money" value="" required/> 元</td>
+        </tr>
+
+        <tr>
+            <td width="10%" class="tableleft">账户余额</td>
+            <td><span id="beH_balance"></span></td>
+        </tr>
+
+        <tr>
+            <td width="10%" class="tableleft">充值余额</td>
+            <td><input type="text" id="beH_remain" name="beH_remain" value="" required/> 元</td>
         </tr>
 
         <tr>
@@ -88,10 +98,11 @@
 
         $("#saveBtn").click(function () {
             let money = $("#beH_money").val();
+            let remain = $("#beH_remain").val();
             $.ajax({
                 type: "POST",
                 url: "/hosp/addMoney/" + beH_id, //RESTful风格的API定义
-                data: {"money": money},
+                data: {"money": money, "remain":remain},
                 dataType: "json",
                 success: function (vo) {
                     if (vo.code == 200) {
@@ -116,12 +127,14 @@
                 let beH_id = obj.beH_id;
                 let re_name = obj.register.re_name;
                 let re_idCard = obj.register.re_idCard;
-                let beH_remain = obj.beH_remain;
+                let beH_other = obj.beH_antecedent - obj.beH_total;
+                let beH_balance = obj.beH_remain;
 
                 $("#beH_id").html(beH_id);
                 $("#re_name").html(re_name);
                 $("#re_idCard").html(re_idCard);
-                $("#beH_remain").html(beH_remain);
+                $("#beH_other").html(beH_other);
+                $("#beH_balance").html(beH_balance);
             }
         });
     }

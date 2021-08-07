@@ -1,13 +1,17 @@
 package com.murphy.test;
 
 import com.github.pagehelper.PageInfo;
+import com.murphy.controller.ChargeProjController;
+import com.murphy.mapper.ChargeProjMapper;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
 import com.murphy.pojo.BeHosp;
+import com.murphy.pojo.ChargeProj;
 import com.murphy.pojo.Register;
 import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
+import com.murphy.vo.ResultVo;
 import com.murphy.vo.excel.ExcelRegisterVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +40,8 @@ public class ServiceTest {
     private ExcelService excelService;
     @Resource
     private BeHospService beHospService;
+    @Resource
+    private ChargeProjMapper chargeProjMapper;
 
     @Test
     public void test() {
@@ -90,7 +96,13 @@ public class ServiceTest {
         System.out.println("test---GitHub");
     }
 
+    @Test
+    public void test8() {
+        ChargeProj chargeProj = chargeProjMapper.selectByPrimaryKey(104);
 
-
-    
+        chargeProj.setCharP_name("CT Test");
+        chargeProj.setCharP_money((long) 200);
+        int update = chargeProjMapper.updateByPrimaryKeySelective(chargeProj);
+        System.out.println(update);
+    }
 }

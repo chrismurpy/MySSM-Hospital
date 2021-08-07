@@ -94,16 +94,16 @@ public class BeHospController {
      * @return
      */
     @RequestMapping(value = "addMoney/{beH_id}")
-    public ResultVo<BeHosp> updateCharge(@PathVariable("beH_id") Integer beH_id, Integer money) {
+    public ResultVo<BeHosp> updateCharge(@PathVariable("beH_id") Integer beH_id, Integer money, Integer remain) {
         BeHosp beHosp = beHospService.queryById(beH_id);
         Long beH_antecedent = beHosp.getBeH_antecedent();
-        Integer remain = beHosp.getBeH_remain();
         Integer total = beHosp.getBeH_total();
+        Integer beH_remain = beHosp.getBeH_remain();
         int beH_total = total + money;
-        int beH_remain = remain - money;
-        if (beH_total <= beH_antecedent && beH_remain >= 0 && money >= 0) {
+        int remain_new = beH_remain + remain;
+        if (beH_total <= beH_antecedent && money >= 0 && remain >= 0) {
+            beHosp.setBeH_remain(remain_new);
             beHosp.setBeH_total(beH_total);
-            beHosp.setBeH_remain(beH_remain);
             if (beH_antecedent == beH_total) {
                 beHosp.setBeH_closePrice(1);
             }
@@ -126,7 +126,7 @@ public class BeHospController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public ResultVo<BeHosp> addHosp(Integer beH_id, String beH_nurse, String beH_bedNum,
-                                    Long beH_antecedent, String beH_illness, Integer beH_total) {
+                                    Long beH_antecedent, String beH_illness, Integer beH_total, Integer beH_remain) {
         Register register = registerService.queryById(beH_id);
         if (register.getRe_state() == 0 && register.getRe_id() != null) {
             register.setRe_state(1);
@@ -142,7 +142,7 @@ public class BeHospController {
             beHosp.setBeH_createTime(new Timestamp(System.currentTimeMillis()));
             beHosp.setBeH_total(beH_total);
             beHosp.setBeH_closePrice(0);
-            beHosp.setBeH_remain(Math.toIntExact(beH_antecedent));
+            beHosp.setBeH_remain(beH_remain);
             beHosp.setD_id(register.getD_id());
             beHosp.setDoctor(register.getDoctor());
             beHosp.setRegister(register);
@@ -165,15 +165,19 @@ public class BeHospController {
     @RequestMapping(value = "quitHosp/{beH_id}", method = RequestMethod.PUT)
     public ResultVo<BeHosp> quitHosp(@PathVariable("beH_id") Integer beH_id) {
         BeHosp beHosp = beHospService.queryById(beH_id);
-        beHosp.setBeH_state(1);
+        if (beHosp.getBeH_closePrice() == 1) {
+            beHosp.setBeH_state(1);
 
-        Register register = registerService.queryById(beH_id);
-        register.setRe_state(2);
+            Register register = registerService.queryById(beH_id);
+            register.setRe_state(2);
 
-        int i = registerService.updateRegister(register);
-        int j = beHospService.updateBeHosp(beHosp);
-        if (i == 1 && j == 1) {
-            return new ResultVo<>();
+            int i = registerService.updateRegister(register);
+            int j = beHospService.updateBeHosp(beHosp);
+            if (i == 1 && j == 1) {
+                return new ResultVo<>();
+            }
+        } else if (beHosp.getBeH_closePrice() == 0) {
+            return new ResultVo<>(500,"未完成缴费，无法进行退院操作！");
         }
         return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
     }
@@ -186,15 +190,19 @@ public class BeHospController {
     @RequestMapping(value = "exitHosp/{beH_id}", method = RequestMethod.PUT)
     public ResultVo<BeHosp> exitHosp(@PathVariable("beH_id") Integer beH_id) {
         BeHosp beHosp = beHospService.queryById(beH_id);
-        beHosp.setBeH_state(2);
+        if (beHosp.getBeH_closePrice() == 1) {
+            beHosp.setBeH_state(2);
 
-        Register register = registerService.queryById(beH_id);
-        register.setRe_state(2);
+            Register register = registerService.queryById(beH_id);
+            register.setRe_state(2);
 
-        int i = registerService.updateRegister(register);
-        int j = beHospService.updateBeHosp(beHosp);
-        if (i == 1 && j == 1) {
-            return new ResultVo<>();
+            int i = registerService.updateRegister(register);
+            int j = beHospService.updateBeHosp(beHosp);
+            if (i == 1 && j == 1) {
+                return new ResultVo<>();
+            }
+        } else if (beHosp.getBeH_closePrice() == 0) {
+            return new ResultVo<>(500,"未完成缴费，无法进行出院操作！");
         }
         return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
     }

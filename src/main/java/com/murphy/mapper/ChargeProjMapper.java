@@ -3,6 +3,8 @@ package com.murphy.mapper;
 import com.murphy.pojo.ChargeProj;
 import com.murphy.pojo.ChargeProjExample;
 import java.util.List;
+
+import com.murphy.vo.query.QueryChargeProjVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface ChargeProjMapper {
@@ -26,5 +28,14 @@ public interface ChargeProjMapper {
 
     int updateByPrimaryKeySelective(ChargeProj record);
 
+    int updateCharge(ChargeProj proj);
+
     int updateByPrimaryKey(ChargeProj record);
+
+    /**
+     * 动态SQL查询
+     * @param vo
+     * @return
+     */
+    List<ChargeProj> queryByVo(QueryChargeProjVo vo);
 }

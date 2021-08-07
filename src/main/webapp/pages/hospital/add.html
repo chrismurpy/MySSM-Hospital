@@ -109,6 +109,10 @@
             <td><input type="text" id="beH_total"/></td>
         </tr>
         <tr>
+            <td width="10%" class="tableleft">账号余额</td>
+            <td><input type="text" id="beH_remain"/></td>
+        </tr>
+        <tr>
             <td width="10%" class="tableleft">病情</td>
             <td><input type="text" id="beH_illness"/></td>
         </tr>
@@ -193,12 +197,14 @@
         let beH_antecedent = $("#beH_antecedent").val();
         let beH_total = $("#beH_total").val();
         let beH_illness = $("#beH_illness").val();
+        let beH_remain = $("#beH_remain").val();
 
         $.ajax({
             type: "POST",
             url: "/hosp/add",
             data: {"beH_id": beH_id, "beH_nurse": beH_nurse, "beH_bedNum": beH_bedNum,
-                   "beH_antecedent": beH_antecedent, "beH_total": beH_total, "beH_illness": beH_illness},
+                   "beH_antecedent": beH_antecedent, "beH_total": beH_total,
+                   "beH_illness": beH_illness, "beH_remain": beH_remain},
             dataType: "json",
             success: function (vo) {
                 if (vo.code == 200) {
