@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>更改药品</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<form id="myForm" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">药品编号</td>
+            <td><input type="text" name="dr_id" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">进价</td>
+            <td><input type="text" name="dr_inPrice" value=""/> 元</td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">售价</td>
+            <td><input type="text" name="dr_outPrice" value=""/> 元</td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">药品名称</td>
+            <td><input type="text" name="dr_name" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">药品类型</td>
+            <td>
+                <select id="dr_type" name="dr_type">
+                    <option value="">请选择</option>
+                    <option value="中药">中药</option>
+                    <option value="西药">西药</option>
+                    <option value="中西药">中西药</option>
+                    <option value="处方药">处方药</option>
+                    <option value="非处方药">非处方药</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">简单描述</td>
+            <td><input type="text" name="dr_simpleDesc" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">保质期</td>
+            <td><input type="text" name="dr_expiration" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">详细描述</td>
+            <td><input type="text" name="dr_detaDesc" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">生产厂商</td>
+            <td><input type="text" name="dr_factory" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">服用说明</td>
+            <td><input type="text" name="dr_direction" value=""/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">备注</td>
+            <td><input type="text" name="dr_remark" value=""/></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <button id="saveBtn" class="btn btn-primary" type="button">保存</button> &nbsp;&nbsp;
+                <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+<script>
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "index.html";
+        });
+    });
+
+    String.prototype.GetValue = function (para) {
+        let reg = new RegExp("(^|&)" + para + "=([^&]*)(&|$)");
+        let r = this.substr(this.indexOf("\?") + 1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    $(function () {
+        let url = document.location.toString();//获取URL
+        let dr_id = url.GetValue("dr_id");
+        queryById(dr_id);
+
+        $("#saveBtn").click(function () {
+            $.ajax({
+                type: "POST",//这里必须写POST
+                url: "/drug/update/" + dr_id, //RESTful风格的API定义
+                data: $("#myForm").serialize() + "&_method=PUT",
+                dataType: "json",
+                success: function (vo) {
+                    if (vo.code == 200) {
+                        alert("修改成功！");
+                        window.location.href = "index.html";
+                    } else {
+                        alert("修改失败！" + vo.msg);
+                    }
+                }
+            });
+        });
+    });
+
+    function queryById(dr_id) {
+        $.ajax({
+            type: "GET",
+            url: "/drug/" + dr_id, //RESTful风格的API定义
+            data: "",
+            success: function (vo) {
+                let obj = vo.obj;
+                let dr_id = obj.dr_id;
+                let dr_inPrice = obj.dr_inPrice;
+                let dr_outPrice = obj.dr_outPrice;
+                let dr_name = obj.dr_name;
+                let dr_type = obj.dr_type;
+                let dr_simpleDesc = obj.dr_simpleDesc;
+                let dr_expiration = obj.dr_expiration;
+                let dr_detaDesc = obj.dr_detaDesc;
+                let dr_factory = obj.dr_factory;
+                let dr_direction = obj.dr_direction;
+                let dr_remark = obj.dr_remark;
+
+                $("input[name='dr_id']").val(dr_id);
+                $("input[name='dr_inPrice']").val(dr_inPrice);
+                $("input[name='dr_outPrice']").val(dr_outPrice);
+                $("input[name='dr_name']").val(dr_name);
+                $("#dr_type").val(dr_type);
+                $("input[name='dr_simpleDesc']").val(dr_simpleDesc);
+                $("input[name='dr_expiration']").val(dr_expiration);
+                $("input[name='dr_detaDesc']").val(dr_detaDesc);
+                $("input[name='dr_factory']").val(dr_factory);
+                $("input[name='dr_direction']").val(dr_direction);
+                $("input[name='dr_remark']").val(dr_remark);
+            }
+        });
+    }
+</script>

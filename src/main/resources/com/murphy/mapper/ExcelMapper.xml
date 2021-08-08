@@ -13,4 +13,8 @@
     <select id="queryDoctorInfo" resultType="com.murphy.vo.excel.ExcelDoctorVo">
         select * from SSM_Hosp.hosp_doctor
     </select>
+
+    <select id="queryDrugInfo" resultType="com.murphy.vo.excel.ExcelDrugVo">
+        select * from SSM_Hosp.hosp_drug
+    </select>
 </mapper>

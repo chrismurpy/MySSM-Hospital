@@ -27,6 +27,28 @@ public class Drug {
 
     private Integer dr_number;
 
+    private Integer dr_state;
+
+    @Override
+    public String toString() {
+        return "Drug{" +
+                "dr_id=" + dr_id +
+                ", dr_url='" + dr_url + '\'' +
+                ", dr_inPrice=" + dr_inPrice +
+                ", dr_outPrice=" + dr_outPrice +
+                ", dr_name='" + dr_name + '\'' +
+                ", dr_type='" + dr_type + '\'' +
+                ", dr_simpleDesc='" + dr_simpleDesc + '\'' +
+                ", dr_expiration='" + dr_expiration + '\'' +
+                ", dr_detaDesc='" + dr_detaDesc + '\'' +
+                ", dr_factory='" + dr_factory + '\'' +
+                ", dr_direction='" + dr_direction + '\'' +
+                ", dr_remark='" + dr_remark + '\'' +
+                ", dr_number=" + dr_number +
+                ", dr_state=" + dr_state +
+                '}';
+    }
+
     public Integer getDr_id() {
         return dr_id;
     }
@@ -129,5 +151,13 @@ public class Drug {
 
     public void setDr_number(Integer dr_number) {
         this.dr_number = dr_number;
+    }
+
+    public Integer getDr_state() {
+        return dr_state;
+    }
+
+    public void setDr_state(Integer dr_state) {
+        this.dr_state = dr_state;
     }
 }

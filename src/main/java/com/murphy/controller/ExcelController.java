@@ -3,6 +3,7 @@ package com.murphy.controller;
 import com.murphy.service.ExcelService;
 import com.murphy.vo.excel.ExcelBeHospVo;
 import com.murphy.vo.excel.ExcelDoctorVo;
+import com.murphy.vo.excel.ExcelDrugVo;
 import com.murphy.vo.excel.ExcelRegisterVo;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -202,6 +203,65 @@ public class ExcelController {
         // 设置下载时客户端Excel的名称
         response.setContentType("application/octet-stream;charset=utf-8");
         response.setHeader("Content-Disposition","attachment;filename=" + new String("医生信息".getBytes(),
+                "iso-8859-1") + ".xls");
+
+        OutputStream outputStream = response.getOutputStream();
+        wb.write(outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    /**
+     * 导出 Excel - 药品信息
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "drug", method = RequestMethod.GET)
+    public void excelDrug(HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        List<ExcelDrugVo> drugs = excelService.queryDrugInfo();
+        System.out.println(drugs);
+        // 创建Excel文件
+        HSSFWorkbook wb = new HSSFWorkbook();
+        // 创建Sheet页
+        HSSFSheet sheet = wb.createSheet("药品信息表");
+        // 创建标题行
+        HSSFRow titleRow = sheet.createRow(0);
+        titleRow.createCell(0).setCellValue("药品编号");
+        titleRow.createCell(1).setCellValue("药品名称");
+        titleRow.createCell(2).setCellValue("药品种类");
+        titleRow.createCell(3).setCellValue("简要说明");
+        titleRow.createCell(4).setCellValue("保质期");
+        titleRow.createCell(5).setCellValue("生产厂商");
+        titleRow.createCell(6).setCellValue("服用指南");
+        titleRow.createCell(7).setCellValue("库存量");
+        titleRow.createCell(8).setCellValue("药品状态");
+        // 遍历将数据放到Excel列中
+        String state = "";
+        for (ExcelDrugVo drug : drugs) {
+            HSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(drug.getDr_id());
+            dataRow.createCell(1).setCellValue(drug.getDr_name());
+            dataRow.createCell(2).setCellValue(drug.getDr_type());
+            dataRow.createCell(3).setCellValue(drug.getDr_simpleDesc());
+            dataRow.createCell(4).setCellValue(drug.getDr_expiration());
+            dataRow.createCell(5).setCellValue(drug.getDr_factory());
+            dataRow.createCell(6).setCellValue(drug.getDr_direction());
+            dataRow.createCell(7).setCellValue(drug.getDr_number());
+            if (drug.getDr_state() == 0 && drug.getDr_number() != 0) {
+                state = "销售中";
+            } else if (drug.getDr_state() == 0 && drug.getDr_number() == 0) {
+                state = "缺货中";
+            } else {
+                state = "已下架";
+            }
+            dataRow.createCell(8).setCellValue(state);
+
+        }
+
+        // 设置下载时客户端Excel的名称
+        response.setContentType("application/octet-stream;charset=utf-8");
+        response.setHeader("Content-Disposition","attachment;filename=" + new String("药品信息".getBytes(),
                 "iso-8859-1") + ".xls");
 
         OutputStream outputStream = response.getOutputStream();
