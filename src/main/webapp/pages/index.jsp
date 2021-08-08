@@ -49,7 +49,7 @@
                              {id:'10',text:'年营业额统计',href:''},
                              **/
                             {id: '3', text: '门诊医生管理', href: '/pages/doctor/index.html'},
-                            {id: '11', text: '用户管理', href: '/pages/User/index.jsp'},
+                            {id: '11', text: '用户管理', href: '/pages/User/index.html'},
                             {id: '12', text: '角色管理', href: '/pages/Role/index.html'},
                             {id: '13', text: '资源管理', href: '/pages/Resource/index.html'},
                             {id: '13', text: '密码管理', href: '/pages/User/password.html'}

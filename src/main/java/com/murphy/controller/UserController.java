@@ -6,6 +6,7 @@ import com.murphy.pojo.Role;
 import com.murphy.pojo.User;
 import com.murphy.service.RoleService;
 import com.murphy.service.UserService;
+import com.murphy.util.RandomLoginName;
 import com.murphy.util.RandomValidateCode;
 import com.murphy.vo.ResultVo;
 import com.murphy.vo.UserQueryVo;
@@ -47,22 +48,22 @@ public class UserController {
         System.out.println("Login：" + user.getU_LoginName());
         User result = userService.queryUser(user);
         String code = (String) session.getAttribute(RandomValidateCode.RANDOMCODEKEY);
-        if (user.getU_LoginName() != null && user.getU_password() != null && user.getU_password() != ""){
+        if (user.getU_LoginName() != null && user.getU_password() != null && user.getU_password() != "") {
             if (userService.login(user) && verify.equalsIgnoreCase(code)) {
                 session.setAttribute("username", result.getU_trueName());
                 mv.setViewName("index");
-            } else if(verify == null || verify == "") {
-                mv.addObject("msg","验证码不能为空！");
+            } else if (verify == null || verify == "") {
+                mv.addObject("msg", "验证码不能为空！");
                 mv.setViewName("login");
             } else if (!verify.equalsIgnoreCase(code)) {
-                mv.addObject("msg","验证码输入错误！");
+                mv.addObject("msg", "验证码输入错误！");
                 mv.setViewName("login");
             } else {
                 mv.addObject("msg", "用户名或者密码有误！");
                 mv.setViewName("login");
             }
         } else {
-            mv.addObject("msg","用户名或者密码不能为空！");
+            mv.addObject("msg", "用户名或者密码不能为空！");
             mv.setViewName("login");
         }
         return mv;
@@ -113,13 +114,14 @@ public class UserController {
 
     /**
      * 多条件分页查询
+     *
      * @param pageNum
      * @param pageSize
      * @param vo
      * @return
      */
-    @RequestMapping(value = "/User/index",method = RequestMethod.GET)
-    public ResultVo<User> queryByPage(Integer pageNum, Integer pageSize, UserQueryVo vo){
+    @RequestMapping(value = "/User/index", method = RequestMethod.GET)
+    public ResultVo<User> queryByPage(Integer pageNum, Integer pageSize, UserQueryVo vo) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
@@ -132,25 +134,28 @@ public class UserController {
 
     /**
      * 主键查询用户信息
+     *
      * @param u_id
      * @return
      */
     @RequestMapping(value = "/User/{u_id}", method = RequestMethod.GET)
-    public ResultVo<User> queryById(@PathVariable("u_id") Integer u_id){
+    public ResultVo<User> queryById(@PathVariable("u_id") Integer u_id) {
         User user = userService.queryById(u_id);
         return new ResultVo<>(user);
     }
 
     /**
      * 根据主键更新用户
+     *
      * @param u_id
      * @param user
      * @return
      */
-    @RequestMapping(value = "/User/{u_id}",method = RequestMethod.PUT)
-    public ResultVo<User> updateTeam(@PathVariable("u_id") Integer u_id,User user,
-                                    @RequestParam("r_name") String r_name){
+    @RequestMapping(value = "/User/{u_id}", method = RequestMethod.PUT)
+    public ResultVo<User> updateTeam(@PathVariable("u_id") Integer u_id, User user,
+                                     @RequestParam("r_name") String r_name) {
         user.setU_LoginName(u_id);
+        System.out.println(r_name);
         Role role = roleMapper.selectByRoleName(r_name);
         Integer r_id = role.getR_id();
         user.setR_id(r_id);
@@ -158,26 +163,48 @@ public class UserController {
 
         int i = userService.updateUser(user);
         System.out.println(i);
-        if (i == 1){
+        if (i == 1) {
             return new ResultVo<User>();
         }
-        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+        return new ResultVo<>(500, "服务器内部异常，请稍后再试！");
     }
 
     /**
      * 根据主键删除用户
      * 逻辑删除   u_state 变更为 1
+     *
      * @param u_id
      * @return
      */
-    @RequestMapping(value = "/User/{u_id}",method = RequestMethod.DELETE)
-    public ResultVo<User> deleteUser(@PathVariable("u_id") Integer u_id){
+    @RequestMapping(value = "/User/{u_id}", method = RequestMethod.DELETE)
+    public ResultVo<User> deleteUser(@PathVariable("u_id") Integer u_id) {
         int i = userService.deleteUser(u_id);
-        if (i == 1){
+        if (i == 1) {
             return new ResultVo<User>();
         }
-        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+        return new ResultVo<>(500, "服务器内部异常，请稍后再试！");
     }
 
+    /**
+     * 新增用户
+     *
+     * @param r_name - 角色名
+     * @return
+     */
+    @RequestMapping(value = "/User", method = RequestMethod.POST)
+    public ResultVo<User> addUser(User user, @RequestParam("r_name") String r_name) {
+        Role role = roleMapper.selectByRoleName(r_name);
+        Integer r_id = role.getR_id();
 
+        Integer loginName = RandomLoginName.getRandomLoginName();
+
+        user.setU_LoginName(loginName);
+        user.setR_id(r_id);
+        user.setU_state(0);
+        int i = userService.addUser(user);
+        if (i == 1) {
+            return new ResultVo<User>();
+        }
+        return new ResultVo<>(500, "服务器内部异常，请稍后再试！");
+    }
 }

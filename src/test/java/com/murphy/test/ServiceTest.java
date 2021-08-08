@@ -9,7 +9,7 @@ import com.murphy.pojo.RegisterExample;
 import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
-import com.murphy.vo.RegisterExcelVo;
+import com.murphy.util.RandomLoginName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -66,15 +66,6 @@ public class ServiceTest {
     }
 
     @Test
-    public void test4() {
-        List<RegisterExcelVo> list = excelService.queryExcelInfo();
-//        System.out.println(list);
-        for (RegisterExcelVo registerExcelVo : list) {
-            System.out.println(registerExcelVo.getRe_createTime().toString());
-        }
-    }
-
-    @Test
     public void test5() {
         PageInfo<BeHosp> beHospPageInfo = beHospService.queryByPage(1, 5, null);
         System.out.println(beHospPageInfo);
@@ -91,7 +82,11 @@ public class ServiceTest {
         System.out.println("test---GitHub");
     }
 
-
+    @Test
+    public void test8() {
+        Integer code = RandomLoginName.getRandomLoginName();
+        System.out.println(code);
+    }
 
     
 }

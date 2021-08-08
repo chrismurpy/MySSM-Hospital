@@ -95,10 +95,21 @@ public class UserService {
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public User queryById(int u_id){
+    public User queryById(int u_id) {
         User user = userMapper.selectByPrimaryKey(u_id);
         Role role = roleMapper.selectByPrimaryKey(user.getR_id());
         user.setRole(role);
+        return user;
+    }
+
+    /**
+     * 主键查询
+     * @param u_id
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public User queryUser(int u_id) {
+        User user = userMapper.selectByPrimaryKey(u_id);
         return user;
     }
 
@@ -107,6 +118,7 @@ public class UserService {
      * @param user
      * @return
      */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     public int updateUser(User user){
         return userMapper.updateByPrimaryKeySelective(user);
     }
@@ -117,10 +129,20 @@ public class UserService {
      * @param u_id
      * @return
      */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     public int deleteUser(Integer u_id){
         User user = userMapper.selectByPrimaryKey(u_id);
         user.setU_state(1);
         return userMapper.updateByPrimaryKeySelective(user);
     }
 
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int addUser(User user) {
+        return userMapper.insertSelective(user);
+    }
 }

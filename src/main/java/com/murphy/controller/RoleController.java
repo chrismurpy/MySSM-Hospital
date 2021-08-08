@@ -22,6 +22,10 @@ public class RoleController {
     @Resource
     private RoleService roleService;
 
+    /**
+     * 展示所有角色名
+     * @return
+     */
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public List selectRoleName(){
         List list = roleService.selectRoleName();

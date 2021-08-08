@@ -1,251 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.murphy.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.murphy.pojo.User">
-    <id column="u_LoginName" jdbcType="INTEGER" property="u_LoginName" />
-    <result column="u_password" jdbcType="VARCHAR" property="u_password" />
-    <result column="u_trueName" jdbcType="VARCHAR" property="u_trueName" />
-    <result column="u_email" jdbcType="VARCHAR" property="u_email" />
-    <result column="u_state" jdbcType="INTEGER" property="u_state" />
-    <result column="r_id" jdbcType="INTEGER" property="r_id" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.murphy.pojo.User">
+        <id column="u_LoginName" jdbcType="INTEGER" property="u_LoginName"/>
+        <result column="u_password" jdbcType="VARCHAR" property="u_password"/>
+        <result column="u_trueName" jdbcType="VARCHAR" property="u_trueName"/>
+        <result column="u_email" jdbcType="VARCHAR" property="u_email"/>
+        <result column="u_state" jdbcType="INTEGER" property="u_state"/>
+        <result column="r_id" jdbcType="INTEGER" property="r_id"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        u_LoginName, u_password, u_trueName, u_email, u_state, r_id
+    </sql>
+    <select id="selectByExample" parameterType="com.murphy.pojo.UserExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    u_LoginName, u_password, u_trueName, u_email, u_state, r_id
-  </sql>
-  <select id="selectByExample" parameterType="com.murphy.pojo.UserExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from hosp_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from hosp_user
-    where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hosp_user
-    where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.murphy.pojo.UserExample">
-    delete from hosp_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.murphy.pojo.User">
-    insert into hosp_user (u_LoginName, u_password, u_trueName, 
-      u_email, u_state, r_id
-      )
-    values (#{u_LoginName,jdbcType=INTEGER}, #{u_password,jdbcType=VARCHAR}, #{u_trueName,jdbcType=VARCHAR}, 
-      #{u_email,jdbcType=VARCHAR}, #{u_state,jdbcType=INTEGER}, #{r_id,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.murphy.pojo.User">
-    insert into hosp_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="u_LoginName != null">
-        u_LoginName,
-      </if>
-      <if test="u_password != null">
-        u_password,
-      </if>
-      <if test="u_trueName != null">
-        u_trueName,
-      </if>
-      <if test="u_email != null">
-        u_email,
-      </if>
-      <if test="u_state != null">
-        u_state,
-      </if>
-      <if test="r_id != null">
-        r_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="u_LoginName != null">
-        #{u_LoginName,jdbcType=INTEGER},
-      </if>
-      <if test="u_password != null">
-        #{u_password,jdbcType=VARCHAR},
-      </if>
-      <if test="u_trueName != null">
-        #{u_trueName,jdbcType=VARCHAR},
-      </if>
-      <if test="u_email != null">
-        #{u_email,jdbcType=VARCHAR},
-      </if>
-      <if test="u_state != null">
-        #{u_state,jdbcType=INTEGER},
-      </if>
-      <if test="r_id != null">
-        #{r_id,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.murphy.pojo.UserExample" resultType="java.lang.Long">
-    select count(*) from hosp_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update hosp_user
-    <set>
-      <if test="record.u_LoginName != null">
-        u_LoginName = #{record.u_LoginName,jdbcType=INTEGER},
-      </if>
-      <if test="record.u_password != null">
+        <include refid="Base_Column_List"/>
+        from hosp_user
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hosp_user
+        where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from hosp_user
+        where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.murphy.pojo.UserExample">
+        delete from hosp_user
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.murphy.pojo.User">
+        insert into hosp_user (u_LoginName, u_password, u_trueName,
+                               u_email, u_state, r_id)
+        values (#{u_LoginName,jdbcType=INTEGER}, #{u_password,jdbcType=VARCHAR}, #{u_trueName,jdbcType=VARCHAR},
+                #{u_email,jdbcType=VARCHAR}, #{u_state,jdbcType=INTEGER}, #{r_id,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.murphy.pojo.User">
+        insert into hosp_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="u_LoginName != null">
+                u_LoginName,
+            </if>
+            <if test="u_password != null">
+                u_password,
+            </if>
+            <if test="u_trueName != null">
+                u_trueName,
+            </if>
+            <if test="u_email != null">
+                u_email,
+            </if>
+            <if test="u_state != null">
+                u_state,
+            </if>
+            <if test="r_id != null">
+                r_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="u_LoginName != null">
+                #{u_LoginName,jdbcType=INTEGER},
+            </if>
+            <if test="u_password != null">
+                #{u_password,jdbcType=VARCHAR},
+            </if>
+            <if test="u_trueName != null">
+                #{u_trueName,jdbcType=VARCHAR},
+            </if>
+            <if test="u_email != null">
+                #{u_email,jdbcType=VARCHAR},
+            </if>
+            <if test="u_state != null">
+                #{u_state,jdbcType=INTEGER},
+            </if>
+            <if test="r_id != null">
+                #{r_id,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.murphy.pojo.UserExample" resultType="java.lang.Long">
+        select count(*) from hosp_user
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update hosp_user
+        <set>
+            <if test="record.u_LoginName != null">
+                u_LoginName = #{record.u_LoginName,jdbcType=INTEGER},
+            </if>
+            <if test="record.u_password != null">
+                u_password = #{record.u_password,jdbcType=VARCHAR},
+            </if>
+            <if test="record.u_trueName != null">
+                u_trueName = #{record.u_trueName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.u_email != null">
+                u_email = #{record.u_email,jdbcType=VARCHAR},
+            </if>
+            <if test="record.u_state != null">
+                u_state = #{record.u_state,jdbcType=INTEGER},
+            </if>
+            <if test="record.r_id != null">
+                r_id = #{record.r_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update hosp_user
+        set u_LoginName = #{record.u_LoginName,jdbcType=INTEGER},
         u_password = #{record.u_password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.u_trueName != null">
         u_trueName = #{record.u_trueName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.u_email != null">
         u_email = #{record.u_email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.u_state != null">
         u_state = #{record.u_state,jdbcType=INTEGER},
-      </if>
-      <if test="record.r_id != null">
-        r_id = #{record.r_id,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update hosp_user
-    set u_LoginName = #{record.u_LoginName,jdbcType=INTEGER},
-      u_password = #{record.u_password,jdbcType=VARCHAR},
-      u_trueName = #{record.u_trueName,jdbcType=VARCHAR},
-      u_email = #{record.u_email,jdbcType=VARCHAR},
-      u_state = #{record.u_state,jdbcType=INTEGER},
-      r_id = #{record.r_id,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.User">
-    update hosp_user
-    <set>
-      <if test="u_password != null">
-        u_password = #{u_password,jdbcType=VARCHAR},
-      </if>
-      <if test="u_trueName != null">
-        u_trueName = #{u_trueName,jdbcType=VARCHAR},
-      </if>
-      <if test="u_email != null">
-        u_email = #{u_email,jdbcType=VARCHAR},
-      </if>
-      <if test="u_state != null">
-        u_state = #{u_state,jdbcType=INTEGER},
-      </if>
-      <if test="r_id != null">
-        r_id = #{r_id,jdbcType=INTEGER},
-      </if>
-    </set>
-    where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.User">
-    update hosp_user
-    set u_password = #{u_password,jdbcType=VARCHAR},
-      u_trueName = #{u_trueName,jdbcType=VARCHAR},
-      u_email = #{u_email,jdbcType=VARCHAR},
-      u_state = #{u_state,jdbcType=INTEGER},
-      r_id = #{r_id,jdbcType=INTEGER}
-    where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
-  </update>
+        r_id = #{record.r_id,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.User">
+        update hosp_user
+        <set>
+            <if test="u_password != null">
+                u_password = #{u_password,jdbcType=VARCHAR},
+            </if>
+            <if test="u_trueName != null">
+                u_trueName = #{u_trueName,jdbcType=VARCHAR},
+            </if>
+            <if test="u_email != null">
+                u_email = #{u_email,jdbcType=VARCHAR},
+            </if>
+            <if test="u_state != null">
+                u_state = #{u_state,jdbcType=INTEGER},
+            </if>
+            <if test="r_id != null">
+                r_id = #{r_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.User">
+        update hosp_user
+        set u_password = #{u_password,jdbcType=VARCHAR},
+            u_trueName = #{u_trueName,jdbcType=VARCHAR},
+            u_email    = #{u_email,jdbcType=VARCHAR},
+            u_state    = #{u_state,jdbcType=INTEGER},
+            r_id       = #{r_id,jdbcType=INTEGER}
+        where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
+    </update>
 
 
-  <select id="queryUserByVo" parameterType="com.murphy.vo.UserQueryVo" resultMap="joinUserResult">
-    SELECT u_LoginName,u_trueName,u_state,r_name FROM ssm_hosp.hosp_user u INNER JOIN ssm_hosp.hosp_role r
-    ON u.r_id=r.r_id
-    <where>
-      <if test="u_LoginName != null">u_LoginName like concat(concat('%',#{u_LoginName},'%'))</if>
-    </where>
-  </select>
+    <select id="queryUserByVo" parameterType="com.murphy.vo.UserQueryVo" resultMap="joinUserResult">
+        SELECT u_LoginName,u_trueName,u_state,r_name FROM ssm_hosp.hosp_user u INNER JOIN ssm_hosp.hosp_role r
+        ON u.r_id=r.r_id
+        <where>
+            <if test="u_LoginName != null">u_LoginName like concat(concat('%',#{u_LoginName},'%'))</if>
+        </where>
+    </select>
 
-  <resultMap id="joinUserResult" type="com.murphy.pojo.User" extends="baseResultMap">
-    <result column="r_name" property="role.r_name"></result>
-  </resultMap>
+    <resultMap id="joinUserResult" type="com.murphy.pojo.User" extends="baseResultMap">
+        <result column="r_name" property="role.r_name"></result>
+    </resultMap>
 
-  <resultMap id="baseResultMap" type="com.murphy.pojo.User">
-    <id column="u_LoginName"  property="u_LoginName" />
-    <result column="u_password"  property="u_password" />
-    <result column="u_trueName"  property="u_trueName" />
-    <result column="u_email"  property="u_email" />
-    <result column="u_state"  property="u_state" />
-    <result column="r_id"  property="r_id" />
-  </resultMap>
-
+    <resultMap id="baseResultMap" type="com.murphy.pojo.User">
+        <id column="u_LoginName" property="u_LoginName"/>
+        <result column="u_password" property="u_password"/>
+        <result column="u_trueName" property="u_trueName"/>
+        <result column="u_email" property="u_email"/>
+        <result column="u_state" property="u_state"/>
+        <result column="r_id" property="r_id"/>
+    </resultMap>
 </mapper>

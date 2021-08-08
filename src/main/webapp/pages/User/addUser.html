@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form id="myForm" method="post" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td class="tableleft">真实姓名</td>
+            <td><input type="text" name="u_trueName"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">密码</td>
+            <td><input type="password" id="u_password" name="u_password"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">重复输入密码</td>
+            <td><input type="password" id="u_repeat" name="u_repeat"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">邮箱</td>
+            <td><input type="text" name="u_email"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">状态</td>
+            <td>
+                <input type="radio" name="u_state" value="0" checked/> 启用
+                <input type="radio" name="u_state" value="1"/> 禁用
+            </td>
+        </tr>
+        <tr>
+            <td class="tableleft">角色</td>
+            <td>
+                <select id="r_name" name="r_name">
+                    <option value="-1">--请选择--</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button id="addBtn" class="btn btn-success" type="button">添加</button>&nbsp;&nbsp;
+                <button class="btn btn-info" name="backId" id="backId">返回列表</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+<script>
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/User/index.html";
+        });
+    });
+
+    // 动态获取角色信息
+    $.ajax({
+        type: "GET",
+        url: "/role/index",
+        dataType: "json",
+        success: function (vo) {
+            for (let i in vo) {
+                $("#r_name").append("<option value='" + vo[i].r_name + "' name='" + vo[i].r_name + "'>" + vo[i].r_name + "</option>");
+            }
+        }
+    });
+
+    // 新增挂号信息
+    $(function (){
+        $("#addBtn").click(function (){
+            let u_repeat = $("#u_repeat").val();
+            let u_password = $("#u_password").val();
+            if (u_repeat != u_password) {
+                alert("两次密码输入不一致！");
+                window.location.href = "/pages/User/addUser.html";
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/User/",
+                data: $("#myForm").serialize(),
+                dataType: "json",
+                success: function (vo){
+                    if (vo.code == 200) {
+                        alert("添加成功！");
+                        window.location.href = "/pages/User/index.html";
+                    } else {
+                        alert("添加失败！" + vo.msg);
+                    }
+                }
+            });
+        });
+    });
+</script>
