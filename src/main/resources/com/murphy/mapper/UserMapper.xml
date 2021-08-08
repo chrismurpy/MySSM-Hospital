@@ -225,4 +225,27 @@
       r_id = #{r_id,jdbcType=INTEGER}
     where u_LoginName = #{u_LoginName,jdbcType=INTEGER}
   </update>
+
+
+  <select id="queryUserByVo" parameterType="com.murphy.vo.UserQueryVo" resultMap="joinUserResult">
+    SELECT u_LoginName,u_trueName,u_state,r_name FROM ssm_hosp.hosp_user u INNER JOIN ssm_hosp.hosp_role r
+    ON u.r_id=r.r_id
+    <where>
+      <if test="u_LoginName != null">u_LoginName like concat(concat('%',#{u_LoginName},'%'))</if>
+    </where>
+  </select>
+
+  <resultMap id="joinUserResult" type="com.murphy.pojo.User" extends="baseResultMap">
+    <result column="r_name" property="role.r_name"></result>
+  </resultMap>
+
+  <resultMap id="baseResultMap" type="com.murphy.pojo.User">
+    <id column="u_LoginName"  property="u_LoginName" />
+    <result column="u_password"  property="u_password" />
+    <result column="u_trueName"  property="u_trueName" />
+    <result column="u_email"  property="u_email" />
+    <result column="u_state"  property="u_state" />
+    <result column="r_id"  property="r_id" />
+  </resultMap>
+
 </mapper>

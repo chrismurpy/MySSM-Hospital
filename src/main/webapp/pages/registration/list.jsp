@@ -84,7 +84,9 @@
             <td>2021</td>
             <td>皮肤科</td>
             <td>已挂号</td>
-            <td style="vertical-align:middle;"><a href="look.html">详情>>></a>&nbsp;&nbsp;&nbsp;<a href="edit.html">更改</a>&nbsp;&nbsp;&nbsp;
+            <td style="vertical-align:middle;">
+                <a href="look.html">详情>>></a>&nbsp;&nbsp;&nbsp;
+                <a href="edit.html">更改</a>&nbsp;&nbsp;&nbsp;
                 <a href="javascript:alert('退号成功！');">退号</a>
             </td>
         </tr>

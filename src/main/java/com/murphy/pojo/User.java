@@ -13,6 +13,29 @@ public class User {
 
     private Integer r_id;
 
+    private Role role;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "u_LoginName=" + u_LoginName +
+                ", u_password='" + u_password + '\'' +
+                ", u_trueName='" + u_trueName + '\'' +
+                ", u_email='" + u_email + '\'' +
+                ", u_state=" + u_state +
+                ", r_id=" + r_id +
+                ", role=" + role +
+                '}';
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public Integer getU_LoginName() {
         return u_LoginName;
     }

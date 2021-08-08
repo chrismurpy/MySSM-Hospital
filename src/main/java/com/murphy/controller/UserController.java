@@ -1,11 +1,16 @@
 package com.murphy.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.murphy.mapper.RoleMapper;
+import com.murphy.pojo.Role;
 import com.murphy.pojo.User;
+import com.murphy.service.RoleService;
 import com.murphy.service.UserService;
 import com.murphy.util.RandomValidateCode;
+import com.murphy.vo.ResultVo;
+import com.murphy.vo.UserQueryVo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -26,6 +31,8 @@ import java.io.IOException;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private RoleMapper roleMapper;
 
     /**
      * 登录功能实现
@@ -103,4 +110,74 @@ public class UserController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 多条件分页查询
+     * @param pageNum
+     * @param pageSize
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value = "/User/index",method = RequestMethod.GET)
+    public ResultVo<User> queryByPage(Integer pageNum, Integer pageSize, UserQueryVo vo){
+        if (pageNum == null || pageNum <= 0) {
+            pageNum = 1;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = 5;
+        }
+        PageInfo<User> userPageInfo = userService.queryByPage(pageNum, pageSize, vo);
+        return new ResultVo<>(userPageInfo);
+    }
+
+    /**
+     * 主键查询用户信息
+     * @param u_id
+     * @return
+     */
+    @RequestMapping(value = "/User/{u_id}", method = RequestMethod.GET)
+    public ResultVo<User> queryById(@PathVariable("u_id") Integer u_id){
+        User user = userService.queryById(u_id);
+        return new ResultVo<>(user);
+    }
+
+    /**
+     * 根据主键更新用户
+     * @param u_id
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/User/{u_id}",method = RequestMethod.PUT)
+    public ResultVo<User> updateTeam(@PathVariable("u_id") Integer u_id,User user,
+                                    @RequestParam("r_name") String r_name){
+        user.setU_LoginName(u_id);
+        Role role = roleMapper.selectByRoleName(r_name);
+        Integer r_id = role.getR_id();
+        user.setR_id(r_id);
+        user.setRole(role);
+
+        int i = userService.updateUser(user);
+        System.out.println(i);
+        if (i == 1){
+            return new ResultVo<User>();
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
+
+    /**
+     * 根据主键删除用户
+     * 逻辑删除   u_state 变更为 1
+     * @param u_id
+     * @return
+     */
+    @RequestMapping(value = "/User/{u_id}",method = RequestMethod.DELETE)
+    public ResultVo<User> deleteUser(@PathVariable("u_id") Integer u_id){
+        int i = userService.deleteUser(u_id);
+        if (i == 1){
+            return new ResultVo<User>();
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
+
+
 }

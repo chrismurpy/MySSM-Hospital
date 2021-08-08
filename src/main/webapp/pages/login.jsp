@@ -75,9 +75,10 @@
 
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-large btn-info" type="submit">登录</button>
-            <span style="color: red;height: 50px;line-height: 50px">${msg}</span>
+            <span style="color: #ff0000;height: 50px;line-height: 50px">${msg}</span>
         </p>
     </form>
 </div>
 </body>
 </html>
+

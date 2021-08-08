@@ -178,4 +178,15 @@
       r_state = #{r_state,jdbcType=INTEGER}
     where r_id = #{r_id,jdbcType=INTEGER}
   </update>
+
+  <!--  查询所有角色姓名-->
+  <select id="selectRoleName" resultMap="BaseResultMap">
+    SELECT r_name FROM hosp_role
+  </select>
+  <!--  通过角色名查询该角色信息-->
+  <select id="selectByRoleName" resultMap="BaseResultMap">
+    SELECT * FROM hosp_role WHERE r_name = #{r_name,jdbcType=VARCHAR}
+  </select>
+
+
 </mapper>

@@ -18,6 +18,12 @@ public interface RoleMapper {
 
     List<Role> selectByExample(RoleExample example);
 
+    //查询所有角色姓名
+    List<String> selectRoleName();
+
+    //通过角色名查询该角色信息
+    Role selectByRoleName(String r_name);
+
     Role selectByPrimaryKey(Integer r_id);
 
     int updateByExampleSelective(@Param("record") Role record, @Param("example") RoleExample example);
