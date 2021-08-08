@@ -99,10 +99,13 @@
             </td>
         </tr>
         <tr>
-            <td width="10%" class="tableleft">押金余额</td>
+            <td width="10%" class="tableleft">押金明细</td>
             <td><span id="beH_antecedent"></span></td>
         </tr>
-
+        <tr>
+            <td width="10%" class="tableleft">账户余额</td>
+            <td><span id="beH_remain"></span></td>
+        </tr>
         <tr>
             <td width="10%" class="tableleft">病情</td>
             <td><span id="beH_illness"></span></td>
@@ -164,6 +167,8 @@
                 let beH_nurse = obj.beH_nurse;
                 let beH_bedNum = obj.beH_bedNum;
                 let beH_antecedent = obj.beH_antecedent;
+                let beH_total = obj.beH_total;
+                let beH_remain = obj.beH_remain;
                 let beH_illness = obj.beH_illness;
 
                 $("#re_name").html(re_name).addClass("disabled");
@@ -193,7 +198,8 @@
 
                 $("#beH_nurse").html(beH_nurse).addClass("disabled");
                 $("#beH_bedNum").html(beH_bedNum).addClass("disabled");
-                $("#beH_antecedent").html(beH_antecedent).addClass("disabled");
+                $("#beH_antecedent").html(beH_total + " / " + beH_antecedent + " 元").addClass("disabled");
+                $("#beH_remain").html(beH_remain + " 元").addClass("disabled");
                 $("#beH_illness").html(beH_illness).addClass("disabled");
             }
         });

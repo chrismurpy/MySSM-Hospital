@@ -3,17 +3,13 @@ package com.murphy.test;
 import com.github.pagehelper.PageInfo;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
-import com.murphy.mapper.UserMapper;
 import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
-import com.murphy.pojo.User;
 import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
-import com.murphy.service.UserService;
 import com.murphy.vo.RegisterExcelVo;
-import com.murphy.vo.UserQueryVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,10 +37,6 @@ public class ServiceTest {
     private ExcelService excelService;
     @Resource
     private BeHospService beHospService;
-    @Resource
-    private UserService userService;
-    @Resource
-    private UserMapper userMapper;
 
     @Test
     public void test() {
@@ -96,10 +88,10 @@ public class ServiceTest {
 
     @Test
     public void test7() {
-        User user = userService.queryById(108000);
-        System.out.println(user);
-        System.out.println(user.getRole().getR_name());
+        System.out.println("test---GitHub");
     }
+
+
 
     
 }

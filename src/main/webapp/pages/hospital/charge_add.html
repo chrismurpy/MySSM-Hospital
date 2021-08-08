@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>修改收费项目</title>
+    <title>新增收费项目</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
@@ -44,10 +44,6 @@
 <form id="myForm" method="post" class="definewidth m20">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
-            <td width="10%" class="tableleft">编号</td>
-            <td><span id="charP_id" name="charP_name"></span></td>
-        </tr>
-        <tr>
             <td width="10%" class="tableleft">收费项目名称</td>
             <td><input type="text" id="charP_name" name="charP_name" value=""/></td>
         </tr>
@@ -56,17 +52,9 @@
             <td><input type="text" id="charP_money" name="charP_money" value=""/></td>
         </tr>
         <tr>
-            <td width="10%" class="tableleft">创建时间</td>
-            <td><span id="charP_createTime" name="charP_createTime"></span></td>
-        </tr>
-        <tr>
-            <td width="10%" class="tableleft">项目状态</td>
-            <td><span id="charP_state" name="charP_state"></span></td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <center>
-                    <button type="button" class="btn btn-success" id="saveBtn">更改</button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="saveBtn">新增</button> &nbsp;&nbsp;
                     <button type="button" class="btn btn-primary" name="backId" id="backId">返回列表</button>
                 </center>
             </td>
@@ -82,60 +70,22 @@
         });
     });
 
-    String.prototype.GetValue = function (para) {
-        let reg = new RegExp("(^|&)" + para + "=([^&]*)(&|$)");
-        let r = this.substr(this.indexOf("\?") + 1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
-
     $(function () {
-        let url = document.location.toString();//获取URL
-        let charP_id = url.GetValue("charP_id");
-        queryById(charP_id);
-
         $("#saveBtn").click(function () {
             $.ajax({
                 type: "POST",
-                url: "/charP/update/" + charP_id,
-                data: $("#myForm").serialize() + "&_method=PUT",
+                url: "/charP/add/",
+                data: $("#myForm").serialize(),
                 dataType: "json",
                 success: function (vo) {
                     if (vo.code == 200) {
-                        alert("修改成功！");
+                        alert("新增成功！");
                         window.location.href = "/pages/hospital/charge.html";
                     } else {
-                        alert("修改失败！" + vo.msg);
+                        alert("新增失败！" + vo.msg);
                     }
                 }
             });
         });
     });
-
-
-    function queryById(charP_id) {
-        $.ajax({
-            type: "GET",
-            url: "/charP/" + charP_id,
-            data: "",
-            success: function (vo) {
-                let obj = vo.obj;
-                let charP_id = obj.charP_id;
-                let charP_name = obj.charP_name;
-                let charP_money = obj.charP_money;
-                let charP_createTime = obj.charP_createTime;
-                let charP_state = obj.charP_state;
-
-                $("#charP_id").html(charP_id);
-                $("#charP_name").val(charP_name);
-                $("#charP_money").val(charP_money);
-                $("#charP_createTime").html(charP_createTime);
-                let str = '';
-                if (charP_state == 0) {
-                    str = '项目正常启用' + ' <span class="correct"></span>';
-                }
-                $("#charP_state").html(str);
-            }
-        });
-    }
 </script>

@@ -1,4 +1,4 @@
-package com.murphy.vo;
+package com.murphy.vo.query;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author murphy
  */
-public class BeHospQueryVo {
+public class QueryBeHospVo {
     private Integer beH_id;
     private String d_name;
     private String d_keshi;

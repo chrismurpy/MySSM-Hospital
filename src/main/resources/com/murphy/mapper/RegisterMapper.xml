@@ -365,7 +365,7 @@
         where re_id = #{re_id,jdbcType=INTEGER}
     </update>
 
-    <select id="queryByVo" parameterType="com.murphy.vo.RegisterQueryVo" resultMap="joinRegisterResult">
+    <select id="queryByVo" parameterType="com.murphy.vo.query.QueryRegisterVo" resultMap="joinRegisterResult">
         select * from SSM_Hosp.hosp_register re inner join SSM_Hosp.hosp_doctor d
         on re.d_id = d.d_id
         <where>

@@ -306,7 +306,7 @@
         where beH_id = #{beH_id,jdbcType=INTEGER}
     </update>
 
-    <select id="queryByVo" parameterType="com.murphy.vo.BeHospQueryVo" resultMap="joinBeHospResult">
+    <select id="queryByVo" parameterType="com.murphy.vo.query.QueryBeHospVo" resultMap="joinBeHospResult">
         select * from SSM_Hosp.hosp_beHosp beH
         inner join SSM_Hosp.hosp_register re on re.re_id = beH.beH_id
         inner join SSM_Hosp.hosp_doctor d on d.d_id = beh.d_id

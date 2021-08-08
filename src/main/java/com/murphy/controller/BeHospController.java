@@ -7,12 +7,13 @@ import com.murphy.pojo.Doctor;
 import com.murphy.pojo.Register;
 import com.murphy.service.BeHospService;
 import com.murphy.service.RegisterService;
-import com.murphy.vo.BeHospQueryVo;
+import com.murphy.vo.query.QueryBeHospVo;
 import com.murphy.vo.ResultVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 
 /**
  * 住院办理 - Controller层
@@ -31,8 +32,6 @@ public class BeHospController {
     private DoctorMapper doctorMapper;
     @Resource
     private RegisterService registerService;
-    @Resource
-    private RegisterController registerController;
 
     /**
      * 多条件分页查询
@@ -42,7 +41,7 @@ public class BeHospController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResultVo<BeHosp> queryByPage(Integer pageNum, Integer pageSize, BeHospQueryVo vo) {
+    public ResultVo<BeHosp> queryByPage(Integer pageNum, Integer pageSize, QueryBeHospVo vo) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
@@ -65,7 +64,7 @@ public class BeHospController {
     }
 
     /**
-     * 更新
+     * 更新住院信息
      * @param beH_id
      * @param beHosp
      * @param d_name
@@ -95,20 +94,115 @@ public class BeHospController {
      * @return
      */
     @RequestMapping(value = "addMoney/{beH_id}")
-    public ResultVo<BeHosp> updateCharge(@PathVariable("beH_id") Integer beH_id, Integer money) {
+    public ResultVo<BeHosp> updateCharge(@PathVariable("beH_id") Integer beH_id, Integer money, Integer remain) {
         BeHosp beHosp = beHospService.queryById(beH_id);
         Long beH_antecedent = beHosp.getBeH_antecedent();
-        Integer remain = beHosp.getBeH_remain();
         Integer total = beHosp.getBeH_total();
+        Integer beH_remain = beHosp.getBeH_remain();
         int beH_total = total + money;
-        int beH_remain = remain - money;
-        if (beH_total <= beH_antecedent && beH_remain >= 0 && money >= 0) {
+        int remain_new = beH_remain + remain;
+        if (beH_total <= beH_antecedent && money >= 0 && remain >= 0) {
+            beHosp.setBeH_remain(remain_new);
             beHosp.setBeH_total(beH_total);
-            beHosp.setBeH_remain(beH_remain);
+            if (beH_antecedent == beH_total) {
+                beHosp.setBeH_closePrice(1);
+            }
             int i = beHospService.updateBeHosp(beHosp);
             if (i == 1) {
                 return new ResultVo<>();
             }
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
+
+    /**
+     * 添加住院信息
+     * @param beH_id
+     * @param beH_nurse
+     * @param beH_bedNum
+     * @param beH_antecedent
+     * @param beH_illness
+     * @return
+     */
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public ResultVo<BeHosp> addHosp(Integer beH_id, String beH_nurse, String beH_bedNum,
+                                    Long beH_antecedent, String beH_illness, Integer beH_total, Integer beH_remain) {
+        Register register = registerService.queryById(beH_id);
+        if (register.getRe_state() == 0 && register.getRe_id() != null) {
+            register.setRe_state(1);
+            registerService.updateRegister(register);
+
+            BeHosp beHosp = new BeHosp();
+            beHosp.setBeH_id(beH_id);
+            beHosp.setBeH_nurse(beH_nurse);
+            beHosp.setBeH_bedNum(beH_bedNum);
+            beHosp.setBeH_antecedent(beH_antecedent);
+            beHosp.setBeH_illness(beH_illness);
+            beHosp.setBeH_state(0);
+            beHosp.setBeH_createTime(new Timestamp(System.currentTimeMillis()));
+            beHosp.setBeH_total(beH_total);
+            beHosp.setBeH_closePrice(0);
+            beHosp.setBeH_remain(beH_remain);
+            beHosp.setD_id(register.getD_id());
+            beHosp.setDoctor(register.getDoctor());
+            beHosp.setRegister(register);
+
+            int i = beHospService.addBeHosp(beHosp);
+            if (i == 1) {
+                return new ResultVo<>();
+            }
+        } else if (register.getRe_state() == 1) {
+            return new ResultVo<>(500,"此病人已住院！");
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
+
+    /**
+     * 住院办理 - 退院
+     * @param beH_id
+     * @return
+     */
+    @RequestMapping(value = "quitHosp/{beH_id}", method = RequestMethod.PUT)
+    public ResultVo<BeHosp> quitHosp(@PathVariable("beH_id") Integer beH_id) {
+        BeHosp beHosp = beHospService.queryById(beH_id);
+        if (beHosp.getBeH_closePrice() == 1) {
+            beHosp.setBeH_state(1);
+
+            Register register = registerService.queryById(beH_id);
+            register.setRe_state(2);
+
+            int i = registerService.updateRegister(register);
+            int j = beHospService.updateBeHosp(beHosp);
+            if (i == 1 && j == 1) {
+                return new ResultVo<>();
+            }
+        } else if (beHosp.getBeH_closePrice() == 0) {
+            return new ResultVo<>(500,"未完成缴费，无法进行退院操作！");
+        }
+        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
+
+    /**
+     * 住院办理 - 出院
+     * @param beH_id
+     * @return
+     */
+    @RequestMapping(value = "exitHosp/{beH_id}", method = RequestMethod.PUT)
+    public ResultVo<BeHosp> exitHosp(@PathVariable("beH_id") Integer beH_id) {
+        BeHosp beHosp = beHospService.queryById(beH_id);
+        if (beHosp.getBeH_closePrice() == 1) {
+            beHosp.setBeH_state(2);
+
+            Register register = registerService.queryById(beH_id);
+            register.setRe_state(2);
+
+            int i = registerService.updateRegister(register);
+            int j = beHospService.updateBeHosp(beHosp);
+            if (i == 1 && j == 1) {
+                return new ResultVo<>();
+            }
+        } else if (beHosp.getBeH_closePrice() == 0) {
+            return new ResultVo<>(500,"未完成缴费，无法进行出院操作！");
         }
         return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
     }

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.murphy.mapper.ExcelMapper">
-    <select id="queryExcelInfo" resultType="com.murphy.vo.RegisterExcelVo">
+    <select id="queryExcelInfo" resultType="com.murphy.vo.excel.ExcelRegisterVo">
         select * from SSM_Hosp.hosp_register re inner join SSM_Hosp.hosp_doctor d where re.d_id = d.d_id
+    </select>
+
+    <select id="queryBeHospInfo" resultType="com.murphy.vo.excel.ExcelBeHospVo">
+        select * from SSM_Hosp.hosp_beHosp beH inner join SSM_Hosp.hosp_register re inner join SSM_Hosp.hosp_doctor d
+        where beH.beH_id = re.re_id and beH.d_id = d.d_id
+    </select>
+
+    <select id="queryDoctorInfo" resultType="com.murphy.vo.excel.ExcelDoctorVo">
+        select * from SSM_Hosp.hosp_doctor
     </select>
 </mapper>

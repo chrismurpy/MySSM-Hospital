@@ -33,7 +33,7 @@
 <form id="myForm" class="definewidth m20" method="post">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
-            <td width="10%" class="tableleft">病例号：</td>
+            <td width="10%" class="tableleft">病历号：</td>
             <td>
                 <input type="text" name="beH_id" value=""/>
             </td>
@@ -62,12 +62,12 @@
     <table class="table table-bordered table-hover definewidth m10">
         <thead>
         <tr>
-            <th><input type="checkbox" id="checkAll" onChange="checkAll();"></th>
+            <th><input type="checkbox" id="checkAll" onclick="check_All()"></th>
             <th>病历号</th>
             <th>姓名</th>
             <th>床位号</th>
             <th>联系电话</th>
-            <th>押金</th>
+            <th>押金缴纳</th>
             <th>主治医生</th>
             <th>入院时间</th>
             <th>科室</th>
@@ -77,23 +77,7 @@
         </thead>
 
         <tbody id="tbody">
-        <tr>
-            <td style="vertical-align:middle;"><input type="checkbox" name="check" value="1"></td>
-            <td style="vertical-align:middle;">1103</td>
-            <td style="vertical-align:middle;">黄飞鸿</td>
-            <td style="vertical-align:middle;">4343</td>
-            <td style="vertical-align:middle;">13127653423</td>
-            <td style="vertical-align:middle;">2000元</td>
-            <td style="vertical-align:middle;">程俊</td>
-            <td style="vertical-align:middle;">2015-01-05 12:33:56</td>
-            <td style="vertical-align:middle;">血液科</td>
-            <td style="vertical-align:middle;">已住院</td>
-            <td style="vertical-align:middle;">
-                <a href="look.html">详情>></a>&nbsp;&nbsp;&nbsp;
-                <a href="edit.html">更改</a>&nbsp;&nbsp;&nbsp;
-                <a href="ChargeMoney.html">缴纳押金</a>&nbsp;&nbsp;&nbsp;
-            </td>
-        </tr>
+
         </tbody>
     </table>
 
@@ -129,9 +113,9 @@
             <th colspan="5">
                 <div>
                     <button type="button" class="btn btn-success" id="newNav">添加住院信息</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="outHosp" onClick="delAll();">出院</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="exitHosp" onClick="delAll();">退院</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="outExcel">导出Excel</button>
+                    <button type="button" class="btn btn-success" id="outHosp" onClick="exitAll();">出院</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="exitHosp" onClick="quitAll();">退院</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="outExcel" onclick="Excel();">导出Excel</button>
                 </div>
             </th>
         </tr>
@@ -146,31 +130,54 @@
         });
     });
 
-    function checkAll() {
-        var alls = document.getElementsByName("check");
-        var ch = document.getElementById("checkAll");
+    function check_All() {
+        let alls = document.getElementsByName("check");
+        let ch = document.getElementById("checkAll");
         if (ch.checked) {
-            for (var i = 0; i < alls.length; i++) {
+            for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = true;
             }
         } else {
-            for (var i = 0; i < alls.length; i++) {
+            for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = false;
             }
         }
     }
 
-    function delAll() {
-        var alls = document.getElementsByName("check");
-        var ids = new Array();
-        for (var i = 0; i < alls.length; i++) {
+    // 批量出院
+    function exitAll() {
+        let alls = document.getElementsByName("check");
+        let ids = new Array();
+        for (let i = 0; i < alls.length; i++) {
             if (alls[i].checked) {
                 ids.push(alls[i].value);
             }
         }
         if (ids.length > 0) {
             if (confirm("确认操作?")) {
-                alert("成功!");
+                for (let i = 0; i < ids.length; i++) {
+                    exitHosps(ids[i]);
+                }
+            }
+        } else {
+            alert("请选中要操作的项");
+        }
+    }
+
+    //批量退院
+    function quitAll() {
+        let alls = document.getElementsByName("check");
+        let ids = new Array();
+        for (let i = 0; i < alls.length; i++) {
+            if (alls[i].checked) {
+                ids.push(alls[i].value);
+            }
+        }
+        if (ids.length > 0) {
+            if (confirm("确认操作?")) {
+                for (let i = 0; i < ids.length; i++) {
+                    quitHosps(ids[i]);
+                }
             }
         } else {
             alert("请选中要操作的项");
@@ -277,6 +284,7 @@
                     let beH_bedNum = obj.beH_bedNum == null ? '' : obj.beH_bedNum;
                     let re_phone = obj.register.re_phone == null ? '' : obj.register.re_phone;
                     let beH_antecedent = obj.beH_antecedent == null ? '' : obj.beH_antecedent;
+                    let beH_total = obj.beH_total == null ? '' : obj.beH_total;
                     let d_name = obj.doctor.d_name == null ? '' : obj.doctor.d_name;
                     let beH_createTime = obj.beH_createTime == null ? '' : obj.beH_createTime;
                     let d_keshi = obj.doctor.d_keshi == null ? '' : obj.doctor.d_keshi;
@@ -284,14 +292,14 @@
                     if (obj.beH_closePrice == 0) {
                         if (obj.register.re_state == 1) {
                             beH_state = "已住院";
-                        } else if (obj.register.re_state == 2) {
-                            beH_state = "已出院";
                         }
                     } else if (obj.beH_closePrice == 1) {
                         if (obj.beH_state == 1) {
                             beH_state = "已退院";
                         } else if (obj.beH_state == 0) {
                             beH_state = "已结算";
+                        } else if (obj.register.re_state == 2 || obj.beH_state == 2) {
+                            beH_state = "已出院";
                         }
                     }
 
@@ -302,8 +310,8 @@
                             '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="Charge(' + beH_id + ')">缴纳押金</button>';
                     } else if (obj.beH_closePrice == 1 && obj.beH_state == 0) {
                         btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="beHospInfo(' + beH_id + ')" >详情</button>&nbsp;' +
-                            '<button type="button" name="updateBtn" class="btn btn-sm btn-info" onclick="quitHos(' + beH_id + ')">退院</button>&nbsp;' +
-                            '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="exitHos(' + beH_id + ')">出院</button>';
+                            '<button type="button" name="updateBtn" class="btn btn-sm btn-info" onclick="quitHosp(' + beH_id + ')">退院</button>&nbsp;' +
+                            '<button type="button" name="deleteBtn" class="btn btn-sm btn-info" onclick="exit_Hosp(' + beH_id + ')">出院</button>';
                     } else {
                         btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-success" onclick="beHospInfo(' + beH_id + ')" >详情</button>&nbsp;';
                     }
@@ -314,7 +322,7 @@
                         '            <td>' + re_name + '</td>' +
                         '            <td>' + beH_bedNum + '</td>' +
                         '            <td>' + re_phone + '</td>' +
-                        '            <td>' + beH_antecedent + ' 元</td>' +
+                        '            <td>' + beH_total + ' / ' + beH_antecedent + ' 元</td>' +
                         '            <td>' + d_name + '</td>' +
                         '            <td>' + beH_createTime + '</td>' +
                         '            <td>' + d_keshi + '</td>' +
@@ -345,16 +353,17 @@
     }
 
     // 退院按钮
-    function quitHos(id) {
+    function quitHosp(beH_id) {
         if (confirm("确定要退院？")) {
             $.ajax({
-                type: "post",
-                url: "/beHospital/quitHos",
-                data: {"beH_id": id},
+                type: "POST",
+                url: "/hosp/quitHosp/" + beH_id,
+                data: "_method=PUT",
                 dataType: "json",
                 success: function (vo) {
                     if (vo.code == 200) {
-                        loadData()
+                        alert("操作成功！");
+                        loadData();
                     } else {
                         alert("操作失败！" + vo.msg);
                     }
@@ -364,15 +373,16 @@
     }
 
     // 出院按钮
-    function exitHos(id) {
+    function exit_Hosp(id) {
         if (confirm("确定要出院？")) {
             $.ajax({
-                type: "post",
-                url: "/beHospital/exitHos",
-                data: {"beH_id": id},
+                type: "POST",
+                url: "/hosp/exitHosp/" + id,
+                data: "_method=PUT",
                 dataType: "json",
                 success: function (vo) {
                     if (vo.code == 200) {
+                        alert("操作成功！");
                         loadData();
                     } else {
                         alert("操作失败！" + vo.msg);
@@ -383,28 +393,11 @@
     }
 
     // 用于批量退院
-    function quitHos2(id) {
+    function quitHosps(id) {
         $.ajax({
-            type: "post",
-            url: "/beHospital/quitHos",
-            data: {"beH_id": id},
-            dataType: "json",
-            success: function (vo) {
-                if (vo.code == 200) {
-                    loadData()
-                } else {
-                    alert("操作失败！" + vo.msg);
-                }
-            }
-        });
-    }
-
-    // 用于批量出院
-    function exitHos2(id) {
-        $.ajax({
-            type: "post",
-            url: "/beHospital/exitHos",
-            data: {"beH_id": id},
+            type: "POST",
+            url: "/hosp/quitHosp/" + id,
+            data: "_method=PUT",
             dataType: "json",
             success: function (vo) {
                 if (vo.code == 200) {
@@ -414,5 +407,32 @@
                 }
             }
         });
+    }
+
+    // 用于批量出院
+    function exitHosps(id) {
+        $.ajax({
+            type: "POST",
+            url: "/hosp/exitHosp/" + id,
+            data: "_method=PUT",
+            dataType: "json",
+            success: function (vo) {
+                if (vo.code == 200) {
+                    loadData();
+                } else {
+                    alert("操作失败！" + vo.msg);
+                }
+            }
+        });
+    }
+
+    $(function () {
+        $('#newNav').click(function () {
+            window.location.href = "add.html";
+        });
+    });
+
+    function Excel() {
+        window.location.href = "/excel/beHosp";
     }
 </script>

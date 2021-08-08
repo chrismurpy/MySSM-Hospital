@@ -116,7 +116,7 @@
         <tr>
             <td colspan="2">
                 <center>
-                    <button id="btnAdd" type="button" class="btn btn-primary" type="button">新增</button> &nbsp;&nbsp;
+                    <button id="btnAdd" class="btn btn-primary" type="button">新增</button> &nbsp;&nbsp;
                     <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
                 </center>
             </td>

@@ -1,361 +1,375 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.murphy.mapper.DoctorMapper">
-  <resultMap id="BaseResultMap" type="com.murphy.pojo.Doctor">
-    <id column="d_id" jdbcType="INTEGER" property="d_id" />
-    <result column="d_idCard" jdbcType="VARCHAR" property="d_idCard" />
-    <result column="d_name" jdbcType="VARCHAR" property="d_name" />
-    <result column="d_phone" jdbcType="VARCHAR" property="d_phone" />
-    <result column="d_telPhone" jdbcType="VARCHAR" property="d_telPhone" />
-    <result column="d_sex" jdbcType="INTEGER" property="d_sex" />
-    <result column="d_birthday" jdbcType="DATE" property="d_birthday" />
-    <result column="d_age" jdbcType="INTEGER" property="d_age" />
-    <result column="d_email" jdbcType="VARCHAR" property="d_email" />
-    <result column="d_keshi" jdbcType="VARCHAR" property="d_keshi" />
-    <result column="d_edu" jdbcType="VARCHAR" property="d_edu" />
-    <result column="d_desc" jdbcType="VARCHAR" property="d_desc" />
-    <result column="d_inTime" jdbcType="DATE" property="d_inTime" />
-    <result column="d_state" jdbcType="INTEGER" property="d_state" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.murphy.pojo.Doctor">
+        <id column="d_id" jdbcType="INTEGER" property="d_id"/>
+        <result column="d_idCard" jdbcType="VARCHAR" property="d_idCard"/>
+        <result column="d_name" jdbcType="VARCHAR" property="d_name"/>
+        <result column="d_phone" jdbcType="VARCHAR" property="d_phone"/>
+        <result column="d_telPhone" jdbcType="VARCHAR" property="d_telPhone"/>
+        <result column="d_sex" jdbcType="INTEGER" property="d_sex"/>
+        <result column="d_birthday" jdbcType="DATE" property="d_birthday"/>
+        <result column="d_age" jdbcType="INTEGER" property="d_age"/>
+        <result column="d_email" jdbcType="VARCHAR" property="d_email"/>
+        <result column="d_keshi" jdbcType="VARCHAR" property="d_keshi"/>
+        <result column="d_edu" jdbcType="VARCHAR" property="d_edu"/>
+        <result column="d_desc" jdbcType="VARCHAR" property="d_desc"/>
+        <result column="d_inTime" jdbcType="DATE" property="d_inTime"/>
+        <result column="d_state" jdbcType="INTEGER" property="d_state"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    d_id, d_idCard, d_name, d_phone, d_telPhone, d_sex, d_birthday, d_age, d_email, d_keshi, 
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        d_id, d_idCard, d_name, d_phone, d_telPhone, d_sex, d_birthday, d_age, d_email, d_keshi,
     d_edu, d_desc, d_inTime, d_state
-  </sql>
-  <select id="selectByExample" parameterType="com.murphy.pojo.DoctorExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from hosp_doctor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from hosp_doctor
-    where d_id = #{d_id,jdbcType=INTEGER}
-  </select>
-  <select id="selectByName" resultMap="BaseResultMap">
-    select * from hosp_doctor
-    where d_name = #{d_name,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hosp_doctor
-    where d_id = #{d_id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.murphy.pojo.DoctorExample">
-    delete from hosp_doctor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.murphy.pojo.Doctor">
-    insert into hosp_doctor (d_id, d_idCard, d_name, 
-      d_phone, d_telPhone, d_sex, 
-      d_birthday, d_age, d_email, 
-      d_keshi, d_edu, d_desc, 
-      d_inTime, d_state)
-    values (#{d_id,jdbcType=INTEGER}, #{d_idCard,jdbcType=VARCHAR}, #{d_name,jdbcType=VARCHAR}, 
-      #{d_phone,jdbcType=VARCHAR}, #{d_telPhone,jdbcType=VARCHAR}, #{d_sex,jdbcType=INTEGER}, 
-      #{d_birthday,jdbcType=DATE}, #{d_age,jdbcType=INTEGER}, #{d_email,jdbcType=VARCHAR}, 
-      #{d_keshi,jdbcType=VARCHAR}, #{d_edu,jdbcType=VARCHAR}, #{d_desc,jdbcType=VARCHAR}, 
-      #{d_inTime,jdbcType=DATE}, #{d_state,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.murphy.pojo.Doctor">
-    insert into hosp_doctor
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="d_id != null">
-        d_id,
-      </if>
-      <if test="d_idCard != null">
-        d_idCard,
-      </if>
-      <if test="d_name != null">
-        d_name,
-      </if>
-      <if test="d_phone != null">
-        d_phone,
-      </if>
-      <if test="d_telPhone != null">
-        d_telPhone,
-      </if>
-      <if test="d_sex != null">
-        d_sex,
-      </if>
-      <if test="d_birthday != null">
-        d_birthday,
-      </if>
-      <if test="d_age != null">
-        d_age,
-      </if>
-      <if test="d_email != null">
-        d_email,
-      </if>
-      <if test="d_keshi != null">
-        d_keshi,
-      </if>
-      <if test="d_edu != null">
-        d_edu,
-      </if>
-      <if test="d_desc != null">
-        d_desc,
-      </if>
-      <if test="d_inTime != null">
-        d_inTime,
-      </if>
-      <if test="d_state != null">
-        d_state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="d_id != null">
-        #{d_id,jdbcType=INTEGER},
-      </if>
-      <if test="d_idCard != null">
-        #{d_idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="d_name != null">
-        #{d_name,jdbcType=VARCHAR},
-      </if>
-      <if test="d_phone != null">
-        #{d_phone,jdbcType=VARCHAR},
-      </if>
-      <if test="d_telPhone != null">
-        #{d_telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="d_sex != null">
-        #{d_sex,jdbcType=INTEGER},
-      </if>
-      <if test="d_birthday != null">
-        #{d_birthday,jdbcType=DATE},
-      </if>
-      <if test="d_age != null">
-        #{d_age,jdbcType=INTEGER},
-      </if>
-      <if test="d_email != null">
-        #{d_email,jdbcType=VARCHAR},
-      </if>
-      <if test="d_keshi != null">
-        #{d_keshi,jdbcType=VARCHAR},
-      </if>
-      <if test="d_edu != null">
-        #{d_edu,jdbcType=VARCHAR},
-      </if>
-      <if test="d_desc != null">
-        #{d_desc,jdbcType=VARCHAR},
-      </if>
-      <if test="d_inTime != null">
-        #{d_inTime,jdbcType=DATE},
-      </if>
-      <if test="d_state != null">
-        #{d_state,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.murphy.pojo.DoctorExample" resultType="java.lang.Long">
-    select count(*) from hosp_doctor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <select id="selectByKeshi" resultMap="BaseResultMap">
-    select * from hosp_doctor
-    where d_keshi = #{d_keshi,jdbcType=VARCHAR}
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update hosp_doctor
-    <set>
-      <if test="record.d_id != null">
-        d_id = #{record.d_id,jdbcType=INTEGER},
-      </if>
-      <if test="record.d_idCard != null">
+    </sql>
+    <select id="selectByExample" parameterType="com.murphy.pojo.DoctorExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from hosp_doctor
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hosp_doctor
+        where d_id = #{d_id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByName" resultMap="BaseResultMap">
+        select *
+        from hosp_doctor
+        where d_name = #{d_name,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from hosp_doctor
+        where d_id = #{d_id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.murphy.pojo.DoctorExample">
+        delete from hosp_doctor
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.murphy.pojo.Doctor">
+        insert into hosp_doctor (d_id, d_idCard, d_name,
+                                 d_phone, d_telPhone, d_sex,
+                                 d_birthday, d_age, d_email,
+                                 d_keshi, d_edu, d_desc,
+                                 d_inTime, d_state)
+        values (#{d_id,jdbcType=INTEGER}, #{d_idCard,jdbcType=VARCHAR}, #{d_name,jdbcType=VARCHAR},
+                #{d_phone,jdbcType=VARCHAR}, #{d_telPhone,jdbcType=VARCHAR}, #{d_sex,jdbcType=INTEGER},
+                #{d_birthday,jdbcType=DATE}, #{d_age,jdbcType=INTEGER}, #{d_email,jdbcType=VARCHAR},
+                #{d_keshi,jdbcType=VARCHAR}, #{d_edu,jdbcType=VARCHAR}, #{d_desc,jdbcType=VARCHAR},
+                #{d_inTime,jdbcType=DATE}, #{d_state,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.murphy.pojo.Doctor">
+        insert into hosp_doctor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="d_id != null">
+                d_id,
+            </if>
+            <if test="d_idCard != null">
+                d_idCard,
+            </if>
+            <if test="d_name != null">
+                d_name,
+            </if>
+            <if test="d_phone != null">
+                d_phone,
+            </if>
+            <if test="d_telPhone != null">
+                d_telPhone,
+            </if>
+            <if test="d_sex != null">
+                d_sex,
+            </if>
+            <if test="d_birthday != null">
+                d_birthday,
+            </if>
+            <if test="d_age != null">
+                d_age,
+            </if>
+            <if test="d_email != null">
+                d_email,
+            </if>
+            <if test="d_keshi != null">
+                d_keshi,
+            </if>
+            <if test="d_edu != null">
+                d_edu,
+            </if>
+            <if test="d_desc != null">
+                d_desc,
+            </if>
+            <if test="d_inTime != null">
+                d_inTime,
+            </if>
+            <if test="d_state != null">
+                d_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="d_id != null">
+                #{d_id,jdbcType=INTEGER},
+            </if>
+            <if test="d_idCard != null">
+                #{d_idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="d_name != null">
+                #{d_name,jdbcType=VARCHAR},
+            </if>
+            <if test="d_phone != null">
+                #{d_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="d_telPhone != null">
+                #{d_telPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="d_sex != null">
+                #{d_sex,jdbcType=INTEGER},
+            </if>
+            <if test="d_birthday != null">
+                #{d_birthday,jdbcType=DATE},
+            </if>
+            <if test="d_age != null">
+                #{d_age,jdbcType=INTEGER},
+            </if>
+            <if test="d_email != null">
+                #{d_email,jdbcType=VARCHAR},
+            </if>
+            <if test="d_keshi != null">
+                #{d_keshi,jdbcType=VARCHAR},
+            </if>
+            <if test="d_edu != null">
+                #{d_edu,jdbcType=VARCHAR},
+            </if>
+            <if test="d_desc != null">
+                #{d_desc,jdbcType=VARCHAR},
+            </if>
+            <if test="d_inTime != null">
+                #{d_inTime,jdbcType=DATE},
+            </if>
+            <if test="d_state != null">
+                #{d_state,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.murphy.pojo.DoctorExample" resultType="java.lang.Long">
+        select count(*) from hosp_doctor
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="selectByKeshi" resultMap="BaseResultMap">
+        select *
+        from hosp_doctor
+        where d_keshi = #{d_keshi,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update hosp_doctor
+        <set>
+            <if test="record.d_id != null">
+                d_id = #{record.d_id,jdbcType=INTEGER},
+            </if>
+            <if test="record.d_idCard != null">
+                d_idCard = #{record.d_idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_name != null">
+                d_name = #{record.d_name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_phone != null">
+                d_phone = #{record.d_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_telPhone != null">
+                d_telPhone = #{record.d_telPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_sex != null">
+                d_sex = #{record.d_sex,jdbcType=INTEGER},
+            </if>
+            <if test="record.d_birthday != null">
+                d_birthday = #{record.d_birthday,jdbcType=DATE},
+            </if>
+            <if test="record.d_age != null">
+                d_age = #{record.d_age,jdbcType=INTEGER},
+            </if>
+            <if test="record.d_email != null">
+                d_email = #{record.d_email,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_keshi != null">
+                d_keshi = #{record.d_keshi,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_edu != null">
+                d_edu = #{record.d_edu,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_desc != null">
+                d_desc = #{record.d_desc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.d_inTime != null">
+                d_inTime = #{record.d_inTime,jdbcType=DATE},
+            </if>
+            <if test="record.d_state != null">
+                d_state = #{record.d_state,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update hosp_doctor
+        set d_id = #{record.d_id,jdbcType=INTEGER},
         d_idCard = #{record.d_idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_name != null">
         d_name = #{record.d_name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_phone != null">
         d_phone = #{record.d_phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_telPhone != null">
         d_telPhone = #{record.d_telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_sex != null">
         d_sex = #{record.d_sex,jdbcType=INTEGER},
-      </if>
-      <if test="record.d_birthday != null">
         d_birthday = #{record.d_birthday,jdbcType=DATE},
-      </if>
-      <if test="record.d_age != null">
         d_age = #{record.d_age,jdbcType=INTEGER},
-      </if>
-      <if test="record.d_email != null">
         d_email = #{record.d_email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_keshi != null">
         d_keshi = #{record.d_keshi,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_edu != null">
         d_edu = #{record.d_edu,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_desc != null">
         d_desc = #{record.d_desc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.d_inTime != null">
         d_inTime = #{record.d_inTime,jdbcType=DATE},
-      </if>
-      <if test="record.d_state != null">
-        d_state = #{record.d_state,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update hosp_doctor
-    set d_id = #{record.d_id,jdbcType=INTEGER},
-      d_idCard = #{record.d_idCard,jdbcType=VARCHAR},
-      d_name = #{record.d_name,jdbcType=VARCHAR},
-      d_phone = #{record.d_phone,jdbcType=VARCHAR},
-      d_telPhone = #{record.d_telPhone,jdbcType=VARCHAR},
-      d_sex = #{record.d_sex,jdbcType=INTEGER},
-      d_birthday = #{record.d_birthday,jdbcType=DATE},
-      d_age = #{record.d_age,jdbcType=INTEGER},
-      d_email = #{record.d_email,jdbcType=VARCHAR},
-      d_keshi = #{record.d_keshi,jdbcType=VARCHAR},
-      d_edu = #{record.d_edu,jdbcType=VARCHAR},
-      d_desc = #{record.d_desc,jdbcType=VARCHAR},
-      d_inTime = #{record.d_inTime,jdbcType=DATE},
-      d_state = #{record.d_state,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.Doctor">
-    update hosp_doctor
-    <set>
-      <if test="d_idCard != null">
-        d_idCard = #{d_idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="d_name != null">
-        d_name = #{d_name,jdbcType=VARCHAR},
-      </if>
-      <if test="d_phone != null">
-        d_phone = #{d_phone,jdbcType=VARCHAR},
-      </if>
-      <if test="d_telPhone != null">
-        d_telPhone = #{d_telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="d_sex != null">
-        d_sex = #{d_sex,jdbcType=INTEGER},
-      </if>
-      <if test="d_birthday != null">
-        d_birthday = #{d_birthday,jdbcType=DATE},
-      </if>
-      <if test="d_age != null">
-        d_age = #{d_age,jdbcType=INTEGER},
-      </if>
-      <if test="d_email != null">
-        d_email = #{d_email,jdbcType=VARCHAR},
-      </if>
-      <if test="d_keshi != null">
-        d_keshi = #{d_keshi,jdbcType=VARCHAR},
-      </if>
-      <if test="d_edu != null">
-        d_edu = #{d_edu,jdbcType=VARCHAR},
-      </if>
-      <if test="d_desc != null">
-        d_desc = #{d_desc,jdbcType=VARCHAR},
-      </if>
-      <if test="d_inTime != null">
-        d_inTime = #{d_inTime,jdbcType=DATE},
-      </if>
-      <if test="d_state != null">
-        d_state = #{d_state,jdbcType=INTEGER},
-      </if>
-    </set>
-    where d_id = #{d_id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Doctor">
-    update hosp_doctor
-    set d_idCard = #{d_idCard,jdbcType=VARCHAR},
-      d_name = #{d_name,jdbcType=VARCHAR},
-      d_phone = #{d_phone,jdbcType=VARCHAR},
-      d_telPhone = #{d_telPhone,jdbcType=VARCHAR},
-      d_sex = #{d_sex,jdbcType=INTEGER},
-      d_birthday = #{d_birthday,jdbcType=DATE},
-      d_age = #{d_age,jdbcType=INTEGER},
-      d_email = #{d_email,jdbcType=VARCHAR},
-      d_keshi = #{d_keshi,jdbcType=VARCHAR},
-      d_edu = #{d_edu,jdbcType=VARCHAR},
-      d_desc = #{d_desc,jdbcType=VARCHAR},
-      d_inTime = #{d_inTime,jdbcType=DATE},
-      d_state = #{d_state,jdbcType=INTEGER}
-    where d_id = #{d_id,jdbcType=INTEGER}
-  </update>
+        d_state = #{record.d_state,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.murphy.pojo.Doctor">
+        update hosp_doctor
+        <set>
+            <if test="d_idCard != null">
+                d_idCard = #{d_idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="d_name != null">
+                d_name = #{d_name,jdbcType=VARCHAR},
+            </if>
+            <if test="d_phone != null">
+                d_phone = #{d_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="d_telPhone != null">
+                d_telPhone = #{d_telPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="d_sex != null">
+                d_sex = #{d_sex,jdbcType=INTEGER},
+            </if>
+            <if test="d_birthday != null">
+                d_birthday = #{d_birthday,jdbcType=DATE},
+            </if>
+            <if test="d_age != null">
+                d_age = #{d_age,jdbcType=INTEGER},
+            </if>
+            <if test="d_email != null">
+                d_email = #{d_email,jdbcType=VARCHAR},
+            </if>
+            <if test="d_keshi != null">
+                d_keshi = #{d_keshi,jdbcType=VARCHAR},
+            </if>
+            <if test="d_edu != null">
+                d_edu = #{d_edu,jdbcType=VARCHAR},
+            </if>
+            <if test="d_desc != null">
+                d_desc = #{d_desc,jdbcType=VARCHAR},
+            </if>
+            <if test="d_inTime != null">
+                d_inTime = #{d_inTime,jdbcType=DATE},
+            </if>
+            <if test="d_state != null">
+                d_state = #{d_state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where d_id = #{d_id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.murphy.pojo.Doctor">
+        update hosp_doctor
+        set d_idCard   = #{d_idCard,jdbcType=VARCHAR},
+            d_name     = #{d_name,jdbcType=VARCHAR},
+            d_phone    = #{d_phone,jdbcType=VARCHAR},
+            d_telPhone = #{d_telPhone,jdbcType=VARCHAR},
+            d_sex      = #{d_sex,jdbcType=INTEGER},
+            d_birthday = #{d_birthday,jdbcType=DATE},
+            d_age      = #{d_age,jdbcType=INTEGER},
+            d_email    = #{d_email,jdbcType=VARCHAR},
+            d_keshi    = #{d_keshi,jdbcType=VARCHAR},
+            d_edu      = #{d_edu,jdbcType=VARCHAR},
+            d_desc     = #{d_desc,jdbcType=VARCHAR},
+            d_inTime   = #{d_inTime,jdbcType=DATE},
+            d_state    = #{d_state,jdbcType=INTEGER}
+        where d_id = #{d_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryByVo" parameterType="com.murphy.vo.query.QueryDoctorVo" resultMap="BaseResultMap">
+        select * from SSM_Hosp.hosp_doctor
+        <where>
+            <if test="d_id != null">d_id = #{d_id}</if>
+            <if test="d_name != null">and d_name like concat(concat('%',#{d_name},'%'))</if>
+            <if test="d_keshi != null">and d_keshi like concat(concat('%',#{d_keshi},'%'))</if>
+        </where>
+    </select>
 </mapper>

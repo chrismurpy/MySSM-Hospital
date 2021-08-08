@@ -5,7 +5,7 @@ import com.murphy.mapper.DoctorMapper;
 import com.murphy.pojo.Doctor;
 import com.murphy.pojo.Register;
 import com.murphy.service.RegisterService;
-import com.murphy.vo.RegisterQueryVo;
+import com.murphy.vo.query.QueryRegisterVo;
 import com.murphy.vo.ResultVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +38,7 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResultVo<Register> queryByPage(Integer pageNum, Integer pageSize, RegisterQueryVo vo) {
+    public ResultVo<Register> queryByPage(Integer pageNum, Integer pageSize, QueryRegisterVo vo) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }

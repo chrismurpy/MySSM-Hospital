@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>查看--中软高科-2015</title>
+    <title>查看医生信息</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
-    <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../Js/bootstrap.js"></script>
-    <script type="text/javascript" src="../Js/ckform.js"></script>
-    <script type="text/javascript" src="../Js/common.js"></script>
-    <script type="text/javascript" src="../Js/ckeditor/ckeditor.js"></script>
- 
-
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+    
     <style type="text/css">
         body {
             padding-bottom: 40px;
         }
+
         .sidebar-nav {
             padding: 9px 0;
         }
@@ -31,75 +30,150 @@
             }
         }
 
-
+        .correct:before {
+            content: '\2714';
+            color: #008100;
+        }
+        .incorrect:before {
+            content: '\2716';
+            color: #b20610;
+        }
     </style>
-    <script type="text/javascript">
-    $(function () {       
-		$('#backid').click(function(){
-				window.location.href="index.html";
-		 });
-    });
-    </script>
 </head>
 <body>
-<form action="index.html" method="post" class="definewidth m20">
-<table class="table table-bordered table-hover definewidth m10">
-    <tr>
-        <td width="10%" class="tableleft">姓名</td>
-        <td>程俊</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">证件类型</td>
-        <td>护照</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">证件号</td>
-        <td>534534534</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">手机</td>
-        <td>13124345432</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">座机</td>
-        <td>01068765432</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">性别</td>
-        <td>男</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">年龄</td>
-        <td>28</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">出生年月</td>
-        <td>1981-09-04</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">电子邮箱</td>
-        <td>chengjun@msn.com.cn</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">所属科室</td>
-        <td>急诊科</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">学历</td>
-        <td>本科</td>
-    </tr>
-	<tr>
-        <td width="10%" class="tableleft">备注</td>
-        <td>工作热情积极表现非常的优异</td>
-	</tr>
-    <tr>
-        <td colspan="2">
-			<center>
-				<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
-			</center
-		</td>
-    </tr>
-</table>
+<form id="myForm" method="post" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">医生编号</td>
+            <td><span id="d_id"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">医生姓名</td>
+            <td><span id="d_name"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">手机</td>
+            <td><span id="d_phone"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">证件号</td>
+            <td><span id="d_idCard"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">座机</td>
+            <td><span id="d_telPhone"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">性别</td>
+            <td><span id="d_sex"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">年龄</td>
+            <td><span id="d_age"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">出生年月</td>
+            <td><span id="d_birthday"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">电子邮箱</td>
+            <td><span id="d_email"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">所属科室</td>
+            <td><span id="d_keshi"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">学历</td>
+            <td><span id="d_edu"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">备注</td>
+            <td><span id="d_desc"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">状态</td>
+            <td><span id="d_state"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <center>
+                    <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
+                </center>
+            </td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
+
+<script type="text/javascript">
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/doctor/index.html";
+        });
+    });
+
+    String.prototype.GetValue= function(para) {
+        let reg = new RegExp("(^|&)"+ para +"=([^&]*)(&|$)");
+        let r = this.substr(this.indexOf("\?")+1).match(reg);
+        if (r!=null) return unescape(r[2]); return null;
+    }
+
+    $(function (){
+        // 获取URL
+        let url = document.location.toString();
+        let d_id = url.GetValue("d_id");
+        queryById(d_id);
+    });
+
+    function queryById(d_id) {
+        $.ajax({
+            type: "GET",
+            url: "/doctor/" + d_id,
+            data: "",
+            success: function (vo) {
+                let obj = vo.obj;
+                let d_id = obj.d_id;
+                let d_name = obj.d_name;
+                let d_phone = obj.d_phone;
+                let d_idCard = obj.d_idCard;
+                let d_telPhone = obj.d_telPhone;
+                let d_sex = obj.d_sex;
+                let d_age = obj.d_age;
+                let d_birthday = obj.d_birthday;
+                let d_email = obj.d_email;
+                let d_keshi = obj.d_keshi;
+                let d_edu = obj.d_edu;
+                let d_desc = obj.d_desc;
+                let d_state = obj.d_state;
+
+                $("#d_id").html(d_id).addClass("disabled");
+                $("#d_name").html(d_name).addClass("disabled");
+                $("#d_phone").html(d_phone).addClass("disabled");
+                $("#d_idCard").html(d_idCard).addClass("disabled");
+                $("#d_telPhone").html(d_telPhone).addClass("disabled");
+                let sex = '';
+                if (d_sex == 0) {
+                    sex = '女';
+                } else {
+                    sex = '男';
+                }
+                $("#d_sex").html(sex).addClass("disabled");
+                $("#d_age").html(d_age + " 岁").addClass("disabled");
+                $("#d_birthday").html(d_birthday).addClass("disabled");
+                $("#d_email").html(d_email).addClass("disabled");
+                $("#d_keshi").html(d_keshi).addClass("disabled");
+                $("#d_edu").html(d_edu).addClass("disabled");
+                $("#d_desc").html(d_desc).addClass("disabled");
+                let state = '';
+                if (d_state == 0) {
+                    state = '在职 ' + '<span class="correct"></span>';
+                } else {
+                    state = '离职 ' + '<span class="incorrect"></span>';
+                }
+                $("#d_state").html(state).addClass("disabled");
+            }
+        });
+    }
+</script>
