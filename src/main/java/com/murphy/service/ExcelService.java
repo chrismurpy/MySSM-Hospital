@@ -2,6 +2,7 @@ package com.murphy.service;
 
 import com.murphy.mapper.ExcelMapper;
 import com.murphy.vo.excel.ExcelBeHospVo;
+import com.murphy.vo.excel.ExcelDoctorVo;
 import com.murphy.vo.excel.ExcelRegisterVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,5 +38,14 @@ public class ExcelService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<ExcelBeHospVo> queryBeHospInfo() {
         return excelMapper.queryBeHospInfo();
+    }
+
+    /**
+     * 医生信息 - 导出Excel
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<ExcelDoctorVo> queryDoctorInfo() {
+        return excelMapper.queryDoctorInfo();
     }
 }

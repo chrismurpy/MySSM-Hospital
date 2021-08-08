@@ -7,6 +7,7 @@ import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
 import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.ChargeProj;
+import com.murphy.pojo.Doctor;
 import com.murphy.pojo.Register;
 import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
@@ -104,5 +105,14 @@ public class ServiceTest {
         chargeProj.setCharP_money((long) 200);
         int update = chargeProjMapper.updateByPrimaryKeySelective(chargeProj);
         System.out.println(update);
+    }
+
+    @Test
+    public void test9() {
+        Doctor doctor = new Doctor();
+        doctor.setD_name("二珂");
+        doctor.setD_state(0);
+        int i = doctorMapper.insertSelective(doctor);
+        System.out.println(i);
     }
 }

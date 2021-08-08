@@ -2,6 +2,7 @@ package com.murphy.controller;
 
 import com.murphy.service.ExcelService;
 import com.murphy.vo.excel.ExcelBeHospVo;
+import com.murphy.vo.excel.ExcelDoctorVo;
 import com.murphy.vo.excel.ExcelRegisterVo;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -137,6 +138,70 @@ public class ExcelController {
         // 设置下载时客户端Excel的名称
         response.setContentType("application/octet-stream;charset=utf-8");
         response.setHeader("Content-Disposition","attachment;filename=" + new String("住院信息".getBytes(),
+                "iso-8859-1") + ".xls");
+
+        OutputStream outputStream = response.getOutputStream();
+        wb.write(outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    /**
+     * 导出 Excel - 医生信息
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "doc", method = RequestMethod.GET)
+    public void excelDoctor(HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        List<ExcelDoctorVo> doctors = excelService.queryDoctorInfo();
+        System.out.println(doctors);
+        // 创建Excel文件
+        HSSFWorkbook wb = new HSSFWorkbook();
+        // 创建Sheet页
+        HSSFSheet sheet = wb.createSheet("住院信息表");
+        // 创建标题行
+        HSSFRow titleRow = sheet.createRow(0);
+        titleRow.createCell(0).setCellValue("医生编号");
+        titleRow.createCell(1).setCellValue("医生名称");
+        titleRow.createCell(2).setCellValue("性别");
+        titleRow.createCell(3).setCellValue("联系电话");
+        titleRow.createCell(4).setCellValue("座机");
+        titleRow.createCell(5).setCellValue("电子邮箱");
+        titleRow.createCell(6).setCellValue("入院时间");
+        titleRow.createCell(7).setCellValue("科室");
+        titleRow.createCell(8).setCellValue("学历");
+        titleRow.createCell(9).setCellValue("就职状态");
+        // 遍历将数据放到Excel列中
+        String sex = "";
+        String state = "";
+        for (ExcelDoctorVo doctor : doctors) {
+            HSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(doctor.getD_id());
+            dataRow.createCell(1).setCellValue(doctor.getD_name());
+            if (doctor.getD_sex() == 0) {
+                sex = "女";
+            } else {
+                sex = "男";
+            }
+            dataRow.createCell(2).setCellValue(sex);
+            dataRow.createCell(3).setCellValue(doctor.getD_phone());
+            dataRow.createCell(4).setCellValue(doctor.getD_telPhone());
+            dataRow.createCell(5).setCellValue(doctor.getD_email());
+            dataRow.createCell(6).setCellValue(doctor.getD_inTime().toString());
+            dataRow.createCell(7).setCellValue(doctor.getD_keshi());
+            dataRow.createCell(8).setCellValue(doctor.getD_edu());
+            if (doctor.getD_state() == 0) {
+                state = "在职";
+            } else {
+                state = "已离职";
+            }
+            dataRow.createCell(9).setCellValue(state);
+        }
+
+        // 设置下载时客户端Excel的名称
+        response.setContentType("application/octet-stream;charset=utf-8");
+        response.setHeader("Content-Disposition","attachment;filename=" + new String("医生信息".getBytes(),
                 "iso-8859-1") + ".xls");
 
         OutputStream outputStream = response.getOutputStream();

@@ -3,6 +3,8 @@ package com.murphy.mapper;
 import com.murphy.pojo.Doctor;
 import com.murphy.pojo.DoctorExample;
 import java.util.List;
+
+import com.murphy.vo.query.QueryDoctorVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface DoctorMapper {
@@ -31,4 +33,11 @@ public interface DoctorMapper {
     int updateByPrimaryKeySelective(Doctor record);
 
     int updateByPrimaryKey(Doctor record);
+
+    /**
+     * 动态SQL
+     * @param vo
+     * @return
+     */
+    List<Doctor> queryByVo(QueryDoctorVo vo);
 }
