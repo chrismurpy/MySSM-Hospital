@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>添加药品--中软高科-2015</title>
+    <title>添加药品库存</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
-    <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../Js/bootstrap.js"></script>
-    <script type="text/javascript" src="../Js/ckform.js"></script>
-    <script type="text/javascript" src="../Js/common.js"></script>
-    <script type="text/javascript" src="../Js/ckeditor/ckeditor.js"></script>
- 
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 
     <style type="text/css">
         body {
             padding-bottom: 40px;
         }
+
         .sidebar-nav {
             padding: 9px 0;
         }
@@ -30,50 +29,102 @@
                 padding-right: 5px;
             }
         }
-
-
     </style>
-    <script type="text/javascript">
-    $(function () {       
-		$('#backid').click(function(){
-				window.location.href="index.html";
-		 });
-    });
-    </script>
 </head>
 <body>
-<form action="index.html" method="post" class="definewidth m20">
-<table class="table table-bordered table-hover definewidth m10">
-    <tr>
-        <td width="10%" class="tableleft">药品编号</td>
-        <td>J1121</td>
-    </tr> 
-	
-    <tr>
-        <td width="10%" class="tableleft">药品名称</td>
-        <td>感冒药</td>
-    </tr>    
-	<tr>
-        <td width="10%" class="tableleft">余量</td>
-        <td>300</td>
-    </tr>    
-	
-    <tr>
-        <td width="10%" class="tableleft">数量</td>
-        <td>
-			<input type="text" value="300" />
-		</td>
-    </tr>
-	
+<form id="myForm" method="post" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">药品编号</td>
+            <td><span id="dr_id"></span></td>
+        </tr>
 
-    <tr>
-        <td colspan="2">
-			<center>
-				<button type="submit" class="btn btn-primary" type="button">保存</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
-			</center
-		</td>
-    </tr>
-</table>
+        <tr>
+            <td width="10%" class="tableleft">药品名称</td>
+            <td><span id="dr_name"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">库存量</td>
+            <td><span id="dr_number"></span></td>
+        </tr>
+
+        <tr>
+            <td width="10%" class="tableleft">添加量</td>
+            <td>
+                <input type="text" id="dr_addNum" value=""/>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2">
+                <center>
+                    <button class="btn btn-success" type="button" id="addBtn">添加</button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-info" name="backId" id="backId">返回列表
+                    </button>
+                </center>
+            </td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
+<script type="text/javascript">
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "index.html";
+        });
+    });
+
+    String.prototype.GetValue = function (para) {
+        let reg = new RegExp("(^|&)" + para + "=([^&]*)(&|$)");
+        let r = this.substr(this.indexOf("\?") + 1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    $(function () {
+        let url = document.location.toString();//获取URL
+        let dr_id = url.GetValue("dr_id");
+        queryById(dr_id);
+
+        $("#addBtn").click(function () {
+            let dr_addNum = $("#dr_addNum").val();
+
+            $.ajax({
+                type: "POST",//这里必须写POST
+                url: "/drug/addNum/" + dr_id, //RESTful风格的API定义
+                data: {"dr_addNum": dr_addNum},
+                dataType: "json",
+                success: function (vo) {
+                    if (vo.code == 200) {
+                        alert("保存成功！");
+                        window.location.href = "/pages/medicine/index.html";
+                    } else {
+                        alert("保存失败！" + vo.msg);
+                    }
+                }
+            });
+        });
+
+    });
+
+
+    function queryById(dr_id) {
+        $.ajax({
+            type: "GET",
+            url: "/drug/" + dr_id, //RESTful风格的API定义
+            data: "",
+            success: function (vo) {
+                let obj = vo.obj;
+                let dr_id = obj.dr_id;
+                let dr_name = obj.dr_name;
+                let dr_number = obj.dr_number;
+
+                $("#dr_id").html(dr_id);
+                $("#dr_name").html(dr_name);
+                $("#dr_number").html(dr_number);
+            }
+        });
+    }
+</script>

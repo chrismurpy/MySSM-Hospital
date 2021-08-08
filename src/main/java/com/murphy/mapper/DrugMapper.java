@@ -3,6 +3,8 @@ package com.murphy.mapper;
 import com.murphy.pojo.Drug;
 import com.murphy.pojo.DrugExample;
 import java.util.List;
+
+import com.murphy.vo.query.QueryDrugVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface DrugMapper {
@@ -27,4 +29,11 @@ public interface DrugMapper {
     int updateByPrimaryKeySelective(Drug record);
 
     int updateByPrimaryKey(Drug record);
+
+    /**
+     * 动态SQL
+     * @param vo
+     * @return
+     */
+    List<Drug> queryByVo(QueryDrugVo vo);
 }
