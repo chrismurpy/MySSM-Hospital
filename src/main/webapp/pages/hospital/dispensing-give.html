@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>发药--中软高科-2015</title>
+    <title>新增发药信息</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
-    <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../Js/bootstrap.js"></script>
-    <script type="text/javascript" src="../Js/ckform.js"></script>
-    <script type="text/javascript" src="../Js/common.js"></script>
-    <script type="text/javascript" src="../Js/ckeditor/ckeditor.js"></script>
- 
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 
     <style type="text/css">
         body {
             padding-bottom: 40px;
         }
+
         .sidebar-nav {
             padding: 9px 0;
         }
@@ -30,44 +29,107 @@
                 padding-right: 5px;
             }
         }
-
-
     </style>
-    <script type="text/javascript">
-    $(function () {       
-		$('#backid').click(function(){
-				window.location.href="dispensing.html";
-		 });
-    });
-    </script>
 </head>
 <body>
-<form action="dispensing.html" method="post" class="definewidth m20">
-<table class="table table-bordered table-hover definewidth m10">
-    <tr>
-        <td width="10%" class="tableleft">病历号</td>
-        <td>1101</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">姓名</td>
-        <td>黄飞鸿</td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">药品名称</td>
-        <td><select><option>2304-九九感冒药</option></select></td>
-    </tr>
-    <tr>
-        <td width="10%" class="tableleft">发药数量</td>
-        <td><input type="text" name="pname" value=""/></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-			<center>
-				<button type="submit" class="btn btn-primary" type="button">保存</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
-			</center
-		</td>
-    </tr>
-</table>
+<form id="myForm" method="get" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">病历号</td>
+            <td><input type="text" id="people_id" name="people_id"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">姓名</td>
+            <td><span id="re_name"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">药品名称</td>
+            <td>
+                <select id="dr_name" name="dr_name">
+                    <option value="">--请选择--</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">应发数量</td>
+            <td><input type="text" id="drp_number" name="drp_number" value=""/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <center>
+                    <button class="btn btn-success" type="button" id="addBtn">新增</button> &nbsp;&nbsp;
+                    <button class="btn btn-info" name="backId" id="backId">返回列表</button>
+                </center>
+            </td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
+<script type="text/javascript">
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/hospital/dispensing.html";
+        });
+    });
+
+    // 动态获取药品名
+    $.ajax({
+        type: "GET",
+        url: "/drugPeople/drug",
+        dataType: "json",
+        success: function (data) {
+            for (var key in data) {
+                $("#dr_name").append("<option value='" + data[key].dr_name + "' name='" + data[key].dr_name + "'>" + data[key].dr_name + "</option>");
+            }
+        }
+    });
+
+    String.prototype.GetValue = function (para) {
+        let reg = new RegExp("(^|&)" + para + "=([^&]*)(&|$)");
+        let r = this.substr(this.indexOf("\?") + 1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    $(function (){
+        let url = document.location.toString();
+        let beH_id = url.GetValue("beH_id");
+        queryById(beH_id);
+    });
+
+    function queryById(beH_id) {
+        $.ajax({
+            type: "GET",
+            url: "/hosp/" + beH_id,
+            data: "",
+            dataType: "json",
+            success: function (vo) {
+                let obj = vo.obj;
+                let re_name = obj.register.re_name;
+
+                $("#people_id").val(beH_id);
+                $("#re_name").html(re_name);
+            }
+        });
+    }
+
+    $(function (){
+        $("#addBtn").click(function (){
+            $.ajax({
+                type: "POST",
+                url: "/drugPeople/add",
+                data: $("#myForm").serialize(),
+                dataType: "json",
+                success: function (vo) {
+                    if (vo.code == 200) {
+                        alert("添加成功！");
+                        window.location.href = "/pages/hospital/dispensing.html";
+                    } else {
+                        alert("添加失败！" + vo.msg);
+                    }
+                }
+            });
+        });
+    });
+</script>

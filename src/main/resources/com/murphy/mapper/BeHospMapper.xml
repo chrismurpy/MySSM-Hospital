@@ -345,4 +345,21 @@
         <result column="d_name" property="doctor.d_name"/>
         <result column="d_keshi" property="doctor.d_keshi"/>
     </resultMap>
+
+    <select id="queryByDrugVo" parameterType="com.murphy.vo.query.QueryDrugPeopleVo" resultMap="DrugResult">
+        select beH.beH_id,re.re_name,d.d_name,beH.beH_state from SSM_Hosp.hosp_beHosp beH
+        inner join SSM_Hosp.hosp_register re on re.re_id = beH.beH_id
+        inner join SSM_Hosp.hosp_doctor d on d.d_id = beh.d_id
+        <where>
+            <if test="beH_id != null"> beH_id = #{beH_id}</if>
+            <if test="d_name != null">and d_name like concat(concat('%',#{d_name},'%'))</if>
+            <if test="re_name != null">and re_name like concat(concat('%',#{re_name},'%'))</if>
+            and beH.beH_closePrice = 1
+        </where>
+    </select>
+
+    <resultMap id="DrugResult" type="com.murphy.pojo.BeHosp" extends="BaseResultMap">
+        <result column="re_name" property="register.re_name"/>
+        <result column="d_name" property="doctor.d_name"/>
+    </resultMap>
 </mapper>

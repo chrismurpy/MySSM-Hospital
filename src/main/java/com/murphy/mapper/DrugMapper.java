@@ -36,4 +36,16 @@ public interface DrugMapper {
      * @return
      */
     List<Drug> queryByVo(QueryDrugVo vo);
+
+    /**
+     * 获取所有药品名
+     * @return
+     */
+    List<String> selectAllDrugName();
+
+    /**
+     * 根据姓名查找
+     * @return
+     */
+    Drug selectByName(String dr_name);
 }

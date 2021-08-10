@@ -362,4 +362,12 @@
             <if test="dr_type != null">and dr_type like concat(concat('%',#{dr_type},'%'))</if>
         </where>
     </select>
+
+    <select id="selectAllDrugName" resultMap="BaseResultMap">
+        select dr_name from SSM_Hosp.hosp_drug
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap">
+        select * from SSM_Hosp.hosp_drug where dr_name = #{dr_name}
+    </select>
 </mapper>
