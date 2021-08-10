@@ -174,11 +174,40 @@
     </resultMap>
 
     <select id="selectById" resultMap="baseMap">
-        select drp.dr_id,dr.dr_name,re.re_id,re.re_name,d.d_name,drp.drp_number,drp.dr_outNum,dr.dr_number,dr.dr_outPrice from SSM_Hosp.hosp_drugPeople drp
+        select drp.dr_id,dr.dr_name,drp.people_id,re.re_id,re.re_name,d.d_name,drp.drp_number,drp.dr_outNum,dr.dr_number,dr.dr_outPrice from SSM_Hosp.hosp_drugPeople drp
         inner join SSM_Hosp.hosp_beHosp beH on drp.people_id = beH.beH_id
         inner join SSM_Hosp.hosp_doctor d on beH.d_id = d.d_id
         inner join SSM_Hosp.hosp_register re on re.re_id = beH.beH_id
         inner join SSM_Hosp.hosp_drug dr on drp.dr_id = dr.dr_id
         where re.re_id = #{re_id}
+    </select>
+
+    <update id="updateById" parameterType="com.murphy.pojo.DrugPeople">
+        update SSM_Hosp.hosp_drugPeople
+        <set>
+            <if test="drp_number != null">drp_number = #{drp_number},</if>
+            <if test="dr_outNum != null">dr_outNum = #{dr_outNum},</if>
+        </set>
+        where dr_id = #{dr_id} and people_id = #{people_id}
+    </update>
+
+    <select id="queryByDr_idAndP_id" resultMap="BaseResultMap">
+        select * from SSM_Hosp.hosp_drugPeople
+        where dr_id = #{dr_id} and people_id = #{people_id}
+    </select>
+
+    <select id="queryByDr_idAndP_ids" resultMap="queryMap">
+        select drp.dr_id,drp.people_id,drp.drp_number,drp.dr_outNum,dr.dr_name from SSM_Hosp.hosp_drugPeople drp
+        inner join SSM_Hosp.hosp_drug dr on drp.dr_id = dr.dr_id
+        where drp.dr_id = #{dr_id} and drp.people_id = #{people_id}
+    </select>
+
+    <resultMap id="queryMap" type="com.murphy.pojo.DrugPeople" extends="BaseResultMap">
+        <result column="dr_name" property="drug.dr_name"/>
+    </resultMap>
+
+    <select id="selectExist" resultType="Integer">
+        select count(*) from SSM_Hosp.hosp_drugPeople
+        where dr_id = #{dr_id} and people_id = #{people_id}
     </select>
 </mapper>

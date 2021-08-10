@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>发药详情</title>
+    <title>发药详情 - 已退院</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
@@ -223,18 +223,7 @@
                     let dr_outNum = obj.dr_outNum == null ? '' : obj.dr_outNum;
                     let drp_remain = drp_number - dr_outNum;
 
-                    let btnStr = "";
-                    if (drp_number > dr_outNum) {
-                        btnStr = '<button type="button" name="addAllBtn" class="btn btn-sm btn-success" onclick=addAllDrug("' + dr_id + '","' + people_id + '","' + drp_remain + '")>发全</button>&nbsp;' +
-                            '<button type="button" name="addOneBtn" class="btn btn-sm btn-info" onclick=addOneDrug("' + dr_id + '","' + people_id + '","' + drp_remain + '") >发1</button>&nbsp;' +
-                            '<button type="button" name="addFiveBtn" class="btn btn-sm btn-info" onclick=addFiveDrug("' + dr_id + '","' + people_id + '","' + drp_remain + '")>发5</button>&nbsp;' +
-                            '<button type="button" name="addTenBtn" class="btn btn-sm btn-info" onclick=addTenDrug("' + dr_id + '","' + people_id + '","' + drp_remain + '")>发10</button>&nbsp;';
-                    } else if (drp_number == dr_outNum) {
-                        btnStr = '<button name="added" class="btn btn-sm btn-danger" disabled>已发全</button>&nbsp;' +
-                                 '<button type="button" name="addedDrug" class="btn btn-sm btn-success" onclick=addNum("' + dr_id + '","' + people_id + '")>添加待发量</button>&nbsp;';
-                    } else if (dr_number == 0) {
-                        btnStr = '<button name="reAdded" class="btn btn-sm btn-danger" disabled>缺货中</button>&nbsp;';
-                    }
+                    let btnStr = '<button name="reAdded" class="btn btn-sm btn-danger" disabled>已离院</button>&nbsp;';
 
                     str += '<tr>' +
                         '            <td>' + re_id + '</td>' +
@@ -252,90 +241,6 @@
                 fillPageData(vo.pageInfo);
             }
         });
-    }
-
-    function addAllDrug(dr_id, people_id, drp_remain) {
-        if (drp_remain > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/drugPeople/send/" + dr_id + "/" + people_id,
-                data: {"drp_remain": drp_remain},
-                dataType: "JSON",
-                success: function (vo) {
-                    if (vo.code == 200) {
-                        alert("发药成功！");
-                        loadData();
-                    } else {
-                        alert("发药失败！" + vo.msg);
-                    }
-                }
-            });
-        } else {
-            alert("药品已发完！");
-        }
-    }
-
-    function addOneDrug(dr_id, people_id, drp_remain) {
-        if (drp_remain > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/drugPeople/send/" + dr_id + "/" + people_id,
-                data: {"drp_remain": 1},
-                dataType: "JSON",
-                success: function (vo) {
-                    if (vo.code == 200) {
-                        alert("发药成功！");
-                        loadData();
-                    } else {
-                        alert("发药失败！" + vo.msg);
-                    }
-                }
-            });
-        } else {
-            alert("药品已发完！");
-        }
-    }
-
-    function addFiveDrug(dr_id, people_id, drp_remain) {
-        if (drp_remain > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/drugPeople/send/" + dr_id + "/" + people_id,
-                data: {"drp_remain": 5},
-                dataType: "JSON",
-                success: function (vo) {
-                    if (vo.code == 200) {
-                        alert("发药成功！");
-                        loadData();
-                    } else {
-                        alert("发药失败！" + vo.msg);
-                    }
-                }
-            });
-        } else {
-            alert("药品已发完！");
-        }
-    }
-
-    function addTenDrug(dr_id, people_id, drp_remain) {
-        if (drp_remain > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/drugPeople/send/" + dr_id + "/" + people_id,
-                data: {"drp_remain": 10},
-                dataType: "JSON",
-                success: function (vo) {
-                    if (vo.code == 200) {
-                        alert("发药成功！");
-                        loadData();
-                    } else {
-                        alert("发药失败！" + vo.msg);
-                    }
-                }
-            });
-        } else {
-            alert("药品已发完！");
-        }
     }
 
     function addNum(dr_id, people_id) {

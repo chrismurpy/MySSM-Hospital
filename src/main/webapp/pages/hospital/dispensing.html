@@ -53,7 +53,7 @@
     <table class="table table-bordered table-hover definewidth m10">
         <thead>
         <tr>
-            <th><input type="checkbox" id="check_All" onChange="check_All();"></th>
+            <th><input type="checkbox" id="checkAll" onclick="check_All()"></th>
             <th>病历号</th>
             <th>姓名</th>
             <th>主治医生</th>
@@ -98,38 +98,42 @@
 <script type="text/javascript">
     $(function () {
         $('#newNav').click(function () {
-            window.location.href = "/pages/hospital/dispensing-gives.html";
+            let alls = document.getElementsByName("check");
+            let ids = new Array();
+            for (let i = 0; i < alls.length; i++) {
+                if (alls[i].checked) {
+                    ids.push(alls[i].value);
+                }
+            }
+            if (ids.length > 0) {
+                if (confirm("确认操作?")) {
+                    let id = '';
+                    for (let i = 0; i < ids.length; i++) {
+                        if (i == ids.length - 1) {
+                            id += ids[i];
+                        } else {
+                            id += ids[i] + "&id" + (i + 1) + "=";
+                        }
+                    }
+                    window.location.href = "/pages/hospital/dispensing-gives.html?id0=" + id;
+                }
+            } else {
+                alert("请选中要操作的项");
+            }
         });
     });
 
     function check_All() {
-        var alls = document.getElementsByName("check");
-        var ch = document.getElementById("check_All");
+        let alls = document.getElementsByName("check");
+        let ch = document.getElementById("checkAll");
         if (ch.checked) {
-            for (var i = 0; i < alls.length; i++) {
+            for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = true;
             }
         } else {
-            for (var i = 0; i < alls.length; i++) {
+            for (let i = 0; i < alls.length; i++) {
                 alls[i].checked = false;
             }
-        }
-    }
-
-    function delAll() {
-        var alls = document.getElementsByName("check");
-        var ids = new Array();
-        for (var i = 0; i < alls.length; i++) {
-            if (alls[i].checked) {
-                ids.push(alls[i].value);
-            }
-        }
-        if (ids.length > 0) {
-            if (confirm("确认操作?")) {
-                alert("成功!");
-            }
-        } else {
-            alert("请选中要操作的项");
         }
     }
 
@@ -237,10 +241,10 @@
                     let btnStr = "";
                     if (beH_state == 0) {
                         btnStr = '<button type="button" name="updateBtn" class="btn btn-sm btn-success" onclick="addDrug(' + beH_id + ')">发药</button>&nbsp;' +
-                                 '<button type="button" name="infoBtn" class="btn btn-sm btn-info" onclick="drpInfo(' + beH_id + ')" >详情</button>&nbsp;';
+                            '<button type="button" name="infoBtn" class="btn btn-sm btn-info" onclick="drpInfo(' + beH_id + ')" >详情</button>&nbsp;';
                     } else if (beH_state == 1 || beH_state == 2) {
-                        btnStr =  '<button type="button" name="infoBtn" class="btn btn-sm btn-danger" disabled>已离院</button>&nbsp;' +
-                                  '<button type="button" name="infoBtn" class="btn btn-sm btn-info" onclick="drpInfo(' + beH_id + ')" >详情</button>&nbsp;';
+                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-danger" disabled>已离院</button>&nbsp;' +
+                            '<button type="button" name="infoBtn" class="btn btn-sm btn-info" onclick="drpQuitInfo(' + beH_id + ')" >详情</button>&nbsp;';
                     }
 
                     str += '<tr>' +
@@ -264,5 +268,9 @@
 
     function drpInfo(beH_id) {
         window.location.href = "/pages/hospital/dispensing-look.html?beH_id=" + beH_id;
+    }
+
+    function drpQuitInfo(beH_id) {
+        window.location.href = "/pages/hospital/dispensing-look_quit.html?beH_id=" + beH_id;
     }
 </script>

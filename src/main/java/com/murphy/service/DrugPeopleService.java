@@ -77,4 +77,36 @@ public class DrugPeopleService {
     public List getDrugName() {
         return drugMapper.selectAllDrugName();
     }
+
+    /**
+     * 根据 药品ID + 病例ID 修改
+     * @param drugPeople
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int updateDrugPeople(DrugPeople drugPeople) {
+        return drugPeopleMapper.updateById(drugPeople);
+    }
+
+    /**
+     * 根据 药品ID + 病例ID 查找
+     * @param dr_id
+     * @param people_id
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public DrugPeople queryByIds(Integer dr_id, Integer people_id) {
+        return drugPeopleMapper.queryByDr_idAndP_ids(dr_id, people_id);
+    }
+
+    /**
+     * 判断订单是否存在
+     * @param dr_id
+     * @param people_id
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Integer queryExist(Integer dr_id, Integer people_id) {
+        return drugPeopleMapper.selectExist(dr_id, people_id);
+    }
 }

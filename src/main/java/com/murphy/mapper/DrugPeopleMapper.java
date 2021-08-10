@@ -28,4 +28,35 @@ public interface DrugPeopleMapper {
      * @return
      */
     List<DrugPeople> selectById(Integer beH_id);
+
+    /**
+     * 根据 药品ID + 病人ID 修改
+     * @param drugPeople
+     * @return
+     */
+    int updateById(DrugPeople drugPeople);
+
+    /**
+     * 根据 药品ID + 病人ID 查找
+     * @param dr_id
+     * @param people_id
+     * @return
+     */
+    DrugPeople queryByDr_idAndP_id(@Param("dr_id") Integer dr_id, @Param("people_id") Integer people_id);
+
+    /**
+     * 根据 药品ID + 病人ID 查找
+     * @param dr_id
+     * @param people_id
+     * @return
+     */
+    DrugPeople queryByDr_idAndP_ids(@Param("dr_id") Integer dr_id, @Param("people_id") Integer people_id);
+
+    /**
+     * 判断 药品是否发放
+     * @param dr_id
+     * @param people_id
+     * @return
+     */
+    Integer selectExist(@Param("dr_id") Integer dr_id, @Param("people_id") Integer people_id);
 }
