@@ -1,15 +1,18 @@
-package com.murphy.pojo;
+package com.murphy.vo.query;
 
-public class Role {
+/**
+ * 封装角色查询实体类
+ * @author Ann
+ * @create 2021-08-09 20:11
+ */
+public class QueryRoleVo {
     private Integer r_id;
-
     private String r_name;
-
     private Integer r_state;
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "QueryRoleVo{" +
                 "r_id=" + r_id +
                 ", r_name='" + r_name + '\'' +
                 ", r_state=" + r_state +
@@ -29,7 +32,7 @@ public class Role {
     }
 
     public void setR_name(String r_name) {
-        this.r_name = r_name == null ? null : r_name.trim();
+        this.r_name = r_name;
     }
 
     public Integer getR_state() {

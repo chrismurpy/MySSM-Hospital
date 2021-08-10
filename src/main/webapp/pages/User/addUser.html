@@ -68,7 +68,7 @@
             <td class="tableleft"></td>
             <td>
                 <button id="addBtn" class="btn btn-success" type="button">添加</button>&nbsp;&nbsp;
-                <button class="btn btn-info" name="backId" id="backId">返回列表</button>
+                <button type="button" class="btn btn-info" name="backId" id="backId">返回列表</button>
             </td>
         </tr>
     </table>
@@ -76,11 +76,7 @@
 </body>
 </html>
 <script>
-    $(function () {
-        $('#backId').click(function () {
-            window.location.href = "/pages/User/index.html";
-        });
-    });
+
 
     // 动态获取角色信息
     $.ajax({
@@ -94,6 +90,7 @@
         }
     });
 
+    // 新增用户信息
     $(function (){
         $("#addBtn").click(function (){
             let u_repeat = $("#u_repeat").val();
@@ -119,4 +116,11 @@
             });
         });
     });
+
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/User/index.html";
+        });
+    });
+
 </script>

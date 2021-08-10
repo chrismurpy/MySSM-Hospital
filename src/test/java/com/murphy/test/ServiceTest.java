@@ -3,13 +3,16 @@ package com.murphy.test;
 import com.github.pagehelper.PageInfo;
 import com.murphy.mapper.DoctorMapper;
 import com.murphy.mapper.RegisterMapper;
+import com.murphy.mapper.RoleMapper;
 import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.Register;
 import com.murphy.pojo.RegisterExample;
+import com.murphy.pojo.Role;
 import com.murphy.service.BeHospService;
 import com.murphy.service.ExcelService;
 import com.murphy.service.RegisterService;
 import com.murphy.util.RandomLoginName;
+import com.murphy.vo.query.QueryRoleVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,6 +40,8 @@ public class ServiceTest {
     private ExcelService excelService;
     @Resource
     private BeHospService beHospService;
+    @Resource
+    private RoleMapper roleMapper;
 
     @Test
     public void test() {
@@ -88,5 +93,12 @@ public class ServiceTest {
         System.out.println(code);
     }
 
+    @Test
+    public void test9() {
+        QueryRoleVo vo = new QueryRoleVo();
+        vo.setR_name("生");
+        List<Role> roles = roleMapper.queryRoleByVo(vo);
+        System.out.println(roles);
+    }
     
 }
