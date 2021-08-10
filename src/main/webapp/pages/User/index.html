@@ -89,7 +89,7 @@
             <th colspan="5">
                 <div>
                     <button type="button" class="btn btn-success" id="newNav">添加用户</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-success" id="delPro" onclick="delAll();">删除</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="delPro" onclick="delAll();">删除选中</button>&nbsp;&nbsp;&nbsp;
                 </div>
             </th>
         </tr>
@@ -289,7 +289,7 @@
         }
     }
 
-    // 批量出院
+    // 批量删除
     function delAll() {
         let alls = document.getElementsByName("check");
         let ids = new Array();

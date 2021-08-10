@@ -31,7 +31,7 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     /**
-     * 动态SQL
+     * 动态SQL 根据用户账户模糊查询
      * @param vo
      * @return
      */

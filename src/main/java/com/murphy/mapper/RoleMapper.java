@@ -3,6 +3,8 @@ package com.murphy.mapper;
 import com.murphy.pojo.Role;
 import com.murphy.pojo.RoleExample;
 import java.util.List;
+
+import com.murphy.vo.query.QueryRoleVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleMapper {
@@ -33,4 +35,11 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    /**
+     * 动态SQL 根据角色姓名模糊查询
+     * @param vo
+     * @return
+     */
+    List<Role> queryRoleByVo(QueryRoleVo vo);
 }

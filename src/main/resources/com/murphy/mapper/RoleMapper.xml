@@ -193,5 +193,13 @@
         WHERE r_name = #{r_name,jdbcType=VARCHAR}
     </select>
 
+    <!--  通过角色名模糊查询该角色信息-->
+    <select id="queryRoleByVo" parameterType="com.murphy.vo.query.QueryRoleVo" resultMap="BaseResultMap">
+        SELECT * FROM hosp_role
+        <where>
+            <if test="r_name != null">r_name like concat(concat('%',#{r_name},'%'))</if>
+        </where>
+    </select>
+
 
 </mapper>

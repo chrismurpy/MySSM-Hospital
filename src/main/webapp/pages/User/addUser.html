@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-<form id="myForm" method="post" class="definewidth m20">
+<form id="myForm" class="definewidth m20">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
             <td class="tableleft">真实姓名</td>
@@ -68,7 +68,7 @@
             <td class="tableleft"></td>
             <td>
                 <button id="addBtn" class="btn btn-success" type="button">添加</button>&nbsp;&nbsp;
-                <button class="btn btn-info" name="backId" id="backId">返回列表</button>
+                <button type="button" class="btn btn-info" name="backId" id="backId">返回列表</button>
             </td>
         </tr>
     </table>
@@ -76,11 +76,7 @@
 </body>
 </html>
 <script>
-    $(function () {
-        $('#backId').click(function () {
-            window.location.href = "/pages/User/index.html";
-        });
-    });
+
 
     // 动态获取角色信息
     $.ajax({
@@ -94,7 +90,7 @@
         }
     });
 
-    // 新增挂号信息
+    // 新增用户信息
     $(function (){
         $("#addBtn").click(function (){
             let u_repeat = $("#u_repeat").val();
@@ -120,4 +116,11 @@
             });
         });
     });
+
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/User/index.html";
+        });
+    });
+
 </script>
