@@ -5,6 +5,7 @@ import com.murphy.pojo.BeHospExample;
 import java.util.List;
 
 import com.murphy.vo.query.QueryBeHospVo;
+import com.murphy.vo.query.QueryDrugPeopleVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface BeHospMapper {
@@ -36,4 +37,11 @@ public interface BeHospMapper {
      * @return
      */
     List<BeHosp> queryByVo(QueryBeHospVo vo);
+
+    /**
+     * 动态SQL
+     * @param vo
+     * @return
+     */
+    List<BeHosp> queryByDrugVo(QueryDrugPeopleVo vo);
 }

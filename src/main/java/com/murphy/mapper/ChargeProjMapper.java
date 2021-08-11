@@ -38,4 +38,17 @@ public interface ChargeProjMapper {
      * @return
      */
     List<ChargeProj> queryByVo(QueryChargeProjVo vo);
+
+    /**
+     * 获取 收费项目名称
+     * @return
+     */
+    List<String> queryChargeProjName();
+
+    /**
+     * 根据 收费项目名 查找
+     * @param charP_name
+     * @return
+     */
+    ChargeProj queryByName(String charP_name);
 }

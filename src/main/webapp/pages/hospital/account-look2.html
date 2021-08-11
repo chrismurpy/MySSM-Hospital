@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>结算详细--中软高科-2015</title>
+    <title>收费明细</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
-    <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../Js/bootstrap.js"></script>
-    <script type="text/javascript" src="../Js/ckform.js"></script>
-    <script type="text/javascript" src="../Js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
 
     <style type="text/css">
         body {
             padding-bottom: 40px;
         }
+
         .sidebar-nav {
             padding: 9px 0;
         }
@@ -28,115 +28,217 @@
                 padding-right: 5px;
             }
         }
-
-
     </style>
-    <script type="text/javascript">
-	 $(function () {
-		$('#newNav').click(function(){
-				window.location.href="add.html";
-		 });
-    });
-	
-    	function checkall(){
-			var alls=document.getElementsByName("check");
-			var ch=document.getElementById("checkall");
-			if(ch.checked){
-				for(var i=0;i<alls.length;i++){
-					alls[i].checked=true;	
-				}	
-			}else{
-				for(var i=0;i<alls.length;i++){
-					alls[i].checked=false;	
-				}	
-			}
-		}
-		function delAll(){
-			var alls=document.getElementsByName("check");
-			var ids=new Array();
-			for(var i=0;i<alls.length;i++){
-				if(alls[i].checked){
-					ids.push(alls[i].value);
-				}		
-			}
-			if(ids.length>0){
-				if(confirm("确认操作?")){
-					alert("成功!");
-				}
-			}else{
-				alert("请选中要操作的项");
-			}
-		}
-    $(function () {       
-		$('#backid').click(function(){
-				window.location.href="account.html";
-		 });
-    });
-    </script>
 </head>
 <body>
-   
-<table class="table table-bordered table-hover definewidth m10" >
-   <thead>
-    <tr>	    
-        <th>收费项目管理</th>
-        <th>项目名称</th>
+
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>病历号</th>
+        <th>姓名</th>
         <th>收费项目</th>
         <th>收费金额</th>
         <th>检查日期</th>
     </tr>
     </thead>
-	     <tr >
-            <td style="vertical-align:middle;">1103</td>
-            <td style="vertical-align:middle;">黄飞鸿</td>
-            <td style="vertical-align:middle;">心脏检查</td>
-            <td style="vertical-align:middle;">200</td>
-            <td style="vertical-align:middle;">2015-01-04 10:33:12</td>
-			</tr>
-	     <tr >
-            <td style="vertical-align:middle;">1103</td>
-            <td style="vertical-align:middle;">黄飞鸿</td>
-            <td style="vertical-align:middle;">心脏手术</td>
-            <td style="vertical-align:middle;">1600</td>
-            <td style="vertical-align:middle;">2015-01-04 12:33:12</td>
-			</tr>
-	     <tr >
-            <td style="vertical-align:middle;">1103</td>
-            <td style="vertical-align:middle;">黄飞鸿</td>
-            <td style="vertical-align:middle;">B超检查</td>
-            <td style="vertical-align:middle;">50</td>
-            <td style="vertical-align:middle;">2015-01-04 09:33:12</td>
-			</tr>
-  </table>
-  
-  <table class="table table-bordered table-hover definewidth m10" >
-  	<tr><th colspan="5">  <div class="inline pull-right page">
-          <a href='#' >第一页</a> <a href='#'>上一页</a>     <span class='current'>1</span><a href='#'>2</a><a href='/chinapost/index.php?m=Label&a=index&p=3'>3</a><a href='#'>4</a><a href='#'>5</a>  <a href='#' >下一页</a> <a href='#' >最后一页</a>
-		  &nbsp;&nbsp;&nbsp;共<span class='current'>32</span>条记录<span class='current'> 1/33 </span>页
-		  </div>
-		 <div>
-				<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
-				<button type="button" class="btn btn-success" >导出excel</button>
-		 </div>
-		 
-		 </th></tr>
-  </table>
-  
-  
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+
+<table class="table table-bordered table-hover definewidth m10">
+    <tr>
+        <th colspan="5">
+            <div class="inline pull-right page">
+                共 <span id="total" class="current"></span> 条数据，共 <span id="pages" class="current"></span> 页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                每页显示
+                <select class="form-control" name="pageSize" style="width: 55px;height: 25px">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+                条数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                跳转到第
+                <input class="form-control" name="pageNum" value="1"
+                       style="height: 20px;width: 40px;border-radius: 8px;text-align: center"/>
+                页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="firstPage" name="pageLi">首页</a>&nbsp;
+                <a class="btn btn-default" id="prePage" name="pageLi">上一页</a>&nbsp;
+                <a class="btn btn-default" id="nextPage" name="pageLi">下一页</a>&nbsp;
+                <a class="btn btn-default" id="lastPage" name="pageLi">末页</a>&nbsp;
+            </div>
+            <div>
+                <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
+                <button type="button" class="btn btn-success" onclick="Excel()">导出Excel</button>
+            </div>
+        </th>
+    </tr>
+</table>
+
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">总花费：</td>
-        <td>1850元</td>
+        <td><span id="beH_charge"></span></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">押金：</td>
-        <td>2000元</td>
+        <td><span id="beH_antecedent"></span></td>
     </tr>
     <tr>
-        <td width="10%" class="tableleft">余额：</td>
-        <td>150元</td>
+        <td width="10%" class="tableleft">账户余额：</td>
+        <td><span id="beH_remain"></span></td>
     </tr>
 </table>
-  
+
 </body>
 </html>
+<script type="text/javascript">
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/hospital/charge2.html";
+        });
+    });
+
+    $(function () {
+        loadData();
+        $("#firstPage").click(function () {
+            if (($(this).attr("class")) == 'disabled')
+                return;
+            let num = $(this).attr("name");
+            $("input[name='pageNum']").val(num);
+            loadData();
+        });
+
+        $("#prePage").click(function () {
+            if (($(this).attr("class")) == 'disabled')
+                return;
+            let num = $(this).attr("name");
+            $("input[name='pageNum']").val(num);
+            loadData();
+        });
+
+        $("#nextPage").click(function () {
+            if (($(this).attr("class")) == 'disabled')
+                return;
+            let num = $(this).attr("name");
+            $("input[name='pageNum']").val(num);
+            loadData();
+        });
+
+        $("#lastPage").click(function () {
+            if (($(this).attr("class")) == 'disabled')
+                return;
+            let num = $(this).attr("name");
+            $("input[name='pageNum']").val(num);
+            loadData();
+        });
+
+    });
+
+    //填充分页信息
+    function fillPageData(pageInfo) {
+        //填充信息
+        $("#total").html(pageInfo.total);
+        $("#pages").html(pageInfo.pages);
+        $("input[name='pageNum']").val(pageInfo.pageNum);
+        $("select[name='pageSize']").val(pageInfo.pageSize);
+        //设置按钮的属性值和样式
+        $("#firstPage").attr("name", 1);
+        $("#prePage").attr("name", pageInfo.prePage);
+        $("#nextPage").attr("name", pageInfo.nextPage);
+        $("#lastPage").attr("name", pageInfo.pages);
+        $("#firstPage").removeClass("disabled");
+        $("#prePage").removeClass("disabled");
+        $("#nextPage").removeClass("disabled");
+        $("#lastPage").removeClass("disabled");
+        if (pageInfo.isFirstPage) {//如果是第一页：上一页和首页禁用
+            $("#firstPage").addClass("disabled");
+            $("#prePage").addClass("disabled");
+        }
+        if (pageInfo.isLastPage) {//如果已经是最后一页：下一页和末页禁用
+            $("#nextPage").addClass("disabled");
+            $("#lastPage").addClass("disabled");
+        }
+    }
+
+    String.prototype.GetValue = function (para) {
+        let reg = new RegExp("(^|&)" + para + "=([^&]*)(&|$)");
+        let r = this.substr(this.indexOf("\?") + 1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    //加载数据
+    function loadData() {
+        let url = document.location.toString();
+        let pageNum = url.GetValue("pageNum");
+        let pageSize = url.GetValue("pageSize");
+        if (pageNum != null && $("input[name='pageNum']").val() != null) {
+            $("input[name='pageNum']").val(pageNum);
+        }
+        if (pageSize != null && $("select[name='pageSize']").val() != null) {
+            $("select[name='pageSize']").val(pageSize);
+        }
+
+        let beH_id = url.GetValue("beH_id");
+
+        $.ajax({
+            type: "GET",
+            url: "/price/" + beH_id,
+            data: $("#myForm").serialize(),//主要是分页和多条件参数数据
+            dataType: "json",
+            success: function (vo) {
+                //alert( "Data Saved: " + vo );
+                let list = vo.pageInfo.list;
+                if (list.length == 0) {
+                    alert("抱歉！未找到相关数据");
+                }
+                let str = "";
+                for (let i = 0; i < list.length; i++) {
+                    let obj = list[i];
+                    let beH_id = obj.beH_id;
+                    let re_name = obj.register.re_name == null ? '' : obj.register.re_name;
+                    let charP_name = obj.chargeProj.charP_name == null ? '' : obj.chargeProj.charP_name;
+                    let charP_money = obj.chargeProj.charP_money == null ? '' : obj.chargeProj.charP_money;
+                    let checkTime = obj.checkTime == null ? '' : obj.checkTime;
+
+                    str += '<tr>' +
+                        '            <td>' + beH_id + '</td>' +
+                        '            <td>' + re_name + '</td>' +
+                        '            <td>' + charP_name + '</td>' +
+                        '            <td>' + "¥" + charP_money + '</td>' +
+                        '            <td>' + checkTime + '</td>' +
+                        '</tr>'
+                }
+                $("#tbody").html(str);
+                //填充分页数据
+                fillPageData(vo.pageInfo);
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/hosp/" + beH_id,
+            data: "",
+            dataType: "json",
+            success: function (vo) {
+                let obj = vo.obj;
+                let beH_charge = obj.beH_charge;
+                let beH_antecedent = obj.beH_antecedent;
+                let beH_remain = obj.beH_remain;
+
+                $("#beH_charge").html("¥ " + beH_charge + " —— （包含药品费用）");
+                $("#beH_antecedent").html("¥ " + beH_antecedent);
+                $("#beH_remain").html("¥ " + beH_remain + " —— （包含押金）");
+            }
+        });
+    }
+
+    function Excel() {
+        let url = document.location.toString();
+        let beH_id = url.GetValue("beH_id");
+
+        window.location.href = "/excel/Charge/" + beH_id;
+    }
+</script>

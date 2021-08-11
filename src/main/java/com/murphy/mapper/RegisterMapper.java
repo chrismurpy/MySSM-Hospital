@@ -36,4 +36,11 @@ public interface RegisterMapper {
      * @return
      */
     List<Register> queryByVo(QueryRegisterVo vo);
+
+    /**
+     * 根据 名称 - 查询
+     * @param re_name
+     * @return
+     */
+    Register queryByName(String re_name);
 }

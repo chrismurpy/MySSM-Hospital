@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>在院发药</title>
+    <title>发药详情 - 已退院</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
@@ -31,32 +31,17 @@
     </style>
 </head>
 <body>
-
 <form id="myForm" method="post" class="definewidth m20">
-    <table class="table table-bordered table-hover definewidth m10">
-        <tr>
-            <td width="10%" class="tableleft">病例号：</td>
-            <td><input type="text" name="beH_id" value=""/></td>
-            <td width="10%" class="tableleft">病例名：</td>
-            <td><input type="text" name="re_name" value=""/></td>
-            <td width="10%" class="tableleft">医生名：</td>
-            <td><input type="text" name="d_name" value=""/></td>
-            <td colspan="2">
-                <center>
-                    <button class="btn btn-success" type="button" onclick="loadData()">查询</button>
-                    <button class="btn btn-danger" type="reset">清空</button>
-                </center>
-            </td>
-        </tr>
-    </table>
-
     <table class="table table-bordered table-hover definewidth m10">
         <thead>
         <tr>
-            <th><input type="checkbox" id="checkAll" onclick="check_All()"></th>
             <th>病历号</th>
             <th>姓名</th>
-            <th>主治医生</th>
+            <th>药品名称</th>
+            <th>库存量</th>
+            <th>应发数量</th>
+            <th>已发数量</th>
+            <th>待发数量</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -87,7 +72,7 @@
                     <a class="btn btn-default" id="lastPage" name="pageLi">末页</a>&nbsp;
                 </div>
                 <div>
-                    <button type="button" class="btn btn-success" id="newNav">发药</button>
+                    <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
                 </div>
             </th>
         </tr>
@@ -96,46 +81,42 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(function () {
-        $('#newNav').click(function () {
-            let alls = document.getElementsByName("check");
-            let ids = new Array();
-            for (let i = 0; i < alls.length; i++) {
-                if (alls[i].checked) {
-                    ids.push(alls[i].value);
-                }
-            }
-            if (ids.length > 0) {
-                if (confirm("确认操作?")) {
-                    let id = '';
-                    for (let i = 0; i < ids.length; i++) {
-                        if (i == ids.length - 1) {
-                            id += ids[i];
-                        } else {
-                            id += ids[i] + "&id" + (i + 1) + "=";
-                        }
-                    }
-                    window.location.href = "/pages/hospital/dispensing-gives.html?id0=" + id;
-                }
-            } else {
-                alert("请选中要操作的项");
-            }
-        });
-    });
-
-    function check_All() {
-        let alls = document.getElementsByName("check");
-        let ch = document.getElementById("checkAll");
+    function checkall() {
+        var alls = document.getElementsByName("check");
+        var ch = document.getElementById("checkall");
         if (ch.checked) {
-            for (let i = 0; i < alls.length; i++) {
+            for (var i = 0; i < alls.length; i++) {
                 alls[i].checked = true;
             }
         } else {
-            for (let i = 0; i < alls.length; i++) {
+            for (var i = 0; i < alls.length; i++) {
                 alls[i].checked = false;
             }
         }
     }
+
+    function delAll() {
+        var alls = document.getElementsByName("check");
+        var ids = new Array();
+        for (var i = 0; i < alls.length; i++) {
+            if (alls[i].checked) {
+                ids.push(alls[i].value);
+            }
+        }
+        if (ids.length > 0) {
+            if (confirm("确认操作?")) {
+                alert("成功!");
+            }
+        } else {
+            alert("请选中要操作的项");
+        }
+    }
+
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/hospital/dispensing.html";
+        });
+    });
 
     $(function () {
         loadData();
@@ -206,9 +187,10 @@
         return null;
     }
 
-    //加载数据
     function loadData() {
+        // 获取URL
         let url = document.location.toString();
+        let beH_id = url.GetValue("beH_id");
         let pageNum = url.GetValue("pageNum");
         let pageSize = url.GetValue("pageSize");
         if (pageNum != null && $("input[name='pageNum']").val() != null) {
@@ -220,11 +202,10 @@
 
         $.ajax({
             type: "GET",
-            url: "/drugPeople/list",
-            data: $("#myForm").serialize(),//主要是分页和多条件参数数据
+            url: "/drugPeople/find/" + beH_id,
+            data: $("#myForm").serialize(),
             dataType: "json",
             success: function (vo) {
-                //alert( "Data Saved: " + vo );
                 let list = vo.pageInfo.list;
                 if (list.length == 0) {
                     alert("很抱歉！无法找到相关数据");
@@ -232,28 +213,28 @@
                 let str = "";
                 for (let i = 0; i < list.length; i++) {
                     let obj = list[i];
-                    let beH_id = obj.beH_id == null ? '' : obj.beH_id;
+                    let people_id = obj.people_id == null ? '' : obj.people_id;
+                    let re_id = obj.register.re_id == null ? '' : obj.register.re_id;
                     let re_name = obj.register.re_name == null ? '' : obj.register.re_name;
-                    let d_name = obj.doctor.d_name == null ? '' : obj.doctor.d_name;
-                    let beH_closePrice = obj.beH_closePrice == null ? '' : obj.closePrice;
-                    let beH_state = obj.beH_state == null ? '' : obj.beH_state;
+                    let dr_id = obj.dr_id == null ? '' : obj.dr_id;
+                    let dr_name = obj.drug.dr_name == null ? '' : obj.drug.dr_name;
+                    let dr_number = obj.drug.dr_number == null ? '' : obj.drug.dr_number;
+                    let drp_number = obj.drp_number == null ? '' : obj.drp_number;
+                    let dr_outNum = obj.dr_outNum == null ? '' : obj.dr_outNum;
+                    let drp_remain = drp_number - dr_outNum;
 
-                    let btnStr = "";
-                    if (beH_state == 0) {
-                        btnStr = '<button type="button" name="updateBtn" class="btn btn-sm btn-success" onclick="addDrug(' + beH_id + ')">发药</button>&nbsp;' +
-                            '<button type="button" name="infoBtn" class="btn btn-sm btn-info" onclick="drpInfo(' + beH_id + ')" >详情</button>&nbsp;';
-                    } else if (beH_state == 1 || beH_state == 2) {
-                        btnStr = '<button type="button" name="infoBtn" class="btn btn-sm btn-danger" disabled>已离院</button>&nbsp;' +
-                            '<button type="button" name="infoBtn" class="btn btn-sm btn-info" onclick="drpQuitInfo(' + beH_id + ')" >详情</button>&nbsp;';
-                    }
+                    let btnStr = '<button name="reAdded" class="btn btn-sm btn-danger" disabled>已离院</button>&nbsp;';
 
                     str += '<tr>' +
-                        '            <td><input type="checkbox" name="check" value="' + beH_id + '"/></td>' +
-                        '            <td>' + beH_id + '</td>' +
+                        '            <td>' + re_id + '</td>' +
                         '            <td>' + re_name + '</td>' +
-                        '            <td>' + d_name + '</td>' +
+                        '            <td>' + dr_name + '</td>' +
+                        '            <td>' + dr_number + '</td>' +
+                        '            <td>' + drp_number + '</td>' +
+                        '            <td>' + dr_outNum + '</td>' +
+                        '            <td>' + drp_remain + '</td>' +
                         '            <td>' + btnStr + '</td>' +
-                        '</tr>'
+                        '</tr>';
                 }
                 $("#tbody").html(str);
                 //填充分页数据
@@ -262,15 +243,7 @@
         });
     }
 
-    function addDrug(beH_id) {
-        window.location.href = "/pages/hospital/dispensing-give.html?beH_id=" + beH_id;
-    }
-
-    function drpInfo(beH_id) {
-        window.location.href = "/pages/hospital/dispensing-look.html?beH_id=" + beH_id;
-    }
-
-    function drpQuitInfo(beH_id) {
-        window.location.href = "/pages/hospital/dispensing-look_quit.html?beH_id=" + beH_id;
+    function addNum(dr_id, people_id) {
+        window.location.href = "/pages/hospital/dispensing-look_added.html?dr_id=" + dr_id + "&people_id=" + people_id;
     }
 </script>

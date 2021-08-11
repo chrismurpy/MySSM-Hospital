@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新增发药信息</title>
+    <title>新增药品量</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
@@ -36,23 +36,27 @@
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
             <td width="10%" class="tableleft">病历号</td>
-            <td><input type="text" id="people_id" name="people_id"/></td>
+            <td><span id="people_id"></span></td>
         </tr>
         <tr>
-            <td width="10%" class="tableleft">姓名</td>
-            <td><span id="re_name"></span></td>
+            <td width="10%" class="tableleft">药品编号</td>
+            <td><span id="dr_id"></span></td>
         </tr>
         <tr>
             <td width="10%" class="tableleft">药品名称</td>
             <td>
-                <select id="dr_name" name="dr_name">
+                <select id="dr_name" name="dr_name" disabled>
                     <option value="">--请选择--</option>
                 </select>
             </td>
         </tr>
         <tr>
-            <td width="10%" class="tableleft">应发数量</td>
-            <td><input type="text" id="drp_number" name="drp_number" value=""/></td>
+            <td width="10%" class="tableleft">已发数量</td>
+            <td><span id="drp_number"></span></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">新增待发量</td>
+            <td><input type="text" id="addNum" name="addNum" value=""/></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -88,32 +92,46 @@
 
     $(function (){
         let url = document.location.toString();
-        let beH_id = url.GetValue("beH_id");
-        queryById(beH_id);
+        let dr_id = url.GetValue("dr_id");
+        let people_id = url.GetValue("people_id");
+        queryById(dr_id, people_id);
     });
 
-    function queryById(beH_id) {
+    function queryById(dr_id, people_id) {
         $.ajax({
             type: "GET",
-            url: "/hosp/" + beH_id,
+            url: "/drugPeople/query/" + dr_id + "/" + people_id,
             data: "",
             dataType: "json",
             success: function (vo) {
                 let obj = vo.obj;
-                let re_name = obj.register.re_name;
+                let people_id = obj.people_id;
+                let dr_id = obj.dr_id;
+                let drp_number = obj.drp_number;
+                let dr_name = obj.drug.dr_name;
 
-                $("#people_id").val(beH_id);
-                $("#re_name").html(re_name);
+                $("#people_id").html(people_id);
+                $("#dr_id").html(dr_id);
+                $("#drp_number").html(drp_number);
+                addDr_name(dr_name);
             }
         });
     }
 
+    function addDr_name(dr_name) {
+        $("#dr_name").find("option[name=" + dr_name + "]").prop("selected", true);
+    }
+
     $(function (){
         $("#addBtn").click(function (){
+            let dr_id = $("#dr_id").text();
+            let people_id = $("#people_id").text();
+            let addNum = $("#addNum").val();
+
             $.ajax({
                 type: "POST",
-                url: "/drugPeople/add",
-                data: $("#myForm").serialize(),
+                url: "/drugPeople/addNum/" + dr_id + "/" + people_id,
+                data: {"addNum": addNum},
                 dataType: "json",
                 success: function (vo) {
                     if (vo.code == 200) {

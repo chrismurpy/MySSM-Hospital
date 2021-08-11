@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-<form id="myForm" method="post" class="definewidth m20">
+<form id="myForm" class="definewidth m20">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
             <td width="10%" class="tableleft">药品名称</td>
@@ -96,6 +96,7 @@
             <td colspan="2">
                 <center>
                     <button class="btn btn-success" type="button" id="saveBtn">新增</button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" name="backId" id="backId">返回列表</button>
                 </center>
             </td>
         </tr>
@@ -104,6 +105,12 @@
 </body>
 </html>
 <script type="text/javascript">
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/medicine/index.html";
+        });
+    });
+
     $(function () {
         //提交按钮的单击事件
         $("#saveBtn").click(function () {

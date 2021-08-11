@@ -219,4 +219,12 @@
             <if test="charP_name != null">and charP_name like concat(concat('%',#{charP_name},'%'))</if>
         </where>
     </select>
+
+    <select id="queryChargeProjName" resultMap="BaseResultMap">
+        select charP_name,charP_money from SSM_Hosp.hosp_chargeProj
+    </select>
+
+    <select id="queryByName" resultMap="BaseResultMap">
+        select * from SSM_Hosp.hosp_chargeProj where charP_name = #{charP_name}
+    </select>
 </mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.murphy.mapper.AccountMapper">
+    <select id="queryByVo" parameterType="com.murphy.vo.query.QueryAccountVo" resultMap="joinBeHospResult">
+        select * from SSM_Hosp.hosp_beHosp beH
+        inner join SSM_Hosp.hosp_register re on re.re_id = beH.beH_id
+        inner join SSM_Hosp.hosp_doctor d on d.d_id = beh.d_id
+        <where>
+            <if test="beH_id != null"> beH_id = #{beH_id}</if>
+            <if test="re_name != null">and re_name like concat(concat('%',#{re_name},'%'))</if>
+        </where>
+    </select>
+
+    <resultMap id="baseMap" type="com.murphy.pojo.BeHosp">
+        <id column="beH_id" property="beH_id"/>
+        <result column="beH_nurse" property="beH_nurse"/>
+        <result column="beH_bedNum" property="beH_bedNum"/>
+        <result column="beH_antecedent" property="beH_antecedent"/>
+        <result column="beH_total" property="beH_total"/>
+        <result column="beH_remain" property="beH_remain"/>
+        <result column="beH_createTime" property="beH_createTime"/>
+        <result column="d_id" property="d_id"/>
+        <result column="beH_illness" property="beH_illness"/>
+        <result column="beH_closePrice" property="beH_closePrice"/>
+        <result column="beH_state" property="beH_state"/>
+    </resultMap>
+
+    <resultMap id="joinResult" type="com.murphy.pojo.BeHosp" extends="baseMap">
+        <result column="re_id" property="register.re_id"/>
+        <result column="re_name" property="register.re_name"/>
+        <result column="re_phone" property="register.re_phone"/>
+        <result column="re_state" property="register.re_state"/>
+    </resultMap>
+
+    <resultMap id="joinBeHospResult" type="com.murphy.pojo.BeHosp" extends="joinResult">
+        <result column="d_id" property="doctor.d_id"/>
+        <result column="d_name" property="doctor.d_name"/>
+        <result column="d_keshi" property="doctor.d_keshi"/>
+    </resultMap>
+</mapper>

@@ -99,8 +99,11 @@ public class BeHospController {
         Long beH_antecedent = beHosp.getBeH_antecedent();
         Integer total = beHosp.getBeH_total();
         Integer beH_remain = beHosp.getBeH_remain();
+        if (remain == null) {
+            remain = 0;
+        }
         int beH_total = total + money;
-        int remain_new = beH_remain + remain;
+        int remain_new = beH_remain + remain + money;
         if (beH_total <= beH_antecedent && money >= 0 && remain >= 0) {
             beHosp.setBeH_remain(remain_new);
             beHosp.setBeH_total(beH_total);
@@ -141,8 +144,9 @@ public class BeHospController {
             beHosp.setBeH_state(0);
             beHosp.setBeH_createTime(new Timestamp(System.currentTimeMillis()));
             beHosp.setBeH_total(beH_total);
+            beHosp.setBeH_charge(0);
             beHosp.setBeH_closePrice(0);
-            beHosp.setBeH_remain(beH_remain);
+            beHosp.setBeH_remain(beH_total + beH_remain);
             beHosp.setD_id(register.getD_id());
             beHosp.setDoctor(register.getDoctor());
             beHosp.setRegister(register);
