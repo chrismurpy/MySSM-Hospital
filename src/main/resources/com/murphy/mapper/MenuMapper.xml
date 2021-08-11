@@ -113,6 +113,9 @@
       <if test="m_name != null">
         m_name,
       </if>
+      <if test="m_url != null">
+        m_url,
+      </if>
       <if test="m_state != null">
         m_state,
       </if>
@@ -123,6 +126,9 @@
       </if>
       <if test="m_name != null">
         #{m_name,jdbcType=VARCHAR},
+      </if>
+      <if test="m_url != null">
+        #{m_url,jdbcType=VARCHAR},
       </if>
       <if test="m_state != null">
         #{m_state,jdbcType=INTEGER},

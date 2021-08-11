@@ -88,11 +88,20 @@ public class MenuController {
         return new ResultVo<>(500, "服务器内部异常，请稍后再试！");
     }
 
-/*    @RequestMapping(value = "{m_id}", method = RequestMethod.POST)
+    /**
+     * 新增菜单资源
+     * @param menu
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResultVo<Menu> addMenu(Menu menu){
+        int i = menuService.addMenu(menu);
+        if (i == 1) {
+            return new ResultVo<Menu>();
+        }
+        return new ResultVo<>(500, "服务器内部异常，请稍后再试！");
 
-
-    }*/
+    }
 
 
 
