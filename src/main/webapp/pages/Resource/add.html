@@ -3,14 +3,13 @@
 <head>
     <title></title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
-    <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../Js/bootstrap.js"></script>
-    <script type="text/javascript" src="../Js/ckform.js"></script>
-    <script type="text/javascript" src="../Js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
 
  
 
@@ -42,7 +41,37 @@
 </script>
 </head>
 <body>
-<form action="index.html" method="post" class="definewidth m20">
+
+
+<form id="myForm" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">资源名称</td>
+            <td><input type="text" name="m_name"></td>
+        </tr>
+        <tr>
+            <td class="tableleft">路径URL</td>
+            <td><input type="text" name="m_url"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">是否有效</td>
+            <td>
+                <input type="radio" id="m_state0" name="m_state" value="0" checked/> 有效
+                <input type="radio" id="m_state1" name="m_state" value="1"/> 无效
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <center>
+                    <button class="btn btn-primary" type="button" id="addBtn">更新</button>&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
+                </center>
+            </td>
+        </tr>
+    </table>
+</form>
+<<!--form action="index.html" method="post" class="definewidth m20">
 <input type="hidden" name="id" value="{$user.id}" />
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
@@ -63,10 +92,42 @@
         <tr>
             <td class="tableleft"></td>
             <td>
-                <button type="submit" class="btn btn-primary" type="button">更新</button>&nbsp;&nbsp;<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
+                <button type="submit" class="btn btn-primary" type="button">更新</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
             </td>
         </tr>
     </table>
-</form>
+</form>-->
 </body>
 </html>
+
+<script>
+
+
+    // 新增菜单资源
+    $(function (){
+        $("#addBtn").click(function (){
+            $.ajax({
+                type: "POST",
+                url: "/menu/",
+                data: $("#myForm").serialize(),
+                dataType: "json",
+                success: function (vo){
+                    if (vo.code == 200) {
+                        alert("添加成功！");
+                        window.location.href = "/pages/Resource/index.html";
+                    } else {
+                        alert("添加失败！" + vo.msg);
+                    }
+                }
+            });
+        });
+    });
+
+    $(function () {
+        $('#backId').click(function () {
+            window.location.href = "/pages/Resource/index.html";
+        });
+    });
+
+</script>

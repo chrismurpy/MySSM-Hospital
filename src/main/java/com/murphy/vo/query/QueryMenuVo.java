@@ -1,30 +1,23 @@
-package com.murphy.pojo;
+package com.murphy.vo.query;
 
-public class Menu {
+/**
+ * @author Ann
+ * @create 2021-08-11 15:11
+ */
+public class QueryMenuVo {
     private Integer m_id;
-
     private String m_name;
-
     private String m_url;
-
     private Integer m_state;
 
     @Override
     public String toString() {
-        return "Menu{" +
+        return "QueryMenuVo{" +
                 "m_id=" + m_id +
                 ", m_name='" + m_name + '\'' +
                 ", m_url='" + m_url + '\'' +
                 ", m_state=" + m_state +
                 '}';
-    }
-
-    public String getM_url() {
-        return m_url;
-    }
-
-    public void setM_url(String m_url) {
-        this.m_url = m_url;
     }
 
     public Integer getM_id() {
@@ -40,7 +33,15 @@ public class Menu {
     }
 
     public void setM_name(String m_name) {
-        this.m_name = m_name == null ? null : m_name.trim();
+        this.m_name = m_name;
+    }
+
+    public String getM_url() {
+        return m_url;
+    }
+
+    public void setM_url(String m_url) {
+        this.m_url = m_url;
     }
 
     public Integer getM_state() {

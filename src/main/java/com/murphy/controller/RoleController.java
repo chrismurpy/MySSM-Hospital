@@ -39,6 +39,13 @@ public class RoleController {
         return list;
     }
 
+    /**
+     * 多条件分页查询
+     * @param pageNum
+     * @param pageSize
+     * @param vo
+     * @return
+     */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResultVo<Role> queryByPage(Integer pageNum, Integer pageSize, QueryRoleVo vo) {
         if (pageNum == null || pageNum <= 0) {
@@ -51,6 +58,11 @@ public class RoleController {
         return new ResultVo<>(rolePageInfo);
     }
 
+    /**
+     * 逻辑删除
+     * @param r_id
+     * @return
+     */
     @RequestMapping(value = "{r_id}", method = RequestMethod.DELETE)
     public ResultVo<User> deleteUser(@PathVariable("r_id") Integer r_id) {
         int i = roleService.deleteRole(r_id);

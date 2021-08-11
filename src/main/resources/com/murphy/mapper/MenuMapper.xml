@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.murphy.pojo.Menu">
     <id column="m_id" jdbcType="INTEGER" property="m_id" />
     <result column="m_name" jdbcType="VARCHAR" property="m_name" />
+    <result column="m_url" jdbcType="VARCHAR" property="m_url" />
     <result column="m_state" jdbcType="INTEGER" property="m_state" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    m_id, m_name, m_state
+    m_id, m_name, m_url, m_state
   </sql>
   <select id="selectByExample" parameterType="com.murphy.pojo.MenuExample" resultMap="BaseResultMap">
     select
@@ -178,4 +179,14 @@
       m_state = #{m_state,jdbcType=INTEGER}
     where m_id = #{m_id,jdbcType=INTEGER}
   </update>
+
+  <!--  通过资源名称查询该资源信息-->
+  <select id="queryMenuByVo" resultMap="BaseResultMap">
+            SELECT * FROM hosp_menu
+            <where>
+              <if test="m_name != null">m_name like concat(concat('%',#{m_name},'%'))</if>
+            </where>
+  </select>
+
+
 </mapper>

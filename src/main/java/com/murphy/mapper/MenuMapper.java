@@ -3,6 +3,9 @@ package com.murphy.mapper;
 import com.murphy.pojo.Menu;
 import com.murphy.pojo.MenuExample;
 import java.util.List;
+
+import com.murphy.vo.UserQueryVo;
+import com.murphy.vo.query.QueryMenuVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface MenuMapper {
@@ -27,4 +30,12 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
+
+    /**
+     * 动态SQL 根据资源名称模糊查询
+     * @param vo
+     * @return
+     */
+    List<Menu> queryMenuByVo(QueryMenuVo vo);
+
 }
