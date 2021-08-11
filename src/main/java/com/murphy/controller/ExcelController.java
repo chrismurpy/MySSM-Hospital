@@ -269,7 +269,7 @@ public class ExcelController {
     }
 
     /**
-     * 导出 Excel - 药品信息
+     * 导出 Excel - 收费项目管理
      * @param response
      * @throws IOException
      */
@@ -302,6 +302,55 @@ public class ExcelController {
         // 设置下载时客户端Excel的名称
         response.setContentType("application/octet-stream;charset=utf-8");
         response.setHeader("Content-Disposition","attachment;filename=" + new String("收费明细".getBytes(),
+                "iso-8859-1") + ".xls");
+
+        OutputStream outputStream = response.getOutputStream();
+        wb.write(outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    /**
+     * 导出 Excel - 住院结算
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "outCharge", method = RequestMethod.GET)
+    public void excelAddCharge(HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        List<ExcelChargeVo> chargeVos = excelService.queryAddChargeInfo();
+        // 创建Excel文件
+        HSSFWorkbook wb = new HSSFWorkbook();
+        // 创建Sheet页
+        HSSFSheet sheet = wb.createSheet("住院结算明细表");
+        // 创建标题行
+        HSSFRow titleRow = sheet.createRow(0);
+        titleRow.createCell(0).setCellValue("病例号");
+        titleRow.createCell(1).setCellValue("姓名");
+        titleRow.createCell(2).setCellValue("押金缴纳情况");
+        titleRow.createCell(3).setCellValue("当前余额");
+        titleRow.createCell(4).setCellValue("入院时间");
+        titleRow.createCell(5).setCellValue("当前状态");
+        // 遍历将数据放到Excel列中
+        String state = "";
+        for (ExcelChargeVo vo : chargeVos) {
+            HSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(vo.getBeH_id());
+            dataRow.createCell(1).setCellValue(vo.getRe_name());
+            dataRow.createCell(2).setCellValue("¥ " + vo.getBeH_total() + " / " + vo.getBeH_antecedent());
+            dataRow.createCell(3).setCellValue("¥ " + vo.getBeH_remain());
+            dataRow.createCell(4).setCellValue(vo.getBeH_createTime().toString());
+            if (vo.getBeH_closePrice() == 0) {
+                state = "未缴押金";
+            } else {
+                state = "已缴押金";
+            }
+            dataRow.createCell(5).setCellValue(state);
+        }
+
+        // 设置下载时客户端Excel的名称
+        response.setContentType("application/octet-stream;charset=utf-8");
+        response.setHeader("Content-Disposition","attachment;filename=" + new String("住院结算明细".getBytes(),
                 "iso-8859-1") + ".xls");
 
         OutputStream outputStream = response.getOutputStream();

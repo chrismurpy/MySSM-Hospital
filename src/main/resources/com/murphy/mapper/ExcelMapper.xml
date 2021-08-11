@@ -26,4 +26,11 @@
         inner join SSM_Hosp.hosp_chargeProj charge on price.charP_id = charge.charP_id
         where beH.beH_id = #{beH_id} order by beH.beH_id
     </select>
+
+    <select id="queryAddChargeInfo" resultType="com.murphy.vo.excel.ExcelChargeVo">
+        select beH.beH_id, re.re_name, beH.beH_antecedent, beH.beH_charge, beH_total,
+               beH.beH_remain, beH.beH_closePrice, beH.beH_createTime
+        from SSM_Hosp.hosp_beHosp beH
+        inner join SSM_Hosp.hosp_register re on beH.beH_id = re.re_id order by beH.beH_id
+    </select>
 </mapper>

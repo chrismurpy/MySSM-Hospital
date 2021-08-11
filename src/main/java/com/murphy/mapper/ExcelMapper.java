@@ -21,4 +21,6 @@ public interface ExcelMapper {
     List<ExcelDrugVo> queryDrugInfo();
 
     List<ExcelChargeProjVo> queryChargeInfo(Integer beH_id);
+
+    List<ExcelChargeVo> queryAddChargeInfo();
 }

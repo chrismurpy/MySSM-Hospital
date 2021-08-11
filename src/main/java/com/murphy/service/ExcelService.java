@@ -57,11 +57,20 @@ public class ExcelService {
     }
 
     /**
-     * 收费项目管理
+     * 收费项目管理 - 导出Excel
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<ExcelChargeProjVo> queryChargeInfo(Integer beH_id) {
         return excelMapper.queryChargeInfo(beH_id);
+    }
+
+    /**
+     * 住院结算 - 导出Excel
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<ExcelChargeVo> queryAddChargeInfo() {
+        return excelMapper.queryAddChargeInfo();
     }
 }
