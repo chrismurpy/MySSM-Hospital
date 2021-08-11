@@ -80,4 +80,23 @@ public class ChargeProjService {
     public int addCharProj(ChargeProj chargeProj) {
         return chargeProjMapper.insertSelective(chargeProj);
     }
+
+    /**
+     * 获取 收费项目名称
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List queryChargeProjName() {
+        return chargeProjMapper.queryChargeProjName();
+    }
+
+    /**
+     * 根据 收费项目名称 - 查询
+     * @param charP_name
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public ChargeProj queryByName(String charP_name) {
+        return chargeProjMapper.queryByName(charP_name);
+    }
 }

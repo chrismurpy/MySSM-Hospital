@@ -136,4 +136,14 @@ public class RegisterService {
         register.setRe_state(3);
         return registerMapper.updateByPrimaryKeySelective(register);
     }
+
+    /**
+     * 根据 名称 - 查询
+     * @param re_name
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Register queryByName(String re_name) {
+        return registerMapper.queryByName(re_name);
+    }
 }

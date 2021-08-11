@@ -6,6 +6,7 @@ import com.murphy.mapper.DrugPeopleMapper;
 import com.murphy.pojo.BeHosp;
 import com.murphy.pojo.Drug;
 import com.murphy.pojo.DrugPeople;
+import com.murphy.service.BeHospService;
 import com.murphy.service.DrugPeopleService;
 import com.murphy.vo.ResultVo;
 import com.murphy.vo.query.QueryDrugPeopleVo;
@@ -32,6 +33,8 @@ public class DrugPeopleController {
     private DrugMapper drugMapper;
     @Resource
     private DrugPeopleMapper drugPeopleMapper;
+    @Resource
+    private BeHospService beHospService;
 
     /**
      * 多条件分页查询 - 通过住院表获取住院人员信息
@@ -129,7 +132,7 @@ public class DrugPeopleController {
     }
 
     /**
-     * 新增发药量
+     * 新增发药量 - 发完
      * @param dr_id
      * @param people_id
      * @return
@@ -173,33 +176,45 @@ public class DrugPeopleController {
     public ResultVo<DrugPeople> updateDrugPeople(@PathVariable("dr_id") Integer dr_id,
                                                  @PathVariable("people_id") Integer people_id, Integer drp_remain) {
         DrugPeople drugPeople = drugPeopleMapper.queryByDr_idAndP_id(dr_id, people_id);
+        Drug drug = drugMapper.selectByPrimaryKey(dr_id);
 
         Integer send = drugPeople.getDr_outNum() + drp_remain;
-        drugPeople.setDr_outNum(send);
-
         Integer drp_number = drugPeople.getdrp_number();
         Integer dr_outNum = drugPeople.getDr_outNum();
         Integer remain = drp_number - dr_outNum;
-
-        Integer drId = drugPeople.getDr_id();
-        Drug drug = drugMapper.selectByPrimaryKey(drId);
-
         Integer dr_number = drug.getDr_number();
-        dr_number = dr_number - drp_remain;
 
-        if (dr_number < 0) {
+        if (dr_number - drp_remain < 0) {
             return new ResultVo<>(500,"库存不足，无法发药！");
-        } else if (drp_remain > remain) {
+        } else if (drp_remain > remain || send > drp_number) {
             return new ResultVo<>(500,"发放量大于需求量！");
-        }
-        drug.setDr_number(dr_number);
-        drugMapper.updateByPrimaryKeySelective(drug);
+        } else {
+            Long dr_outPrice = drug.getDr_outPrice();
+            Integer price = Math.toIntExact(dr_outPrice * drp_remain);
+            System.out.println(price);
+            BeHosp beHosp = beHospService.queryById(people_id);
+            if (beHosp.getBeH_remain() >= 0 && beHosp.getBeH_remain() - price >= 0) {
+                beHosp.setBeH_charge(beHosp.getBeH_charge() + price);
+                beHosp.setBeH_remain(beHosp.getBeH_remain() - price);
+                System.out.println(beHosp.getBeH_charge() + " - " + beHosp.getBeH_remain());
+                beHospService.updateBeHosp(beHosp);
+            } else {
+                return new ResultVo<>(500,"余额不足，无法进行发药操作！");
+            }
 
-        int i = drugPeopleService.updateDrugPeople(drugPeople);
-        if (i == 1) {
-            return new ResultVo<>();
+            drugPeople.setDr_outNum(send);
+            dr_number = dr_number - drp_remain;
+
+            drug.setDr_number(dr_number);
+            drugMapper.updateByPrimaryKeySelective(drug);
+
+            int i = drugPeopleService.updateDrugPeople(drugPeople);
+            if (i == 1) {
+
+                return new ResultVo<>();
+            }
+            return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
         }
-        return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
     }
 
     /**

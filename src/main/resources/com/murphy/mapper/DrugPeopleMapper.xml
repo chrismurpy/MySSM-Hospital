@@ -174,7 +174,8 @@
     </resultMap>
 
     <select id="selectById" resultMap="baseMap">
-        select drp.dr_id,dr.dr_name,drp.people_id,re.re_id,re.re_name,d.d_name,drp.drp_number,drp.dr_outNum,dr.dr_number,dr.dr_outPrice from SSM_Hosp.hosp_drugPeople drp
+        select drp.dr_id,dr.dr_name,drp.people_id,re.re_id,re.re_name,d.d_name,drp.drp_number,drp.dr_outNum,dr.dr_number,dr.dr_outPrice
+        from SSM_Hosp.hosp_drugPeople drp
         inner join SSM_Hosp.hosp_beHosp beH on drp.people_id = beH.beH_id
         inner join SSM_Hosp.hosp_doctor d on beH.d_id = d.d_id
         inner join SSM_Hosp.hosp_register re on re.re_id = beH.beH_id

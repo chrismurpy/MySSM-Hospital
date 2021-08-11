@@ -2,6 +2,7 @@ package com.murphy.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.murphy.pojo.ChargeProj;
+import com.murphy.pojo.PricePeople;
 import com.murphy.service.ChargeProjService;
 import com.murphy.vo.ResultVo;
 import com.murphy.vo.query.QueryChargeProjVo;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 收费项目管理 - Controller层
@@ -99,5 +101,26 @@ public class ChargeProjController {
             return new ResultVo<>();
         }
         return new ResultVo<>(500,"服务器内部异常，请稍后再试！");
+    }
+
+    /**
+     * 获取 收费项目名
+     * @return
+     */
+    @RequestMapping(value = "queryName", method = RequestMethod.GET)
+    public List<ChargeProj> queryChargeProjName() {
+        List list = chargeProjService.queryChargeProjName();
+        return list;
+    }
+
+    /**
+     * 根据 收费项目名 - 查询
+     * @param charP_name
+     * @return
+     */
+    @RequestMapping(value = "query/{charP_name}")
+    public ResultVo<ChargeProj> queryByName(@PathVariable("charP_name") String charP_name) {
+        ChargeProj chargeProj = chargeProjService.queryByName(charP_name);
+        return new ResultVo<>(chargeProj);
     }
 }

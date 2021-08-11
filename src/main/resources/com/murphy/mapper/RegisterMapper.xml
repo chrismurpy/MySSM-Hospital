@@ -400,4 +400,8 @@
         <result column="d_name" property="doctor.d_name"/>
         <result column="d_keshi" property="doctor.d_keshi"/>
     </resultMap>
+
+    <select id="queryByName" resultMap="BaseResultMap">
+        select * from SSM_Hosp.hosp_register where re_name = #{re_name}
+    </select>
 </mapper>

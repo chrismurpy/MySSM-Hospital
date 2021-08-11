@@ -7,6 +7,7 @@
         <result column="beH_bedNum" jdbcType="VARCHAR" property="beH_bedNum"/>
         <result column="beH_antecedent" jdbcType="DECIMAL" property="beH_antecedent"/>
         <result column="beH_total" jdbcType="INTEGER" property="beH_total"/>
+        <result column="beH_charge" jdbcType="INTEGER" property="beH_charge"/>
         <result column="beH_remain" jdbcType="INTEGER" property="beH_remain"/>
         <result column="beH_createTime" jdbcType="TIMESTAMP" property="beH_createTime"/>
         <result column="d_id" jdbcType="INTEGER" property="d_id"/>
@@ -75,7 +76,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        beH_id, beH_nurse, beH_bedNum, beH_antecedent, beH_total, beH_remain, beH_createTime, d_id, beH_illness, beH_closePrice, beH_state
+        beH_id, beH_nurse, beH_bedNum, beH_antecedent, beH_total, beH_charge, beH_remain, beH_createTime, d_id, beH_illness, beH_closePrice, beH_state
     </sql>
     <select id="selectByExample" parameterType="com.murphy.pojo.BeHospExample" resultMap="BaseResultMap">
         select
@@ -110,13 +111,12 @@
     </delete>
     <insert id="insert" parameterType="com.murphy.pojo.BeHosp">
         insert into hosp_beHosp (beH_id, beH_nurse, beH_bedNum,
-                                 beH_antecedent, beH_total, beH_remain, beH_createTime, d_id, beH_illness, beH_closePrice,
+                                 beH_antecedent, beH_total, beH_charge, beH_remain, beH_createTime, d_id, beH_illness, beH_closePrice,
                                  beH_state)
         values (#{beH_id,jdbcType=INTEGER}, #{beH_nurse,jdbcType=VARCHAR}, #{beH_bedNum,jdbcType=VARCHAR},
-                #{beH_antecedent,jdbcType=DECIMAL}, #{beH_total,jdbcType=INTEGER}, #{beH_remain,jdbcType=INTEGER},
-                #{beH_createTime,jdbcType=TIMESTAMP}, #{d_id,jdbcType=INTEGER}, #{beH_illness,jdbcType=VARCHAR},
-                #{beH_closePrice,jdbcType=INTEGER},
-                #{beH_state,jdbcType=INTEGER})
+                #{beH_antecedent,jdbcType=DECIMAL}, #{beH_total,jdbcType=INTEGER}, #{beH_charge,jdbcType=INTEGER},
+                #{beH_remain,jdbcType=INTEGER}, #{beH_createTime,jdbcType=TIMESTAMP}, #{d_id,jdbcType=INTEGER},
+                #{beH_illness,jdbcType=VARCHAR}, #{beH_closePrice,jdbcType=INTEGER}, #{beH_state,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.murphy.pojo.BeHosp">
         insert into hosp_beHosp
@@ -135,6 +135,9 @@
             </if>
             <if test="beH_total != null">
                 beH_total,
+            </if>
+            <if test="beH_charge != null">
+                beH_charge,
             </if>
             <if test="beH_remain != null">
                 beH_remain,
@@ -170,6 +173,9 @@
             </if>
             <if test="beH_total != null">
                 #{beH_total,jdbcType=INTEGER},
+            </if>
+            <if test="beH_charge != null">
+                #{beH_charge,jdbcType=INTEGER},
             </if>
             <if test="beH_remain != null">
                 #{beH_remain,jdbcType=INTEGER},
@@ -215,6 +221,9 @@
             <if test="record.beH_total != null">
                 beH_total = #{record.beH_total,jdbcType=INTEGER},
             </if>
+            <if test="record.beH_charge != null">
+                beH_charge = #{record.beH_charge,jdbcType=INTEGER},
+            </if>
             <if test="record.beH_remain != null">
                 beH_remain = #{record.beH_remain,jdbcType=INTEGER},
             </if>
@@ -245,6 +254,7 @@
         beH_bedNum = #{record.beH_bedNum,jdbcType=VARCHAR},
         beH_antecedent = #{record.beH_antecedent,jdbcType=DECIMAL},
         beH_total = #{record.beH_total,jdbcType=INTEGER},
+        beH_charge = #{record.beH_charge,jdbcType=INTEGER},
         beH_remain = #{record.beH_remain,jdbcType=INTEGER},
         beH_createTime = #{record.beH_createTime,jdbcType=TIMESTAMP},
         d_id = #{record.d_id,jdbcType=INTEGER},
@@ -269,6 +279,9 @@
             </if>
             <if test="beH_total != null">
                 beH_total = #{beH_total,jdbcType=INTEGER},
+            </if>
+            <if test="beH_charge != null">
+                beH_charge = #{beH_charge,jdbcType=INTEGER},
             </if>
             <if test="beH_remain != null">
                 beH_remain = #{beH_remain,jdbcType=INTEGER},
@@ -297,6 +310,7 @@
             beH_bedNum     = #{beH_bedNum,jdbcType=VARCHAR},
             beH_antecedent = #{beH_antecedent,jdbcType=DECIMAL},
             beH_total      = #{beH_total,jdbcType=INTEGER},
+            beH_charge     = #{beH_charge,jdbcType=INTEGER},
             beH_remain     = #{beH_remain,jdbcType=INTEGER},
             beH_createTime = #{beH_createTime,jdbcType=TIMESTAMP},
             d_id           = #{d_id,jdbcType=INTEGER},
@@ -325,6 +339,7 @@
         <result column="beH_bedNum" property="beH_bedNum"/>
         <result column="beH_antecedent" property="beH_antecedent"/>
         <result column="beH_total" property="beH_total"/>
+        <result column="beH_charge" property="beH_charge"/>
         <result column="beH_remain" property="beH_remain"/>
         <result column="beH_createTime" property="beH_createTime"/>
         <result column="d_id" property="d_id"/>

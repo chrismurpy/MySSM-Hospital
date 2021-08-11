@@ -19,6 +19,8 @@ public class BeHosp {
 
     private Integer beH_total;
 
+    private Integer beH_charge;
+
     private Integer beH_remain;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -45,6 +47,7 @@ public class BeHosp {
                 ", beH_bedNum='" + beH_bedNum + '\'' +
                 ", beH_antecedent=" + beH_antecedent +
                 ", beH_total=" + beH_total +
+                ", beH_charge=" + beH_charge +
                 ", beH_remain=" + beH_remain +
                 ", beH_createTime=" + beH_createTime +
                 ", d_id=" + d_id +
@@ -110,6 +113,14 @@ public class BeHosp {
 
     public void setBeH_total(Integer beH_total) {
         this.beH_total = beH_total;
+    }
+
+    public Integer getBeH_charge() {
+        return beH_charge;
+    }
+
+    public void setBeH_charge(Integer beH_charge) {
+        this.beH_charge = beH_charge;
     }
 
     public Integer getBeH_remain() {

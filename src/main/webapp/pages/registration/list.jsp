@@ -39,7 +39,7 @@
 
 </head>
 <body>
-<form id="myForm" class="form-horizontal" method="post">
+<form id="myForm" class="form-horizontal definewidth m20" method="post">
 
     <table class="table table-bordered table-hover definewidth m10">
         <tr>

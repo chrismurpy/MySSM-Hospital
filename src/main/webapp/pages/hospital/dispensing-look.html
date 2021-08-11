@@ -42,6 +42,7 @@
             <th>应发数量</th>
             <th>已发数量</th>
             <th>待发数量</th>
+            <th>总金额</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -222,6 +223,7 @@
                     let drp_number = obj.drp_number == null ? '' : obj.drp_number;
                     let dr_outNum = obj.dr_outNum == null ? '' : obj.dr_outNum;
                     let drp_remain = drp_number - dr_outNum;
+                    let price = dr_outNum * obj.drug.dr_outPrice;
 
                     let btnStr = "";
                     if (drp_number > dr_outNum) {
@@ -244,6 +246,7 @@
                         '            <td>' + drp_number + '</td>' +
                         '            <td>' + dr_outNum + '</td>' +
                         '            <td>' + drp_remain + '</td>' +
+                        '            <td>' + "¥" + price + '</td>' +
                         '            <td>' + btnStr + '</td>' +
                         '</tr>';
                 }

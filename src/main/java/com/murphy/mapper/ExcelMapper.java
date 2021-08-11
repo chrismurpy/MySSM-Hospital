@@ -1,9 +1,6 @@
 package com.murphy.mapper;
 
-import com.murphy.vo.excel.ExcelBeHospVo;
-import com.murphy.vo.excel.ExcelDoctorVo;
-import com.murphy.vo.excel.ExcelDrugVo;
-import com.murphy.vo.excel.ExcelRegisterVo;
+import com.murphy.vo.excel.*;
 
 import java.util.List;
 
@@ -22,4 +19,6 @@ public interface ExcelMapper {
     List<ExcelDoctorVo> queryDoctorInfo();
 
     List<ExcelDrugVo> queryDrugInfo();
+
+    List<ExcelChargeProjVo> queryChargeInfo(Integer beH_id);
 }
