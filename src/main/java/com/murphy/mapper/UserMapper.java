@@ -37,4 +37,11 @@ public interface UserMapper {
      */
     List<User> queryUserByVo(UserQueryVo vo);
 
+    /**
+     * 动态SQL 根据密码查询用户
+     * @param password
+     * @return
+     */
+    User selectByPassword(String password);
+
 }

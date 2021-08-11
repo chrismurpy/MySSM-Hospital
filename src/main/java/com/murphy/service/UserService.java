@@ -114,6 +114,17 @@ public class UserService {
     }
 
     /**
+     * 根据密码查询
+     * @param password
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public User queryUserByPassword(String password) {
+        User user = userMapper.selectByPassword(password);
+        return user;
+    }
+
+    /**
      * 根据主键修改用户信息
      * @param user
      * @return

@@ -171,6 +171,28 @@ public class UserController {
     }
 
     /**
+     * 根据新密码更改用户
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @RequestMapping(value = "/User/password", method = RequestMethod.PUT)
+    public ResultVo<User> updatePassword( @RequestParam("oldPassword") String oldPassword,
+                                          @RequestParam("newPassword") String newPassword) {
+        System.out.println(oldPassword);
+        System.out.println(newPassword);
+        User user = userService.queryUserByPassword(oldPassword);
+        user.setU_password(newPassword);
+
+        int i = userService.updateUser(user);
+        System.out.println(i);
+        if (i == 1) {
+            return new ResultVo<User>();
+        }
+        return new ResultVo<>(500, "服务器内部异常，请稍后再试！");
+    }
+
+    /**
      * 根据主键删除用户
      * 逻辑删除   u_state 变更为 1
      *

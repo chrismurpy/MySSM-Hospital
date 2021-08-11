@@ -52,7 +52,7 @@
                             {id: '11', text: '用户管理', href: '/pages/User/index.html'},
                             {id: '12', text: '角色管理', href: '/pages/Role/index.html'},
                             {id: '13', text: '资源管理', href: '/pages/Resource/index.html'},
-                            {id: '13', text: '密码管理', href: '/pages/User/password.html'}
+                            {id: '13', text: '密码管理', href: '/pages/User/password.jsp'}
                         ]
                     }
                 ]
