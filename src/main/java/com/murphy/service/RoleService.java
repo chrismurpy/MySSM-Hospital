@@ -2,8 +2,10 @@ package com.murphy.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.murphy.mapper.MenuMapper;
 import com.murphy.mapper.RoleMapper;
 import com.murphy.pojo.Keshi;
+import com.murphy.pojo.Menu;
 import com.murphy.pojo.Role;
 import com.murphy.pojo.User;
 import com.murphy.vo.UserQueryVo;
@@ -26,6 +28,8 @@ public class RoleService {
 
     @Resource
     private RoleMapper roleMapper;
+    @Resource
+    private MenuMapper menuMapper;
 
     /**
      * 查询所有角色姓名
@@ -71,6 +75,19 @@ public class RoleService {
         Role role = roleMapper.selectByPrimaryKey(r_id);
         role.setR_state(1);
         return roleMapper.updateByPrimaryKeySelective(role);
+    }
+
+    /**
+     * 根据角色ID查询角色信息（包含角色所对应的菜单资源信息）
+     * @param r_id
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public Role queryByRoleId(Integer r_id) {
+        Role role = roleMapper.selectByPrimaryKey(r_id);
+        List<Menu> menuList = menuMapper.queryMenuByRoleId(r_id);
+        role.setMenuList(menuList);
+        return role;
     }
 
 

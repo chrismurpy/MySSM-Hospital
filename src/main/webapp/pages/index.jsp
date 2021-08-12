@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>人民医院信息管理系统</title>
@@ -17,13 +18,24 @@
             <li style=" color:#fff; font-size:20px; margin-top:10px; margin-left:20px;">人民医院管理平台</li>
         </ul>
         <div style="float:right; color:#fff;font-size: 15px;padding-top: 10px">
-            欢迎您，<span class="dl-log-user">${username}</span>
+            欢迎您，<span class="dl-log-user">${username},${menuList[1].m_url}</span>
             <a href="/logout" title="退出系统" class="dl-log-quit">[退出]</a></div>
     </div>
 
     <ul id="J_NavContent" class="dl-tab-conten">
     </ul>
 </div>
+
+
+
+<%--<c:forEach items="menuList" var="m">
+
+ ${m.m_url}
+
+</c:forEach>--%>
+
+
+
 <script type="text/javascript" src="/pages/assets/js/jquery-1.6.js"></script>
 <script type="text/javascript" src="/pages/assets/js/bui.js"></script>
 <script type="text/javascript" src="/pages/assets/js/common/main-min.js"></script>
@@ -62,6 +74,7 @@
             modulesConfig: config
         });
     });
+
 </script>
 </body>
 </html>

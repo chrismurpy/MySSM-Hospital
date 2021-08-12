@@ -27,6 +27,8 @@ public class UserService {
     private UserMapper userMapper;
     @Resource
     private RoleMapper roleMapper;
+    @Resource
+    private RoleService roleService;
 
     /**
      * 登录功能
@@ -51,8 +53,11 @@ public class UserService {
         UserExample example = new UserExample();
         example.createCriteria().andU_LoginNameEqualTo(user.getU_LoginName()).andU_passwordEqualTo(user.getU_password());
         User result = userMapper.selectByPrimaryKey(user.getU_LoginName());
+        Role role = roleService.queryByRoleId(result.getR_id());//通过用户的角色ID查询角色信息（包含菜单集合）
+        result.setRole(role);
         return result;
     }
+
 
     /**
      * 多条件分页查询用户信息(已弃用)

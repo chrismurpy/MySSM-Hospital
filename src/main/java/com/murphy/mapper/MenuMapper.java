@@ -32,10 +32,20 @@ public interface MenuMapper {
     int updateByPrimaryKey(Menu record);
 
     /**
-     * 动态SQL 根据资源名称模糊查询
+     * 动态SQL  根据资源名称查询该资源信息
      * @param vo
      * @return
      */
+
     List<Menu> queryMenuByVo(QueryMenuVo vo);
+
+    /**
+     * 动态SQL  根据角色ID查询对应的菜单信息
+     * @param r_id
+     * @return
+     */
+    List<Menu> queryMenuByRoleId(Integer r_id);
+
+
 
 }

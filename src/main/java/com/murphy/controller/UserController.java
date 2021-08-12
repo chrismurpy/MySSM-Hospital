@@ -52,6 +52,7 @@ public class UserController {
             if (userService.login(user) && verify.equalsIgnoreCase(code)) {
                 session.setAttribute("username", result.getU_trueName());
                 session.setAttribute("loginPassword", result.getU_password());
+                session.setAttribute("menuList",result.getRole().getMenuList());
                 mv.setViewName("index");
             } else if (verify == null || verify == "") {
                 mv.addObject("msg", "验证码不能为空！");

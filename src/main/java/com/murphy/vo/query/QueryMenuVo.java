@@ -1,5 +1,7 @@
 package com.murphy.vo.query;
 
+import com.murphy.pojo.Role;
+
 /**
  * @author Ann
  * @create 2021-08-11 15:11
@@ -19,6 +21,7 @@ public class QueryMenuVo {
                 ", m_state=" + m_state +
                 '}';
     }
+
 
     public Integer getM_id() {
         return m_id;

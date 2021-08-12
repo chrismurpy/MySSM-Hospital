@@ -195,4 +195,16 @@
   </select>
 
 
+<!--  根据角色ID查询对应的菜单信息-->
+  <select id="queryMenuByRoleId" parameterType="com.murphy.pojo.Role" resultMap="joinResultMap" >
+     SELECT m.m_id,m.m_name,m.m_state,m.m_url FROM hosp_role r,hosp_menu m,hosp_role_menu rm
+     WHERE r.r_id=rm.r_id AND rm.m_id= m.m_id AND r.r_id=#{r_id}
+  </select>
+
+  <resultMap id="joinResultMap" type="com.murphy.pojo.Menu" extends="BaseResultMap">
+    <collection property="roleList" javaType="java.util.ArrayList" ofType="role">
+    </collection>
+  </resultMap>
+
+
 </mapper>
