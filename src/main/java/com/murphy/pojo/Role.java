@@ -9,6 +9,8 @@ public class Role {
 
     private Integer r_state;
 
+    private List<RoleMenu> roleMenus;
+
     private List<Menu> menuList;
 
     @Override
@@ -17,8 +19,17 @@ public class Role {
                 "r_id=" + r_id +
                 ", r_name='" + r_name + '\'' +
                 ", r_state=" + r_state +
+                ", roleMenus=" + roleMenus +
                 ", menuList=" + menuList +
                 '}';
+    }
+
+    public List<RoleMenu> getRoleMenus() {
+        return roleMenus;
+    }
+
+    public void setRoleMenus(List<RoleMenu> roleMenus) {
+        this.roleMenus = roleMenus;
     }
 
     public List<Menu> getMenuList() {

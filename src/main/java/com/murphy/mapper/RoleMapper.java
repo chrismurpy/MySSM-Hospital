@@ -42,4 +42,6 @@ public interface RoleMapper {
      * @return
      */
     List<Role> queryRoleByVo(QueryRoleVo vo);
+
+    Role queryByR_id(Integer r_id);
 }
