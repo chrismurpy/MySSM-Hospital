@@ -18,7 +18,7 @@
             <li style=" color:#fff; font-size:20px; margin-top:10px; margin-left:20px;">人民医院管理平台</li>
         </ul>
         <div style="float:right; color:#fff;font-size: 15px;padding-top: 10px">
-            欢迎您，<span class="dl-log-user">${username},${menuList[1].m_url}</span>
+            欢迎您，<span class="dl-log-user">${username}</span>
             <a href="/logout" title="退出系统" class="dl-log-quit">[退出]</a></div>
     </div>
 
@@ -49,22 +49,25 @@
                 id: '1', menu: [
                     {
                         text: '快速通道', items: [
-                            {id: '2', text: '挂号信息管理', href: '/pages/registration/list.jsp'},
-                            {id: '5', text: '住院办理', href: '/pages/hospital/index.html'},
-                            {id: '8', text: '住院结算', href: '/pages/hospital/account.html'},
-                            {id: '7', text: '在院发药', href: '/pages/hospital/dispensing.html'},
-                            {id: '4', text: '药品管理', href: '/pages/medicine/index.html'},
-                            {id: '16', text: '检查收费项目登记', href: '/pages/hospital/charge2.html'},
-                            {id: '6', text: '收费项目管理', href: '/pages/hospital/charge.html'},
-                            /** 扩展
-                             {id:'9',text:'月营业额统计',href:''},
-                             {id:'10',text:'年营业额统计',href:''},
-                             **/
-                            {id: '3', text: '门诊医生管理', href: '/pages/doctor/index.html'},
-                            {id: '11', text: '用户管理', href: '/pages/User/index.html'},
-                            {id: '12', text: '角色管理', href: '/pages/Role/index.html'},
-                            {id: '13', text: '资源管理', href: '/pages/Resource/index.html'},
-                            {id: '13', text: '密码管理', href: '/pages/User/password.jsp'}
+                            // {id: '1', text: '挂号信息管理', href: '/pages/registration/list.jsp'},
+                            // {id: '2', text: '住院办理', href: '/pages/hospital/index.html'},
+                            // {id: '3', text: '住院结算', href: '/pages/hospital/account.html'},
+                            // {id: '4', text: '在院发药', href: '/pages/hospital/dispensing.html'},
+                            // {id: '5', text: '药品管理', href: '/pages/medicine/index.html'},
+                            // {id: '6', text: '检查收费项目登记', href: '/pages/hospital/charge2.html'},
+                            // {id: '7', text: '收费项目管理', href: '/pages/hospital/charge.html'},
+                            // {id: '8', text: '门诊医生管理', href: '/pages/doctor/index.html'},
+                            // {id: '9', text: '用户管理', href: '/pages/User/index.html'},
+                            // {id: '10', text: '角色管理', href: '/pages/Role/index.html'},
+                            // {id: '11', text: '资源管理', href: '/pages/Resource/index.html'},
+                            // {id: '12', text: '密码管理', href: '/pages/User/password.jsp'}
+                            <c:forEach items="${menuList}" var="menu">
+                            {
+                                id: '${menu.m_id}',
+                                text: '${menu.m_name}',
+                                href: '${menu.m_url}',
+                            },
+                            </c:forEach>
                         ]
                     }
                 ]
