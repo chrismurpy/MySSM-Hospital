@@ -65,8 +65,8 @@
         <tr>
             <td class="tableleft"></td>
             <td>
-                <button class="btn btn-primary" type="button" id="saveBtn">更新</button> &nbsp;&nbsp;
-                <button type="button" class="btn btn-success" name="backId" id="backId">返回列表</button>
+                <button class="btn btn-success" type="button" id="saveBtn">更新</button> &nbsp;&nbsp;
+                <button type="button" class="btn btn-info" name="backId" id="backId">返回列表</button>
             </td>
         </tr>
     </table>
@@ -85,60 +85,6 @@
         let url = document.location.toString();//获取URL
         let r_id = url.GetValue("r_id");
         queryById(r_id);
-
-        // $("#saveBtn").click(function () {
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/role/delete/" + r_id,
-        //         data: "_method=DELETE",
-        //         dataType: "json",
-        //         success: function (vo) {
-        //             if (vo.code == 200) {
-        //                 console.log(1 + " - ");
-        //                 $.ajax({
-        //                     type: "POST",
-        //                     url: "/role/update/" + r_id,
-        //                     data: $("#myForm").serialize() + "&_method=PUT",
-        //                     dateType: "json",
-        //                     success: function (vo) {
-        //                         if (vo.code == 200) {
-        //                             console.log(2 + " - ");
-        //                             let r_name = $("#r_name").val();
-        //                             let arr = [];
-        //
-        //                             $(':checkbox[name="group[]"]:checked').each(function (i) {
-        //                                 arr.push($(this).val());
-        //                             });
-        //                             for (let i = 0; i < arr.length; i++) {
-        //                                 $.ajax({
-        //                                     type: "POST",
-        //                                     url: "/role/addMenu/" + r_name + "/" + arr[i],
-        //                                     data: "",
-        //                                     dateType: "json",
-        //                                     success: function (vo) {
-        //                                         if (vo.code == 200) {
-        //                                             console.log(3 + " - ");
-        //                                         }
-        //                                         else {
-        //                                             alert("新增失败！" + vo.msg);
-        //                                         }
-        //                                     }
-        //                                 });
-        //                             }
-        //                         }
-        //                         else {
-        //                             alert("修改失败！" + vo.msg);
-        //                         }
-        //                     }
-        //                 });
-        //                 alert("修改成功！");
-        //                 window.location.href = "/pages/doctor/index.html";
-        //             } else {
-        //                 alert("删除失败！" + vo.msg);
-        //             }
-        //         }
-        //     });
-        // });
 
         $("#saveBtn").click(function () {
 

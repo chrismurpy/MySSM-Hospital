@@ -88,13 +88,8 @@
         let url = document.location.toString();
         for (let i=0; i<5; i++) {
             let people_id = url.GetValue("id" + i);
-            console.log(people_id);
             if (people_id != null) {
                 $("#addBtn").click(function (){
-                    let drp_number = $("#drp_number").val();
-                    let dr_name = $("#dr_name");
-                    console.log(drp_number);
-                    console.log(dr_name);
                     $.ajax({
                         type: "POST",
                         url: "/drugPeople/adds/" + people_id,

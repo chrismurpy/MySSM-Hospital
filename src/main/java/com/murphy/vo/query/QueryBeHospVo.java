@@ -30,6 +30,14 @@ public class QueryBeHospVo {
                 '}';
     }
 
+    public Integer getBeH_id() {
+        return beH_id;
+    }
+
+    public void setBeH_id(Integer beH_id) {
+        this.beH_id = beH_id;
+    }
+
     public Integer getRe_id() {
         return beH_id;
     }

@@ -259,9 +259,7 @@
             success: function (vo) {
                 //alert( "Data Saved: " + vo );
                 let list = vo.pageInfo.list;
-                if (list.length == 0) {
-                    alert("抱歉！未找到相关数据");
-                }
+
                 let str = "";
                 for (let i = 0; i < list.length; i++) {
                     let obj = list[i];
@@ -298,7 +296,7 @@
 
                 $("#beH_charge").html("¥ " + beH_charge + " —— （包含药品费用）");
                 $("#beH_antecedent").html("¥ " + beH_antecedent);
-                $("#beH_remain").html("¥ " + beH_remain + " —— （包含押金）");
+                $("#beH_remain").html("¥ " + beH_remain + " —— （包含已缴押金）");
             }
         });
     }
