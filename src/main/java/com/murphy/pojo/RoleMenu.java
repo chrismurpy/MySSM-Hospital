@@ -5,6 +5,14 @@ public class RoleMenu {
 
     private Integer m_id;
 
+    @Override
+    public String toString() {
+        return "RoleMenu{" +
+                "r_id=" + r_id +
+                ", m_id=" + m_id +
+                '}';
+    }
+
     public Integer getR_id() {
         return r_id;
     }

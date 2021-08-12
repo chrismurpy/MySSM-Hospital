@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>添加角色</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
-    <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="../Js/bootstrap.js"></script>
-    <script type="text/javascript" src="../Js/ckform.js"></script>
-    <script type="text/javascript" src="../Js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
 
     <style type="text/css">
         body {
             padding-bottom: 40px;
         }
+
         .sidebar-nav {
             padding: 9px 0;
         }
@@ -28,44 +28,46 @@
                 padding-right: 5px;
             }
         }
-
-
     </style>
 </head>
 <body>
-<form action="index.html" method="post" class="definewidth m20">
+<form id="myForm" class="definewidth m20">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
             <td width="10%" class="tableleft">角色名称</td>
-            <td><input type="text" name="title"/></td>
+            <td><input type="text" id="r_name" name="r_name"/></td>
         </tr>
         <tr>
             <td class="tableleft">状态</td>
             <td>
-                <input type="radio" name="status" value="1" checked/> 启用  <input type="radio" name="status" value="0"/> 禁用
+                <input type="radio" name="r_state" value="0" checked/> 启用
+                <input type="radio" name="r_state" value="1"/>禁用
             </td>
         </tr>
         <tr>
             <td class="tableleft">权限</td>
             <td>
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />挂号信息管理</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />门诊医生管理</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />药品管理</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />住院办理</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />收费项目登记</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />在院发药</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />住院结算</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />月营业额统计</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />年营业额统计</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />用户管理</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />角色管理</label></ul> 
-                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='' />资源管理</label></ul> 
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='1'/>挂号信息管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='2'/>住院办理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='3'/>住院结算</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='4'/>在院发药</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='5'/>药品管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='6'/>检查收费项目登记</label>
+                </ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='7'/>收费项目管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='8'/>门诊医生管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='9'/>用户管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='10'/>角色管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='11'/>资源管理</label></ul>
+                <ul><label class='checkbox inline'><input type='checkbox' name='group[]' value='12'/>密码管理</label></ul>
             </td>
         </tr>
         <tr>
             <td class="tableleft"></td>
             <td>
-                <button type="submit" class="btn btn-primary" type="button">保存</button> &nbsp;&nbsp;<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>
+                <button class="btn btn-primary" type="button" id="addBtn">新增</button> &nbsp;&nbsp;
+                <button type="button" class="btn btn-success" name="backId" id="backId">返回列表
+                </button>
             </td>
         </tr>
     </table>
@@ -78,8 +80,47 @@
             $(':checkbox', $(this).closest('li')).prop('checked', this.checked);
         });
 
-		$('#backid').click(function(){
-				window.location.href="index.html";
-		 });
+        $('#backId').click(function () {
+            window.location.href = "/pages/Role/index.html";
+        });
+    });
+
+    $("#addBtn").click(function () {
+        let r_name = $("#r_name").val();
+        let arr = [];
+
+        $.ajax({
+            type: "POST",
+            url: "/role/add",
+            data: $("#myForm").serialize(),
+            dateType: "json",
+            success: function (vo) {
+                if (vo.code == 200) {
+                    $(':checkbox[name="group[]"]:checked').each(function (i) {
+                        arr.push($(this).val());
+                    });
+                    for (let i = 0; i < arr.length; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/role/addMenu/" + r_name + "/" + arr[i],
+                            data: "",
+                            dateType: "json",
+                            success: function (vo) {
+                                if (vo.code == 200) {
+                                }
+                                else {
+                                    alert("新增失败！" + vo.msg);
+                                }
+                            }
+                        });
+                    }
+                    alert("新增成功！");
+                    window.location.href = "/pages/Role/index.html";
+                }
+                else {
+                    alert("新增失败！" + vo.msg);
+                }
+            }
+        });
     });
 </script>

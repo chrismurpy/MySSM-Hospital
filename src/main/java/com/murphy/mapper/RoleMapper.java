@@ -1,6 +1,5 @@
 package com.murphy.mapper;
 
-import com.murphy.pojo.Menu;
 import com.murphy.pojo.Role;
 import com.murphy.pojo.RoleExample;
 import java.util.List;
@@ -43,11 +42,4 @@ public interface RoleMapper {
      * @return
      */
     List<Role> queryRoleByVo(QueryRoleVo vo);
-
-
-
-
-
-
-
 }

@@ -44,29 +44,27 @@
 <form id="myForm" class="form-horizontal" method="get">
     <table class="table table-bordered table-hover definewidth m10">
         <tr>
-            <td width="10%" class="tableleft">请输入原密码:</td>
-            <td width="80%"><input type="text" id="oldPassword" name="oldPassword" value="" /></td>
+            <td width="30%" class="tableleft">请输入原密码:</td>
+            <td width="80%"><input type="password" id="oldPassword" name="oldPassword" value="" /></td>
         </tr>
         <tr>
-            <td class="tableleft">请输入新密码:</td>
+            <td width="30%" class="tableleft">请输入新密码:</td>
             <td><input type="password" id="newPassword" name="newPassword" value=""/></td>
         </tr>
         <tr>
-            <td class="tableleft">请确认新密码:</td>
+            <td width="30%" class="tableleft">请确认新密码:</td>
             <td><input type="password" id="confirmPassword" name="confirmPassword" value="" /></td>
         </tr>
         <tr>
             <td colspan="5">
-                <button class="btn btn-primary" type="button" id="saveBtn">更新</button>&nbsp;&nbsp;
+                <button class="btn btn-success" type="button" id="saveBtn">更新</button>&nbsp;&nbsp;
             </td>
         </tr>
     </table>
 </form>
 </body>
 </html>
-
 <script>
-
     let loginPassword = "${loginPassword}";
 
     $(function () {
@@ -74,10 +72,6 @@
         $("#oldPassword").blur(function(){
             checkOldPassword();
         });
-
-/*        $("#newPassword").blur(function(){
-            checkNewPassword();
-        });*/
 
         $("#confirmPassword").blur(function(){
             checkConfirmPassword();
@@ -92,17 +86,14 @@
                 success: function (vo) {
                     if (vo.code == 200) {
                         alert("密码修改成功！");
-                        window.location.href = "/pages/login.jsp";
+                        parent.location.href = "/logout";
                     } else {
                         alert("密码修改失败！" + vo.msg);
                     }
                 }
             });
         });
-
-
-
-    })
+    });
 
     //验证原密码输入是否正确
     function checkOldPassword() {
@@ -132,8 +123,4 @@
             alert("两次输入不一致，请重新输入！");
         }
     }
-
-
-
-
 </script>
