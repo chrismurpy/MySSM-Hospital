@@ -1,5 +1,6 @@
 package com.murphy.mapper;
 
+import com.murphy.pojo.Role;
 import com.murphy.pojo.RoleMenu;
 import com.murphy.pojo.RoleMenuExample;
 import java.util.List;
@@ -19,4 +20,8 @@ public interface RoleMenuMapper {
     int updateByExampleSelective(@Param("record") RoleMenu record, @Param("example") RoleMenuExample example);
 
     int updateByExample(@Param("record") RoleMenu record, @Param("example") RoleMenuExample example);
+
+    List<RoleMenu> queryByR_id(Integer r_id);
+
+    int deleteByR_id(Integer r_id);
 }

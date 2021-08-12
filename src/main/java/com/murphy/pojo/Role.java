@@ -1,5 +1,7 @@
 package com.murphy.pojo;
 
+import java.util.List;
+
 public class Role {
     private Integer r_id;
 
@@ -7,13 +9,24 @@ public class Role {
 
     private Integer r_state;
 
+    private List<RoleMenu> roleMenus;
+
     @Override
     public String toString() {
         return "Role{" +
                 "r_id=" + r_id +
                 ", r_name='" + r_name + '\'' +
                 ", r_state=" + r_state +
+                ", roleMenus=" + roleMenus +
                 '}';
+    }
+
+    public List<RoleMenu> getRoleMenus() {
+        return roleMenus;
+    }
+
+    public void setRoleMenus(List<RoleMenu> roleMenus) {
+        this.roleMenus = roleMenus;
     }
 
     public Integer getR_id() {

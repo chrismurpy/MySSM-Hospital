@@ -73,6 +73,13 @@ public class RoleService {
         return roleMapper.updateByPrimaryKeySelective(role);
     }
 
-
+    /**
+     * 新增角色
+     * @param role
+     */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public int addRole(Role role) {
+        return roleMapper.insertSelective(role);
+    }
 
 }

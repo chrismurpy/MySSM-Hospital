@@ -201,5 +201,14 @@
         </where>
     </select>
 
-
+    <select id="queryByR_id" resultMap="joinMap">
+        select * from SSM_Hosp.hosp_role r inner join SSM_Hosp.hosp_role_menu rm
+        on r.r_id = rm.r_id
+        where r.r_id = #{r_id}
+    </select>
+    
+    <resultMap id="joinMap" type="com.murphy.pojo.Role" extends="BaseResultMap">
+        <collection property="roleMenus" javaType="arraylist" ofType="com.murphy.pojo.RoleMenu"
+                    resultMap="com.murphy.mapper.RoleMenuMapper.BaseResultMap"/>
+    </resultMap>
 </mapper>
